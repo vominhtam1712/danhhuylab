@@ -1,0 +1,273 @@
+﻿@model List<ListClass.Model.Join_KeHoachHieuChuanKiemTra_ThietBi>
+<style>
+    .col-md-12 img{
+        width:300px;
+        height:300px;
+        border-radius:50%
+    }
+</style>
+@using (Html.BeginForm("Delete", "KeHoachHieuChuan", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:red"><strong>BẠN CÓ CHẮC MUỐN XÓA KHÔNG?</strong></h3>
+                </div>
+            </div>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var item = Model.ElementAt(i);
+                <div class="form-horizontal">
+                    <div class="row py-1">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <strong class="control-label col-md-3">Hình SP</strong>
+                                <div class="col-md-12" style="text-align:center">
+                                    @Html.Hidden("ids[" + i + "].Id", Model[i].Id, new { @readonly = "readonly", @class = "form-control" })
+                                    @Html.Hidden("ids[" + i + "].Id_KeHoachHieuChuan_form", Model[i].Id_KeHoachHieuChuan_form, new { @readonly = "readonly", @class = "form-control" })
+                                    <img src="~/Public/Products/@item.Img" alt="Image" style="width: 100px; height: auto;" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <strong class="control-label col-md-3">Tên thiết  bị</strong>
+                                <div class="col-md-12">
+                                    @item.TenThietBi
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <strong class="control-label col-md-3">Hãng sản xuất</strong>
+                                <div class="col-md-12">
+                                    @item.HangSX
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <strong class="control-label col-md-3">Số SN</strong>
+                                <div class="col-md-12">
+                                    @item.Serial
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row py-2" style="overflow-x:auto">
+                        <table class="table table-bordered table-striped">
+                            <tr style="text-align:center">
+                                <th colspan="2">
+                                    Jan
+                                </th>
+                                <th colspan="2">
+                                    Feb
+                                </th>
+                                <th colspan="2">
+                                    March
+                                </th>
+                                <th colspan="2">
+                                    April
+                                </th>
+                                <th colspan="2">
+                                    May
+                                </th>
+                                <th colspan="2">
+                                    June
+                                </th>
+                            </tr>
+                            <tr>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Plan</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Act</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Plan</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Act</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Plan</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Act</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Plan</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Act</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Plan</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Act</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Plan</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Act</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="100px" style="text-align:center">
+                                    @item.Jan_Plan
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @item.Jan_Act
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @item.Feb_Plan
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @item.Feb_Act
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @item.March_Plan
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @item.March_Act
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @item.April_Plan
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @item.April_Act
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @item.May_Plan
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @item.May_Act
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @item.June_Plan
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @item.June_Act
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="table table-bordered table-striped">
+                            <tr style="text-align:center">
+                                <th colspan="2">
+                                    July
+                                </th>
+                                <th colspan="2">
+                                    Aug
+                                </th>
+                                <th colspan="2">
+                                    Sep
+                                </th>
+                                <th colspan="2">
+                                    Oct
+                                </th>
+                                <th colspan="2">
+                                    Nov
+                                </th>
+                                <th colspan="2">
+                                    Dec
+                                </th>
+                            </tr>
+                            <tr>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Plan</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Act</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Plan</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Act</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Plan</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Act</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Plan</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Act</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Plan</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Act</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Plan</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Act</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="100px" style="text-align:center">
+                                    @item.July_Plan
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @item.July_Act
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @item.Aug_Plan
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @item.Aug_Act
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @item.Sep_Plan
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @item.Sep_Act
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @item.Oct_Plan
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @item.Oct_Act
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @item.Nov_Plan
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @item.Nov_Act
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @item.Dec_Plan
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @item.Dec_Act
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+            }
+        <div class="row">
+            <div class="col-md-2" style="width: auto;">
+                <button class="form-control form-a-control" type="submit" value="Edit">
+                    <span class="fas fa-edit"> OK</span>
+                </button>
+            </div> 
+            <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                <a style="text-decoration:none;" href="#" onclick="closeDeleteModal()"><img src="~/Public/Img/close.png" width="40" /></a>
+            </div>
+        </div>
+        </div>
+    </section>
+}

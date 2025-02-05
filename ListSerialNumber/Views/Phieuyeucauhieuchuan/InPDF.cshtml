@@ -1,0 +1,658 @@
+﻿﻿@model IEnumerable<ListClass.Model.Join_PYCHCBAK_LNUMBAK_PNTB_BBBGNTBBAK>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Phiếu yêu cầu hiệu chuẩn</title>
+    <style>
+        .Khung {
+            border: 1px solid #000;
+            position: absolute;
+            top: 30px
+        }
+
+        .header {
+            display: flex;
+            width: 100%;
+            border-bottom: 1px solid #000
+        }
+
+        .header-content img {
+            width: 220px;
+        }
+
+        .header-content:nth-child(1) {
+            width: 25%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .header-content:nth-child(2) {
+            width: 75%;
+            border-left: 1px solid #000;
+            text-align: center;
+            padding: 10px
+        }
+
+        .text {
+            font-size: 20px;
+        }
+
+            .text:nth-child(1) {
+                font-size: 30px;
+            }
+
+        .text-2-1 {
+            font-size: 27px;
+        }
+
+        .text-2-2 {
+            font-size: 20px;
+        }
+
+        .header-2 {
+            display: flex;
+            width: 100%;
+            border-bottom: 1px solid #000
+        }
+
+        .header-content-2:nth-child(1) {
+            width: 74.6%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 5px;
+        }
+
+        .header-content-2:nth-child(2) {
+            width: 25.4%;
+            border-left: 1px solid #000;
+            padding: 5px
+        }
+
+        .header-3 {
+            display: flex;
+            width: 100%;
+            border-bottom: 1px solid #000
+        }
+
+        .header-content-3:nth-child(1) {
+            width: 73.6%;
+            padding: 10px;
+        }
+
+        .header-content-3:nth-child(2) {
+            width: 26.4%;
+            border-left: 1px solid #000;
+        }
+
+        .row {
+            display: flex;
+            font-size: 20px;
+        }
+
+        .col-md-3 {
+            width: 30%;
+        }
+
+        .col-md-7 {
+            width: 70%;
+        }
+
+        .col-md-4 {
+            width: 30%;
+        }
+
+        .col-md-6 {
+            width: 70%;
+        }
+
+        .text-3 {
+            font-size: 18px;
+            padding: 10px
+        }
+
+            .text-3:nth-child(1) {
+                height: 20px;
+                border-bottom: 1px solid #000;
+                text-align: center
+            }
+
+        .header-4 {
+            display: flex;
+            width: 100%;
+            border-bottom: 1px solid #000
+        }
+
+        .header-content-4:nth-child(1) {
+            width: 74.1%;
+        }
+
+        .header-content-4:nth-child(2) {
+            width: 25.9%;
+            border-left: 1px solid #000;
+        }
+
+        .header-content-4-info {
+            padding: 10px;
+            font-size: 20px;
+        }
+
+            .header-content-4-info:nth-child(1),
+            .header-content-4-info:nth-child(2),
+            .header-content-4-info:nth-child(3),
+            .header-content-4-info:nth-child(4) {
+                border-bottom: 1px solid #000
+            }
+
+            .header-content-4-info:nth-child(2) {
+                text-align: center
+            }
+
+        .text-4 {
+            font-size: 20px;
+        }
+
+            .text-4:nth-child(1) {
+                height: 25px;
+                border-bottom: 1px solid #000;
+                padding: 8px;
+                text-align: center;
+            }
+
+        .header-5 {
+            display: flex;
+            width: 100%;
+            border-bottom: 1px solid #000
+        }
+
+        .header-content-5 {
+            font-size: 20px;
+            text-align: center;
+            padding: 5px
+        }
+
+            .header-content-5:nth-child(1) {
+                width: 74.6%;
+            }
+
+            .header-content-5:nth-child(2) {
+                width: 25.4%;
+                border-left: 1px solid #000;
+            }
+
+        .header-6 {
+            width: 100%;
+            border-bottom: 1px solid #000;
+            display: flex
+        }
+
+        .header-content-6 {
+            display: flex
+        }
+
+            .header-content-6:nth-child(1) {
+                width: 74.1%;
+            }
+
+            .header-content-6:nth-child(2) {
+                width: 25.9%;
+                border-left: 1px solid #000
+            }
+
+        .header-content-6-info {
+            text-align: center;
+            padding: 5px;
+            font-size: 20px
+        }
+
+            .header-content-6-info:nth-child(1) {
+                width: 50%;
+            }
+
+            .header-content-6-info:nth-child(2) {
+                width: 25%;
+                border-left: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+
+            .header-content-6-info:nth-child(3) {
+                width: 25%;
+            }
+
+        .header-content-6-info-2 {
+            text-align: center;
+            padding: 5px;
+            font-size: 20px
+        }
+
+            .header-content-6-info-2:nth-child(1) {
+                width: 40%
+            }
+
+            .header-content-6-info-2:nth-child(2) {
+                width: 30%;
+                border-left: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+
+            .header-content-6-info-2:nth-child(3) {
+                width: 30%
+            }
+
+
+        .header-7 {
+            width: 100%;
+            display: flex
+        }
+
+        .header-content-7 {
+            display: flex
+        }
+
+            .header-content-7:nth-child(1) {
+                width: 74.1%;
+            }
+
+            .header-content-7:nth-child(2) {
+                width: 25.9%;
+                border-left: 1px solid #000
+            }
+
+        .header-content-7-info {
+            text-align: center;
+            padding: 5px;
+            font-size: 20px;
+        }
+
+            .header-content-7-info:nth-child(1) {
+                width: 48.7%;
+                display: flex;
+                margin-left: 10px;
+                align-items: center
+            }
+
+            .header-content-7-info:nth-child(2) {
+                width: 25%;
+                border-left: 1px solid #000;
+                border-right: 1px solid #000;
+                display: flex;
+                justify-content: center;
+                align-items: center
+            }
+
+            .header-content-7-info:nth-child(3) {
+                width: 25%;
+                display: flex;
+                justify-content: center;
+                align-items: center
+            }
+
+        .header-content-7-info-2 {
+            text-align: center;
+            padding: 5px;
+            font-size: 20px
+        }
+
+            .header-content-7-info-2:nth-child(1) {
+                width: 40%;
+                display: flex;
+                justify-content: center;
+                align-items: center
+            }
+
+            .header-content-7-info-2:nth-child(2) {
+                width: 30%;
+                border-left: 1px solid #000;
+                border-right: 1px solid #000;
+            }
+
+            .header-content-7-info-2:nth-child(3) {
+                width: 30%
+            }
+
+        .body {
+            border: 1px solid #000;
+            position: absolute;
+            top: 1000px
+        }
+
+        .body-content:nth-child(1) {
+            width: 73.6%;
+            padding: 10px
+        }
+
+        .body-content:nth-child(2) {
+            width: 26.4%;
+            border-left: 1px solid #000;
+        }
+
+        .row-1 {
+            width: 36%;
+        }
+
+        .row-2 {
+            width: 32%;
+        }
+
+        .row-3 {
+            width: 32%;
+        }
+
+        .body-content-info {
+            font-size: 20px;
+            padding: 10px
+        }
+
+            .body-content-info:nth-child(1) {
+                border-bottom: 1px solid #000
+            }
+
+        .body-content-text {
+            font-size: 20px;
+        }
+
+        .body-info-2 {
+            border-bottom: 1px solid #000;
+            height: 60px;
+            font-size: 20px;
+            padding: 10px
+        }
+
+        .body-info {
+            display: flex;
+            border-bottom: 1px solid #000;
+        }
+
+        .body-info-3 {
+            border-bottom: 1px solid #000;
+            text-align: center;
+            display: flex;
+        }
+
+        .body-info-3-content {
+            font-size: 20px;
+            padding: 5px
+        }
+
+            .body-info-3-content:nth-child(1) {
+                width: 64.7%
+            }
+
+            .body-info-3-content:nth-child(2) {
+                width: 35.3%;
+                border-left: 1px solid #000
+            }
+
+        .body-info-4 {
+            border-bottom: 1px solid #000;
+            text-align: center;
+            display: flex;
+            height: 100px
+        }
+
+        .body-info-4-content {
+            font-size: 20px;
+        }
+
+            .body-info-4-content:nth-child(1) {
+                width: 64.4%
+            }
+
+            .body-info-4-content:nth-child(2) {
+                width: 35.6%;
+                border-left: 1px solid #000
+            }
+
+        .body-info-5 {
+            border-bottom: 1px solid #000;
+            text-align: center;
+            display: flex;
+            height: 10px
+        }
+
+        .body-info-5-content:nth-child(1) {
+            width: 64.4%
+        }
+
+        .body-info-5-content:nth-child(2) {
+            width: 35.6%;
+            border-left: 1px solid #000
+        }
+
+        .body-info-6 {
+            padding: 10px;
+            font-size: 20px
+        }
+    </style>
+</head>
+<body>
+    <div class="Khung">
+        <div class="header">
+            <div class="header-content">
+                <img src="https://danhhuylab.vn/Public/Img/logo.png" />
+            </div>
+            <div class="header-content">
+                <div class="text"><strong>CÔNG TY TNHH THƯƠNG MẠI DANH HUY</strong></div>
+                <div class="text">Địa chỉ: 171 đường TX43, khu phố 3, Phường Thạnh Xuân, Quận 12, Thành Phố Hồ Chí Minh</div>
+                <div class="text">Điện thoại: 028.37165168</div>
+                <div class="text">Email: info@danhhuy.com.vn</div>
+            </div>
+        </div>
+        <div class="header-2">
+            <div class="header-content-2">
+                <div class="text-2-1"><strong>PHIẾU YÊU CẦU</strong></div>
+            </div>
+            <div class="header-content-2">
+                @foreach (var item in Model)
+                {
+                    <div class="text-2-2">Số: @item.SoNhanDang</div>
+                    <div class="text-2-2">Ngày: @item.NgayThucHien.ToString("dd/MM/yyyy")</div>
+                }
+            </div>
+        </div>
+        <div class="header-3">
+            <div class="header-content-3">
+                @foreach (var item in Model)
+                {
+                    <div class="row">
+                        <div class="col-md-3">Tên đơn vị yêu cầu:</div>
+                        <div class="col-md-7">@item.KhachHang</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">Địa chỉ: </div>
+                        <div class="col-md-7">@item.DiaChi</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">Địa chỉ hiệu chuẩn:</div>
+                        <div class="col-md-7">@item.Diachihieuchuan</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">Người liên hệ:</div>
+                        <div class="col-md-7">@item.LienHe</div>
+                    </div>
+                }
+            </div>
+            <div class="header-content-3">
+                <div class="text-3"><strong>Phần dành cho CT Danh Huy</strong></div>
+                <div class="text-3">
+                    Danh Huy đã xem xét và nhận
+                    yêu cầu dịch vụ của KH ghi trong
+                    phiếu này và biên bản bàn giao,
+                    giao nhận
+                </div>
+            </div>
+        </div>
+        <div class="header-4">
+            <div class="header-content-4">
+                <div class="header-content-4-info">
+                    @foreach (var item in Model)
+                    {
+                        <div class="row">
+                            <div class="col-md-4"><strong>Thông tin xuất hóa đơn</strong></div>
+                            <div class="col-md-6"><i>(Nêu khác thông tin trên)</i></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">Tên công ty :</div>
+                            <div class="col-md-7">@item.Tencognty</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">Địa chỉ công ty: </div>
+                            <div class="col-md-7">@item.Diachicongty</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">Mã số thuế:</div>
+                            <div class="col-md-7">@item.Masothue</div>
+                        </div>
+                    }
+                </div>
+                <div class="header-content-4-info">
+                    <strong>Phần dành cho khách hàng </strong>
+                </div>
+                <div class="header-content-4-info">
+                    Yêu cầu PHC Danh Huy thực hiện các dịch vụ cho các thiết bị dưới đây.
+                    Trong trường hợp việc thực hiện các dịch vụ có trở ngại hay cần thay đổi,
+                    hai bên sẽ thông báo, bàn bạc để cùng nhau giải quyết. Chúng tôi chịu
+                    trách nhiệm về các phương tiện đo, thông tin cung cấp trong phiếu này và
+                    đồng ý thanh toán đầy đủ chi phí dịch vụ cho Danh Huy trước khi nhận giấy
+                    chứng nhận. Chi phí dịch vụ theo thỏa thuận, báo giá giữa hai bên.
+                </div>
+                <div class="header-content-4-info">
+                    <input type="checkbox" /> Theo bảng kê tên phương tiện đo, đặc trưng kỹ thuật đính kèm
+                </div>
+                <div class="header-content-4-info">
+                    <input type="checkbox" /> Theo mô tả tên phương tiện đo, đặc trưng kỹ thuật dưới đây
+                </div>
+            </div>
+            <div class="header-content-4">
+                <div class="text-4"><strong>Ý kiến</strong></div>
+                <div class="text-4"></div>
+            </div>
+        </div>
+        <div class="header-5">
+            <div class="header-content-5">
+                Phương tiện đo, đặc trưng kỹ thuật
+            </div>
+            <div class="header-content-5">
+                Nơi thực hiện
+            </div>
+        </div>
+        <div class="header-6">
+            <div class="header-content-6">
+                <div class="header-content-6-info">
+                    Tên dụng cụ, thiết bị đo
+                </div>
+                <div class="header-content-6-info">
+                    Số lượng
+                </div>
+                <div class="header-content-6-info">
+                    Dịch vụ yêu cầu
+                </div>
+            </div>
+            <div class="header-content-6">
+                <div class="header-content-6-info-2">
+                    Danh Huy
+                </div>
+                <div class="header-content-6-info-2">
+                    KH
+                </div>
+                <div class="header-content-6-info-2">
+                    NTP
+                </div>
+            </div>
+        </div>
+        @foreach (var item in Model)
+        {
+            <div class="header-7">
+                <div class="header-content-7">
+                    <div class="header-content-7-info">
+                        <div style="text-align:left">Tên thiết bị: @item.Model <br />Serial Number: @item.SerialNumber</div>
+                    </div>
+                    <div class="header-content-7-info">
+                        @item.Soluong
+                    </div>
+                    <div class="header-content-7-info">
+                        @item.Dichvuyeucau
+                    </div>
+                </div>
+                <div class="header-content-7">
+                    <div class="header-content-7-info-2">
+                        @item.Danhhuy
+                    </div>
+                    <div class="header-content-7-info-2">
+
+                    </div>
+                    <div class="header-content-7-info-2">
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="body">
+        <div class="body-info">
+            <div class="body-content">
+                <div class="row">
+                    <div class="row-1">Đề nghị ngày thực hiện tiếp theo:</div>
+                    <div class="row-2"><input type="checkbox" /> Có</div>
+                    <div class="row-2"><input type="checkbox" /> Không</div>
+                </div>
+                <div class="row">
+                    <div class="row-1">Nhận kết quả tại:</div>
+                    <div class="row-2"><input type="checkbox" /> CT TNHH TM Danh Huy</div>
+                    <div class="row-2"><input type="checkbox" /> Gửi qua đường bưu điện</div>
+                </div>
+                <div class="row">
+                    <div class="row-1">Phương pháp hiệu chuẩn: </div>
+                    <div class="row-2"><input type="checkbox" /> Theo yêu cầu KH</div>
+                    <div class="row-2"><input type="checkbox" />  CT Danh Huy lựa chọn</div>
+                </div>
+                <div class="row">
+                    <div class="row-1">Hiệu chỉnh phương tiện đo:</div>
+                    <div class="row-2"><input type="checkbox" /> Có, nếu cần</div>
+                    <div class="row-2"><input type="checkbox" />  Yêu cầu không mở máy</div>
+                </div>
+                <div class="body-content-text">
+                    Ngày yêu cầu trả kết quả: ..........................................Số bản KQ..........................................
+                </div>
+            </div>
+            <div class="body-content">
+                <div class="body-content-info">
+                    <div>Ngày trả kết quả dự kiến</div>
+                    <div>................./................./...............</div>
+                </div>
+                <div class="body-content-info">
+                    <div>PHC thực hiện:</div>
+                </div>
+            </div>
+        </div>
+        <div class="body-info-2">
+            Lưu ý thêm về phương tiện đo và các yêu cầu khác:
+        </div>
+        <div class="body-info-3">
+            <div class="body-info-3-content">Người yêu cầu </div>
+            <div class="body-info-3-content">Người nhận yêu cầu</div>
+        </div>
+        <div class="body-info-4">
+            <div class="body-info-4-content"></div>
+            <div class="body-info-4-content"></div>
+        </div>
+        <div class="body-info-5">
+            <div class="body-info-5-content"></div>
+            <div class="body-info-5-content"></div>
+        </div>
+        <div class="body-info-6">
+            <div class="body-info-6-content">Lưu ý:</div>
+            <div class="body-info-6-content">
+                Nếu quý khách hàng không yêu cầu cụ thể phương pháp, Mega techs sẽ sử dụng phương pháp trong năng lực hiện hành. (1)
+                <br />
+                Yêu cầu mang theo phiếu này khi đến nhận kết quả tại Cty Danh Huy. Trường hợp gửi kết quả qua bưu điện, khách hàng phải thanh toán trước chi phí. (2)
+                <br />
+                Dịch vụ yêu cầu đánh số: 1= Hiệu chuẩn, 2 = Bảo trì, 3 = Thử nghiệm, 4 = Kiểm tra. (3)
+                <br /> Các thông tin và yêu cầu cụ thể khác ghi trong biên bản bàn giao giao nhận (4)
+                <br /> Việc hiệu chỉnh phương tiện đo chỉ thực hiện với các thiết bị có chức năng CAL và khả dụng. (5)
+            </div>
+        </div>
+    </div>
+</body>
+</html>

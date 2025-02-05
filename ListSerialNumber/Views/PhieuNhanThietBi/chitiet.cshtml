@@ -1,0 +1,203 @@
+﻿@model IEnumerable<ListClass.Model.Join_phieunhanthietbi_listnumber_khachhang>
+@{
+    ViewBag.Title = "Phiếu nhận thiết bị";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+<style>
+    .col-md-4 img {
+        width: 300px;
+        height: 300px;
+        border-radius: 50%
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 85%;
+    }
+</style>
+
+@foreach (var item in Model)
+{
+    <div class="content-wrapper">
+        <section>
+            <div class="container" style="text-align:center">
+                <h3><strong style="color:blue">PHIẾU NHẬN THIẾT BỊ</strong></h3>
+            </div>
+        </section>
+        <section class="content py-2">
+            <div class="container">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="form-group form-inline">
+                            <div class="row">
+                                <div class="col-md-2" style="width:auto">
+                                    @using (Html.BeginForm("ExportPdf", "PhieuNhanThietBi", FormMethod.Post, new { id = "exportForm_" + item.Id_pntb }))
+                                    {
+                                        @Html.Hidden("id", item.Id_pntb)
+                                        <a href="#" class="form-control form-a-control downloadLink" data-id="@item.Id_pntb" style="text-decoration:none">
+                                            <span class="fas fa-file-export">ExportPdf</span>
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-horizontal">
+                            <div class="row">
+                                <div class="col-md-4 col-12">
+                                    <p style="text-align:center"><img src="~/Public/Products/@item.Img" /></p>
+                                </div>
+                                <div class="col-md-4 col-12">
+                                    <div class="form-group">
+                                        <p><strong>Số yêu cầu : </strong> @item.SoYeuCau</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p><strong>Số nhận dạng : </strong> @item.SoNhanDang</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p><strong>Tên KH : </strong> @item.TenKH</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p><strong>Tên thiết bị: </strong> @item.TenTB</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p><strong>Hãng : </strong> @item.Hang</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p><strong>Model: </strong> @item.Model</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-12">
+                                    <div class="form-group">
+                                        <p>
+                                            <strong>Số SN : </strong> @item.SoSN
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p> <strong>Người thực hiện : </strong> @item.NguoiThucHien</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p><strong>Hiện trạng : </strong> @item.HienTrang</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p> <strong>Ghi chú : </strong> @item.GhiChu</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p> <strong>Ngày thực hiện : </strong> @item.NgayThucHien.ToString("dd/MM/yyyy")</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p> <strong>Ngày tạo : </strong> @item.NgayTao.ToString("dd/MM/yyyy")</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="modal" id="editModal">
+            <div class="modal-content">
+                <div id="editmodalContent"></div>
+            </div>
+        </div>
+    </div> 
+}
+<script>
+    $(document).ready(function () {
+        $(".downloadLink").click(function (e) {
+            e.preventDefault();
+
+            var form = $(this).closest('form');
+            var formData = form.serialize();
+
+            $("#loading").show();
+
+            $.ajax({
+                url: form.attr("action"),
+                type: 'POST',
+                data: formData,
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function (data) {
+                    var blob = new Blob([data], { type: 'application/pdf' });
+                    var link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = 'PhieuNhanThietBi.pdf';
+                    link.click();
+
+                    $("#loading").hide();
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi tải PDF.');
+                    $("#loading").hide();
+                }
+            });
+        });
+    });
+
+</script>
+    <script>
+    document.getElementById("openEditModalBtn").addEventListener('click', function () {
+            var id = $(this).data("id");
+            $.ajax({
+               url: '@Url.Action("EditNhieu", "PhieuNhanThietBi", new { ids = "__ID__" })'.replace("__ID__", id),
+                type: 'GET',
+                success: function (reponse) {
+                    document.getElementById("editmodalContent").innerHTML = reponse;
+                    document.getElementById("editModal").style.display = "block";
+                     $('.idDropdown').select2({
+                         width: '100%'
+                     });
+                     $(document).ready(function() {
+                         $('.idDropdown').change(function() {
+                             var selectedId = $(this).val();
+                             if (selectedId) {
+                                 $.ajax({
+                                     url: '@Url.Action("GetCustomerInfo", "PhieuNhanThietBi")',
+                                     type: 'GET',
+                                     data: { id: selectedId },
+                                     success: function(data) {
+                                         $('#customerCode').text(data.MaKH);
+                                         $('#customerName').text(data.TenKH);
+                                         $('#customerAddress').text(data.DiaChi);
+                                         $('#customerEmail').text(data.Email);
+                                         $('#customerPhone').text(data.SDT);
+                                         $('#customerContact').text(data.LienHe);
+                                         $('#customerNote').text(data.Ghichu);
+                                         $('#customerGroup').text(data.NhomNganh);
+                                         $('#customerInfo').show();
+                                     },
+                                     error: function() {
+                                         $('#customerInfo').hide();
+                                         alert('Có lỗi xảy ra khi lấy thông tin khách hàng.');
+                                     }
+                                 });
+                             } else {
+                                 $('#customerInfo').hide();
+                             }
+                         });
+                     });
+                },
+            error: function () {
+                alert('Có lỗi xảy ra khi tải dữ liệu!');
+            }
+        });
+    });
+    function closeEditModal() {
+        document.getElementById("editModal").style.display = "none";
+    }
+    </script>

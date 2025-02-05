@@ -1,0 +1,148 @@
+﻿@model IEnumerable<ListClass.Model.Join_BanTinhDKDBD_PhanCong>
+@{
+    ViewBag.Title = "Độ không đảm bảo đo";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+<div class="content-wrapper">
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="title-header col-md-12" style="text-align:center">
+                    <h3><strong style="color:blue">BẢNG KIỂM TRA ĐỘ KHÔNG ĐẢM BẢO ĐO</strong></h3>
+                </div>
+            </div>
+        </div>
+    </section> 
+        <section class="content py-2">
+            <div class="container">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="form-group form-inline">
+                            <div class="row">
+                                <div class="col-md-2" style="width:auto">
+                                    <a class="form-control form-a-control" style="text-decoration: none" href="@Url.Action("Index", "STD_DUT", new { id = ViewBag.Id_bienbanhieuchuan})"><span class="fas fa-backward"> Trở lại</span></a>
+                                </div>
+                                <div class="col-md-2" style="width:auto;">
+                                    <div class="dropdown-select">
+                                        <div class="form-control"><span class="fas fa-list-ul"> Tùy chọn</span></div>
+                                        <div class="dropdown-content-select">
+                                            <button type="submit" name="action" value="Delete"><span class="fas fa-trash"> Xóa</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2" style="width: auto; margin-left: -1%">
+                                    <a class="form-control form-a-control" href="@Url.Action("Tao_giaychungnhan", "Giaychungnhan",new {id = Model.FirstOrDefault()?.Id_BienBanHieuChuan})"><span class="fas"> Tạo GCN</span></a>
+                                </div>
+                                <div class="col-md-2" style="margin-top:10px;width:auto">
+                                    @Html.Partial("Message")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" style="height:auto;">
+                        <div class="row" style="overflow-x:auto">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:center" width="40px">
+                                            <input type="checkbox" class="selectAll" id="selectAll" />
+                                        </th>
+                                        <th>
+                                            STT
+                                        </th>
+                                        <th>
+                                            Mức kiểm tra
+                                        </th>
+                                        <th>
+                                            U<sub>a</sub>(%)
+                                        </th>
+                                        <th>
+                                            U<sub>d</sub>(%)
+                                        </th>
+                                        <th>
+                                            U<sub>cer</sub>(%)
+                                        </th>
+                                        <th>
+                                            U<sub>od_std</sub>(%)
+                                        </th>
+                                        <th>
+                                            U<sub>od</sub>(%)
+                                        </th>
+                                        <th>
+                                            U<sub>dd</sub>(%)
+                                        </th>
+                                        <th>
+                                            U<sub>c</sub>(%)
+                                        </th>
+                                        <th>
+                                            K
+                                        </th>
+                                        <th>
+                                            U. mở rộng(%)
+                                        </th>
+                                        <th>
+                                            Sai số
+                                        </th>
+                                        <th>
+                                            Độ KĐBĐ
+                                        </th> 
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (int i = 0; i < Model.Count(); i++)
+                                    {
+                                        var item = Model.ElementAt(i);
+                                        <tr>
+                                           <td style="text-align:center">
+                                               <input type="checkbox" class="selectAll" name="selectedIds" value="@item.Id" />
+                                           </td>
+                                            <td>
+                                                @(i + 1)
+                                            </td>
+                                            <td>
+                                                @item.MucKiemTra
+                                            </td>
+                                            <td>
+                                                @item.U_a.Value.ToString("F2")
+                                            </td>
+                                            <td>
+                                                @item.U_d.Value.ToString("F2")
+                                            </td>
+                                            <td>
+                                                @item.U_cer.Value.ToString("F2")
+                                            </td>
+                                            <td>
+                                                @item.U_od_std.Value.ToString("F2")
+                                            </td>
+                                            <td>
+                                                @item.U_od.Value.ToString("F2")
+                                            </td>
+                                            <td>
+                                                @item.U_dd.Value.ToString("F2")
+                                            </td>
+                                            <td>
+                                                @item.U_c.Value.ToString("F2")
+                                            </td>
+                                            <td>
+                                                @item.K.Value.ToString("F0")
+                                            </td>
+                                            <td>
+                                                @item.U_morong.Value.ToString("F0")
+                                            </td>
+                                            <td>
+                                                @item.Saiso.Value.ToString("F2")
+                                            </td>
+                                            <td>
+                                                @item.DoDKDB.Value.ToString("F1")
+                                            </td> 
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> 
+    <!-- /.content -->
+</div>

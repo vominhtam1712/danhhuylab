@@ -1,0 +1,83 @@
+﻿@model List<ListClass.Model.PhieuNhanThietBi>
+@using (Html.BeginForm("EditNhieu", "PhieuNhanThietBi", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:blue"><strong>CHỈNH SỬA PHIẾU NHẬN THIẾT BỊ</strong></h3>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th colspan="5">#</th>
+                </tr>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <td width="350px">
+                            @Html.Hidden("ids[" + i + "].Id", Model[i].Id, new { @readonly = "readonly", @class = "form-control", @required = "required" })
+                            @Html.Hidden("ids[" + i + "].SoYeuCau", Model[i].SoYeuCau, new { @readonly = "readonly", @class = "form-control", @required = "required" })
+                            <strong>Số nhận dạng</strong>
+                            @Html.TextBox("ids[" + i + "].SoNhanDang", Model[i].SoNhanDang, new { @class = "form-control", @required = "required" })
+                            <strong>Số SN</strong><br />
+                            @Html.DropDownList("ids[" + i + "].Id_ListNumber", new SelectList(ViewBag.SerialNumberList, "Value", "Text", Model[i].Id_ListNumber), "Chọn số SN...", new { @class = "form-control idDropdown", required = "required" })
+                        </td>
+                        <td>
+                            <strong>Người thực hiện</strong>
+                            @Html.TextArea("ids[" + i + "].NguoiThucHien", Model[i].NguoiThucHien, new { @class = "form-control", @required = "required" })
+                            <strong>Hiện trạng</strong>
+                            @Html.TextArea("ids[" + i + "].HienTrang", Model[i].HienTrang, new { @class = "form-control" })
+                        </td>
+                        <td>
+                            <strong>Ghi chú</strong>
+                            @Html.TextArea("ids[" + i + "].GhiChu", Model[i].GhiChu, new { @class = "form-control" })
+                            <strong>Ngày thực hiện</strong>
+                            @Html.TextBox("ids[" + i + "].NgayThucHien", Model[i].NgayThucHien.ToString("yyyy-MM-ddTHH:mm"), new { @type = "datetime-local", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                        </td>
+                    </tr>
+                }
+            </table>
+            <div id="customerInfo" style="display:none;">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>Mã KH</th>
+                        <th>Tên KH</th>
+                        <th>Địa chỉ</th>
+                        <th>Email</th>
+                    </tr>
+                    <tr>
+                        <td><span style="color:blue" id="customerCode"></span></td>
+                        <td><span style="color:blue" id="customerName"></span></td>
+                        <td><span style="color:blue" id="customerAddress"></span></td>
+                        <td> <span style="color:blue" id="customerEmail"></span></td>
+                    </tr>
+                    <tr>
+                        <th>Số ĐT</th>
+                        <th>Liên hệ</th>
+                        <th>Ngành</th>
+                        <th>Ghi chú</th>
+                    </tr>
+                    <tr>
+                        <td><span style="color:blue" id="customerPhone"></span></td>
+                        <td><span style="color:blue" id="customerContact"></span></td>
+                        <td><span style="color:blue" id="customerGroup"></span></td>
+                        <td> <span style="color:blue" id="customerNote"></span></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div>
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                    <a href="@Url.Action("Index","PhieuNhanThietBi")"><img src="~/Public/Img/close.png" width="40" /></a>
+                </div>
+            </div>
+        </div>
+    </section>
+} 

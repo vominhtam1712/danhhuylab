@@ -1,0 +1,851 @@
+﻿@model List<ListClass.Model.Join_company_ngaynghi>
+@{
+    ViewBag.Title = "Thông tin thành viên";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+
+    var numberOfTimes = Model.Where(m => m.Ngaybatdau.Value.Year == DateTime.Now.Year && m.Ngayketthuc.Value.Year == DateTime.Now.Year).Sum(item => item.TongNgay ?? 0);
+
+    var listThanhVien = ViewBag.ListThanhVien as List<ListClass.Model.Join_company_ngaynghi>;
+
+    var demyeucaunghi = listThanhVien.Count(m => m.Status_ngaynghi == 2);
+
+    var nghiquahan = numberOfTimes - 12;
+    var phepconlai = 12 - numberOfTimes;
+
+    var nghiquahan1 = numberOfTimes - 13;
+    var phepconlai1 = 13 - numberOfTimes;
+
+
+    var nam = DateTime.Now.Year; 
+
+    var Ngaybatdau = listThanhVien.Where(m => m.Ngaybatdau.HasValue && m.Ngaybatdau.Value.Year == nam).ToList();
+
+
+    DateTime? ngavaolamtruoc = Model.FirstOrDefault()?.NgayVaoLam ?? null;
+
+    DateTime namhientai = DateTime.Now;
+    int SoNgayDaLam = 0;
+    if (ngavaolamtruoc.HasValue)
+    {
+        SoNgayDaLam = (namhientai - ngavaolamtruoc.Value).Days;
+    }
+
+
+    var distinctItems = Model
+    .GroupBy(x => x.Id_company)
+    .Select(g => g.FirstOrDefault())
+    .ToList();
+}
+<style>
+    .circle-img img {
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    #profileImage {
+        cursor: pointer;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding-top: 100px;
+        left: 0;
+        top: 10px;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-content {
+        background-color: #fff;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%;
+        max-width: 1024px;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    button {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    .horizontal-line {
+        width: 100%;
+        height: 1px;
+        background-color: black;
+        margin: 10px 0;
+    }
+
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+        text-align: center;
+    }
+
+    .row {
+        overflow-x: auto;
+    }
+</style>
+<div class="content-wrapper">
+    <div class="container py-2">
+        <div class="row">
+            <div class="col-md-2">
+                <a style="width:100px" class="form-control form-a-control" href="@Url.Action("Index","Companys")"><span class="fas fa-backward"> Trở về</span></a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body" style="height:auto;">
+                <div class="row" style="overflow-x:auto;">
+                    @foreach (var item in distinctItems)
+                    {
+                        <div class="row">
+                            <div class="col-md-4" style="text-align:center">
+                                @if (item.Img != null)
+                                {
+                                    <div class="circle-img">
+                                        <img id="profileImage" src="~/Public/Img/@item.Img" alt="img" onclick="triggerFileInput(@item.Id_company)" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="circle-img">
+                                        <img id="profileImage" src="~/Public/Img/logo-danhhuy.png" alt="img" onclick="triggerFileInput(@item.Id_company)" />
+                                    </div>
+                                }
+                                <input type="file" id="fileInput" style="display:none" onchange="previewImage(event)" />
+                                <div>Họ tên: @item.Name</div>
+                                <div>Đã vào làm: @SoNgayDaLam ngày</div>
+                            </div>
+                            <div class="col-md-8" style="text-align:center">
+                                <h3>THÔNG TIN THÀNH VIÊN ( @item.Name )</h3>
+                                <div class="horizontal-line"></div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        @if (item.Email != null ||
+                                            item.Name != null ||
+                                            item.UserName != null ||
+                                            item.Phone != null ||
+                                            item.QueQuan != null ||
+                                            item.NamSinh != null ||
+                                            item.GioiTinh != null ||
+                                            item.SoCCCD != null ||
+                                            item.NgayVaoLam != null ||
+                                            item.BacDaoTao != null ||
+                                            item.ChuyenNganh != null ||
+                                            item.ChucVu != null)
+                                        {
+                                            <a class="form-control form-a-control" style="cursor: pointer;width:170px;text-align:center;text-decoration:none;" href="#" onclick="openModal('@item.Id_company',
+                                            '@item.Email',
+                                            '@item.Name',
+                                            '@item.UserName',
+                                            '@item.Phone',
+                                            '@item.QueQuan',
+                                            '@(item.NamSinh.HasValue ? item.NamSinh.Value.ToString("yyyy-MM-dd") : "")',
+                                            '@item.GioiTinh',
+                                            '@item.SoCCCD',
+                                            '@(item.NgayVaoLam.HasValue ? item.NgayVaoLam.Value.ToString("yyyy-MM-dd") : "")',
+                                            '@item.BacDaoTao',
+                                            '@item.ChuyenNganh',
+                                            '@item.ChucVu')">Cập nhật thông tin</a>
+                                        }
+                                        else
+                                        {
+                                            <a class="form-control form-a-control" style="cursor: pointer; text-align: center; text-decoration: none; width: 170px; " href="#" onclick="openModal('@item.Id_company')">Cập nhật thông tin</a>
+                                        }
+                                    </div>
+                                    <div class="col-md-3">
+                                        <a class="form-control form-a-control" style="cursor: pointer; text-align: center; text-decoration: none; width: 170px;" href="#" onclick="openNewModal('@item.Id_company')">Thêm ngày nghỉ</a>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <a class="form-control form-a-control" style="cursor: pointer; text-align: center; text-decoration: none; width: 170px;" href="#" onclick="openPassWordModal('@item.Id_company')">Đặt lại mật khẩu</a>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <a class="form-control form-a-control" style="cursor: pointer; text-align: center; text-decoration: none; width: 170px;" href="#" onclick="openDuyetModal()">Yêu cầu nghỉ (@demyeucaunghi)</a>
+                                    </div>
+                                </div>
+                                <div class="horizontal-line"></div>
+                                <div class="row" style="margin-top:10px;text-align:left">
+                                    <div class="col-md-6">
+                                        @if (item.Status == 1)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-3"><p>Trạng thái:</p></div>
+                                                <div class="col-md-9" style="color:blue"><p>đang làm việc</p></div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-3"><p>Trạng thái:</p></div>
+                                                <div class="col-md-9" style="color:red"><p>đã nghĩ việc</p></div>
+                                            </div>
+                                        }
+                                        @if (item.Email != null || item.Email != "")
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-3"><p>Email:</p></div>
+                                                <div class="col-md-9"><p>@item.Email</p></div>
+                                            </div>
+
+                                        }
+                                        else
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-3"><p>Email:</p></div>
+                                            </div>
+                                        }
+                                        @if (item.Phone != null)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-3"><p>SDT:</p></div>
+                                                <div class="col-md-9"><p>@item.Phone</p></div>
+                                            </div>
+
+                                        }
+                                        else
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-3"><p>SDT:</p></div>
+                                            </div>
+                                        }
+                                        @if (item.QueQuan != null)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-3"><p>Quê quán:</p></div>
+                                                <div class="col-md-9"><p>@item.QueQuan</p></div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-3"><p>Quê quán:</p></div>
+                                            </div>
+                                        }
+                                        @if (item.NamSinh != null)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-3"><p>Năm sinh:</p></div>
+                                                <div class="col-md-9"><p>@item.NamSinh.Value.ToString("dd/MM/yyyy")</p></div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-3"><p>Năm sinh:</p></div>
+                                            </div>
+                                        }
+                                        @if (item.GioiTinh != null)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-3"><p>Giới tính:</p></div>
+                                                <div class="col-md-9"><p>@item.GioiTinh</p></div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-3"><p>Giới tính:</p></div>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="col-md-6">
+                                        @if (item.SoCCCD != null)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-5"><p>Số CCCD:</p></div>
+                                                <div class="col-md-7"><p>@item.SoCCCD</p></div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-5"><p>Số CCCD:</p></div>
+                                            </div>
+                                        }
+                                        @if (item.NgayVaoLam != null)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-5"><p>Ngày vào làm:</p></div>
+                                                <div class="col-md-7"><p>@item.NgayVaoLam.Value.ToString("dd/MM/yyyy")</p></div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-5"><p>Ngày vào làm:</p></div>
+                                            </div>
+                                        }
+                                        @if (item.BacDaoTao != null)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-5"><p>Trình độ:</p></div>
+                                                <div class="col-md-7"><p>@item.BacDaoTao</p></div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-5"><p>Trình độ:</p></div>
+                                            </div>
+                                        }
+                                        @if (item.ChuyenNganh != null)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-5"><p>Chuyên ngành:</p></div>
+                                                <div class="col-md-7"><p>@item.ChuyenNganh</p></div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-5"><p>Chuyên ngành:</p></div>
+                                            </div>
+                                        }
+                                        @if (item.ChucVu != null)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-5"><p>Chức vụ:</p></div>
+                                                <div class="col-md-7"><p>@item.ChucVu</p></div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-5"><p>Chức vụ:</p></div>
+                                            </div>
+                                        }
+                                        @if (SoNgayDaLam >= 1826 && Ngaybatdau.Any())
+                                        {
+                                            if (numberOfTimes > 13)
+                                            {
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <a style="cursor: pointer;" href="#" onclick="openDetailsModal()">Số lần nghỉ:</a>
+                                                    </div>
+                                                    <div class="col-md-8"><p>@numberOfTimes/13 (Quá:<strong style="color:red"> @nghiquahan1 lần</strong> - Năm: <strong style="color:blue">@nam)</strong></p></div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <a style="cursor: pointer;" href="#" onclick="openDetailsModal()">Số lần nghỉ:</a>
+                                                    </div>
+                                                    <div class="col-md-8"><p>@numberOfTimes/13 (Phép còn:<strong style="color:blue">@phepconlai1 lần</strong> - Năm: <strong style="color:blue">@nam)</strong></p></div>
+                                                </div>
+                                            }
+                                        }
+                                        else if (SoNgayDaLam < 1826 && Ngaybatdau.Any())
+                                        {
+                                            if (numberOfTimes > 12)
+                                            {
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <a style="cursor: pointer;" href="#" onclick="openDetailsModal()">Số lần nghỉ:</a>
+                                                    </div>
+                                                    <div class="col-md-8"><p>@numberOfTimes/12 (Quá:<strong style="color:red"> @nghiquahan lần</strong> - <strong style="color:blue">@nam)</strong></p></div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <a style="cursor: pointer;" href="#" onclick="openDetailsModal()">Số lần nghỉ:</a>
+                                                    </div>
+                                                    <div class="col-md-8"><p>@numberOfTimes/12 (Phép còn:<strong style="color:blue">@phepconlai lần</strong> - <strong style="color:blue">@nam)</strong></p></div>
+                                                </div>
+                                            }
+                                        }
+                                        else if (SoNgayDaLam >= 1826)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <a style="cursor: pointer;" href="#" onclick="openDetailsModal()">Số lần nghỉ:</a>
+                                                </div>
+                                                <div class="col-md-8"><p>0/13 (Phép còn:<strong style="color:blue">13 lần</strong> - Năm: <strong style="color:blue">@nam)</strong></p></div>
+                                            </div>
+                                        }
+                                        else if (SoNgayDaLam < 1826)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <a style="cursor: pointer;" href="#" onclick="openDetailsModal()">Số lần nghỉ:</a>
+                                                </div>
+                                                <div class="col-md-8"><p>0/12 (Phép còn:<strong style="color:blue">12 lần</strong> - Năm: <strong style="color:blue">@nam)</strong></p></div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div id="myDuyetModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h4 style="text-align:center">ĐƠN XIN NGHỈ PHÉP</h4>
+                <div class="row">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Họ tên</th>
+                                <th colspan="2">Nghỉ từ ngày</th>
+                                <th width="100px">Số ngày</th>
+                                <th>Lý do xin phép</th>
+                                <th colspan="2">Duyệt / Hủy</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (listThanhVien != null && listThanhVien.Any())
+                            {
+                                foreach (var item in listThanhVien.Where(m => m.Status_ngaynghi == 2))
+                                {
+                                    <tr class="data-row">
+                                        <td>@item.Name</td>
+                                        <td>@item.Ngaybatdau.Value.ToString("dd/MM/yyyy")</td>
+                                        <td>@item.Ngayketthuc.Value.ToString("dd/MM/yyyy")</td>
+                                        <td>@item.TongNgay</td>
+                                        <td>@item.LyDoXinPhep</td>
+                                        <td>
+                                            @using (Html.BeginForm("Duyet", "ThanhVien", FormMethod.Post))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                @Html.Hidden("Id", item.Id_ngaynghi)
+                                                @Html.Hidden("Id_company", item.Id_company)
+                                                <input type="submit" value="Duyệt" class="form-control form-a-control" onclick="return confirm('Duyệt ngày nghỉ này?');" />
+                                            }
+                                        </td>
+                                        <td>
+                                            @using (Html.BeginForm("Huy", "ThanhVien", FormMethod.Post))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                @Html.Hidden("Id", item.Id_ngaynghi)
+                                                @Html.Hidden("Id_company", item.Id_company)
+                                                <input type="submit" value="Hủy" class="form-control form-a-control-delete" onclick="return confirm('Hủy ngày nghỉ này?');" />
+                                            }
+                                        </td>
+                                    </tr>
+
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <h4 style="text-align:center">CẬP NHẬT THÔNG TIN</h4>
+                <form id="infoForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="emailInput">Tên Thành viên:</label>
+                            <input class="form-control" id="nameInput" name="name" placeholder="Nhập tên thành viên" required />
+
+                            <label for="emailInput">Email:</label>
+                            <input class="form-control" type="email" id="emailInput" name="email" placeholder="Nhập email" />
+
+                            <label for="sdtInput">Số điện thoại:</label>
+                            <input class="form-control" type="tel" id="sdtInput" name="phone" placeholder="Nhập số điện thoại" />
+
+                            <label for="quequanInput">Quê quán:</label>
+                            <input class="form-control" type="text" id="quequanInput" name="quequan" placeholder="Nhập quê quán" />
+
+                            <label for="namsinhInput">Năm sinh:</label>
+                            <input class="form-control" type="date" id="namsinhInput" name="namsinh" />
+
+                            <label for="gioitinhInput">Giới tính:</label>
+                            <input class="form-control" type="text" id="gioitinhInput" name="gioitinh" placeholder="Nhập giới tính" /><br />
+                             
+                            <button type="submit" class="btn btn-primary">Lưu</button>
+                            <button type="button" class="btn btn-secondary" onclick="closeInfoModal()">Đóng</button>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="usernameInput">Tên đăng nhập:</label>
+                            <input class="form-control" type="text" id="usernameInput" name="username" placeholder="Tên đăng nhập" pattern = "^\S+$" title = "Tên đăng nhập không được chứa khoảng trắng." required/>
+                            
+                            <label for="socccdInput">Số CCCD:</label>
+                            <input class="form-control" type="text" id="socccdInput" name="socccd" placeholder="Nhập số CCCD" />
+
+                            <label for="ngayvaolamInput">Ngày vào làm:</label>
+                            <input class="form-control" type="date" id="ngayvaolamInput" name="ngayvaolam" />
+
+                            <label for="trinhdoInput">Trình độ:</label>
+                            <input class="form-control" type="text" id="trinhdoInput" name="trinhdo" placeholder="Nhập trình độ" />
+
+                            <label for="chuyennganhInput">Chuyên ngành:</label>
+                            <input class="form-control" type="text" id="chuyennganhInput" name="chuyennganh" placeholder="Nhập chuyên ngành" />
+
+                            <label for="chucvuInput">Chức vụ:</label>
+                            <input class="form-control" type="text" id="chucvuInput" name="chucvu" placeholder="Nhập chức vụ" /><br />
+                            <input type="hidden" id="companyIdInput" name="companyId" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="myNewModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h4 style="text-align:center">THÊM NGÀY NGHỈ</h4>
+                <form id="newInfoForm">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="ngaybatdauInput">Ngày bắt đầu:</label>
+                            <input class="form-control" type="date" id="ngaybatdauInput" name="ngaybatdau" required />
+                        </div>
+                        <div class="col-md-4">
+                            <label for="ngayketthucInput">Ngày kết thúc:</label>
+                            <input class="form-control" type="date" id="ngayketthucInput" name="ngayketthuc" required />
+                        </div>
+                        <div class="col-md-4">
+                            <label for="lydoxinphepInput">Lý do xin phép:</label>
+                            <input class="form-control" type="text" id="lydoxinphepInput" name="lydoxinphep" /><br />
+                        </div>
+                    </div>
+                    <input type="hidden" id="newCompanyIdInput" name="companyId" />
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeDayModal()">Đóng</button>
+                </form>
+            </div>
+        </div>
+        <div id="myDetailsModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h4 style="text-align:center">SỐ LẦN NGHỈ</h4>
+                <div class="row" style="overflow-y:auto;height:400px;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Ngày bắt đầu</th>
+                                <th>Ngày kết thúc</th>
+                                <th width="150px">Số ngày nghỉ</th>
+                                <th width="150px">Lý do xin phép</th>
+                                <th width="120px">Chức năng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.FirstOrDefault()?.Id_company != null && Model.FirstOrDefault()?.Id_ngaynghi != null)
+                            {
+                                foreach (var item in Model.Where(m => m.Status_ngaynghi == 1).OrderByDescending(m => m.Id_ngaynghi))
+                                {
+                                    <tr class="data-row">
+                                        <td>@item.Ngaybatdau.Value.ToString("dd/MM/yyyy")</td>
+                                        <td>@item.Ngayketthuc.Value.ToString("dd/MM/yyyy")</td>
+                                        <td>@item.TongNgay</td>
+                                        <td>@item.LyDoXinPhep</td>
+                                        <td>
+                                            @using (Html.BeginForm("DeleteNgayNghi", "ThanhVien", FormMethod.Post))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                @Html.Hidden("id", item.Id_ngaynghi)
+                                                @Html.Hidden("id_company", item.Id_company)
+                                                <input type="submit" value="Xóa" class="form-control form-a-control-delete" onclick="return confirm('Bạn có chắc muốn xóa ngày này?');" />
+                                            }
+                                        </td>
+
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div> 
+            </div>
+        </div>
+        <div id="myPasswordModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h4 style="text-align:center">ĐẶT LẠI MẬT KHẨU</h4>
+                <form id="changePasswordForm">
+
+                    <label for="newPassword">Mật khẩu mới:</label>
+                    <input type="password" id="newPassword" name="newPassword" class="form-control" required />
+
+                    <label for="confirmPassword">Xác nhận mật khẩu:</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required /><br />
+
+                    <input type="hidden" id="companyIdInput" name="companyId" value="" />
+
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                    <button type="button" class="btn btn-secondary" onclick="closePassWordModal()">Đóng</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+        var modal = document.getElementById("myModal");
+        var span = document.getElementsByClassName("close")[0];
+
+        var newModal = document.getElementById("myNewModal");
+        var myDetailsModal = document.getElementById("myDetailsModal");
+        var myPasswordModal = document.getElementById("myPasswordModal");
+
+        function openModal(companyId, currentEmail, currentName,currentUserName, currentPhone, currentQueQuan, currentNamSinh, currentGioiTinh, currentSoCCCD, currentNgayVaoLam, currentBacDaoTao, currentChuyenNganh, currentChucVu) {
+            document.getElementById("emailInput").value = currentEmail || '';
+            document.getElementById("nameInput").value = currentName || '';
+            document.getElementById("usernameInput").value = currentUserName || '';
+            document.getElementById("companyIdInput").value = companyId;
+            document.getElementById("sdtInput").value = currentPhone || '';
+            document.getElementById("quequanInput").value = currentQueQuan || '';
+            document.getElementById("gioitinhInput").value = currentGioiTinh || '';
+            document.getElementById("socccdInput").value = currentSoCCCD || '';
+            document.getElementById("trinhdoInput").value = currentBacDaoTao || '';
+            document.getElementById("chuyennganhInput").value = currentChuyenNganh || '';
+            document.getElementById("chucvuInput").value = currentChucVu || '';
+            document.getElementById("namsinhInput").value = currentNamSinh || '';
+            document.getElementById("ngayvaolamInput").value = currentNgayVaoLam || '';
+
+            modal.style.display = "block";
+        }
+
+        function openNewModal(companyId) {
+            document.getElementById("newCompanyIdInput").value = companyId;
+            newModal.style.display = "block";
+        }
+
+        function openDetailsModal() {
+            var modal = document.getElementById("myDetailsModal");
+            modal.style.display = "block";
+            showInitialData();
+        }
+
+        function openPassWordModal(companyId) {
+            var modal = document.getElementById("myPasswordModal");
+            modal.style.display = "block";
+            document.getElementById("companyIdInput").value = companyId;
+    }
+    document.getElementById("myNewModal").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            var ngaybatdau = document.getElementById("ngaybatdauInput").value;
+            var ngayketthuc = document.getElementById("ngayketthucInput").value;
+            var lydoxinphep = document.getElementById("lydoxinphepInput").value;
+            var companyId = document.getElementById("newCompanyIdInput").value;
+
+        if (ngayketthuc < ngaybatdau) {
+                alert("Ngày kết thúc phải lớn hơn hoặc bằng ngày bắt đầu!");
+                return;
+            }
+
+            $.ajax({
+                url: '@Url.Action("CreateCompanyDates", "ThanhVien")',
+                type: 'POST',
+                data: {
+
+                    companyId: companyId,
+                    ngaybatdau: ngaybatdau,
+                    ngayketthuc: ngayketthuc,
+                    lydoxinphep: lydoxinphep,
+                },
+                success: function (response) {
+                    if (response.success) {
+                        alert("Thêm ngày nghỉ thành công!");
+                        closeDayModal();
+                        location.reload();
+                    } else {
+                        alert("Có lỗi xảy ra: " + response.message);
+                    }
+                },
+                error: function () {
+                    alert('Lỗi trong khi gửi dữ liệu.');
+                }
+            });
+        });
+
+        function closeDayModal() {
+            var modal = document.getElementById("myNewModal");
+            modal.style.display = "none";
+        }
+
+        function closeInfoModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+
+        function closePassWordModal() {
+            var modal = document.getElementById("myPasswordModal");
+            modal.style.display = "none";
+        } 
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+            if (event.target == newModal) {
+                newModal.style.display = "none";
+            }
+            if (event.target == myDetailsModal) {
+                myDetailsModal.style.display = "none";
+            }
+            if (event.target == myPasswordModal) {
+                myPasswordModal.style.display = "none";
+            }
+            if (event.target == myDuyetModal) {
+                myDuyetModal.style.display = "none";
+            }
+        }
+
+        function triggerFileInput(companyId) {
+            document.getElementById('fileInput').setAttribute("data-company-id", companyId);
+            document.getElementById('fileInput').click();
+        }
+
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function () {
+                document.getElementById('profileImage').src = reader.result;
+                uploadImage(file);
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function uploadImage(file) {
+            const companyId = document.getElementById('fileInput').getAttribute("data-company-id");
+
+            var formData = new FormData();
+            formData.append("imgFile", file);
+            formData.append("companyId", companyId);
+
+            $.ajax({
+                url: '@Url.Action("UploadProfileImage", "ThanhVien")',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.success) {
+                        alert("Cập nhật ảnh thành công!");
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function () {
+                    alert("Có lỗi xảy ra khi tải ảnh lên.");
+                }
+            });
+        }
+
+        document.getElementById("infoForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            var companyId = document.getElementById("companyIdInput").value;
+            var email = document.getElementById("emailInput").value || null;
+            var name = document.getElementById("nameInput").value || null;
+            var username = document.getElementById("usernameInput").value || null;
+            var phone = document.getElementById("sdtInput").value || null;
+            var quequan = document.getElementById("quequanInput").value || null;
+            var namsinh = document.getElementById("namsinhInput").value || null;
+            var gioitinh = document.getElementById("gioitinhInput").value || null;
+            var socccd = document.getElementById("socccdInput").value || null;
+            var ngayvaolam = document.getElementById("ngayvaolamInput").value || null;
+            var trinhdo = document.getElementById("trinhdoInput").value || null;
+            var chuyennganh = document.getElementById("chuyennganhInput").value || null;
+            var chucvu = document.getElementById("chucvuInput").value || null;
+
+            $.ajax({
+                url: '@Url.Action("UpdateCompanyInfo", "ThanhVien")',
+                type: 'POST',
+                data: {
+                    companyId: companyId,
+                    email: email,
+                    name: name,
+                    username: username,
+                    phone: phone,
+                    quequan: quequan,
+                    namsinh: namsinh,
+                    gioitinh: gioitinh,
+                    socccd: socccd,
+                    ngayvaolam: ngayvaolam,
+                    trinhdo: trinhdo,
+                    chuyennganh: chuyennganh,
+                    chucvu: chucvu
+                },
+                success: function (response) {
+                    if (response.success) {
+                        alert('Cập nhật thông tin thành công!');
+                        modal.style.display = "none";
+                        location.reload();
+                    } else {
+                        alert('Có lỗi xảy ra: ' + response.message);
+                    }
+                },
+                error: function () {
+                    alert('Lỗi trong khi gửi dữ liệu.');
+                }
+            });
+        });
+
+        document.getElementById("changePasswordForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            var newPassword = document.getElementById("newPassword").value;
+            var confirmPassword = document.getElementById("confirmPassword").value;
+            var companyId = document.getElementById("companyIdInput").value;
+
+            if (newPassword !== confirmPassword) {
+                alert("Mật khẩu xác nhận không khớp!");
+                return;
+            }
+
+            $.ajax({
+                url: '@Url.Action("ResetPassword", "ThanhVien")',
+                type: 'POST',
+                data: {
+                    companyId: companyId,
+                    newPassword: newPassword
+                },
+                success: function (response) {
+                    if (response.success) {
+                        alert("Đổi mật khẩu thành công!");
+                        closePassWordModal();
+                    } else {
+                        alert("Có lỗi xảy ra: " + response.message);
+                    }
+                },
+                error: function () {
+                    alert('Lỗi trong khi gửi dữ liệu.');
+                }
+            });
+        }); 
+</script>
+<script>
+    function openDuyetModal() {
+        var modal = document.getElementById("myDuyetModal");
+        modal.style.display = "block";
+        showInitialData();
+    }
+</script>

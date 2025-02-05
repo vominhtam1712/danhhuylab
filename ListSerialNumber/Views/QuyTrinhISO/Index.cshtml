@@ -1,0 +1,332 @@
+﻿@model ListClass.Model.QuyTrinhISOInfo
+
+@{
+    ViewBag.Title = "Quy trình ISO 17025";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+<script>
+    function openCity(cityName) {
+        var i;
+        var x = document.getElementsByClassName("city");
+
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+
+        document.getElementById(cityName).style.display = "block";
+
+        var buttons = document.querySelectorAll('.w3-bar-item.w3-button');
+
+        buttons.forEach(function (button) {
+            button.classList.remove('active');
+        });
+
+        var clickedButton = Array.from(buttons).find(function (button) {
+            return button.getAttribute("onclick").includes(cityName);
+        });
+        clickedButton.classList.add('active');
+
+        localStorage.setItem('activeTab', cityName);
+    }
+
+    window.onload = function () {
+        var activeTab = localStorage.getItem('activeTab');
+
+        if (activeTab) {
+            openCity(activeTab);
+        } else {
+            openCity('QuyTrinh1');
+        }
+    }
+</script>
+<style>
+    .w3-container {
+        text-align: center;
+    }
+
+    .active {
+        background-color: blue;
+        color: white;
+        box-shadow: 0px 8px 5px 0px rgba(0,0,0,0.5);
+    }
+
+    .w3-bar-item {
+        font-size: 13px;
+        margin-top: 10px
+    }
+
+    button {
+        background: #bababa;
+    }
+
+    .w3-bar {
+        text-align: left;
+    }
+
+    .container-w3-container {
+        padding: 10px 10px 10px 10px;
+        border-radius: 10px;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%;
+    }
+</style>
+<div class="content-wrapper" style="margin-top:90px">
+    <section class="w3-container-info">
+        <div class="container">
+            <div class="container-w3-container">
+                <div class="w3-container">
+                    <h3><strong style="color:blue">QUY TRÌNH ISO 17025</strong></h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-2" style="width:auto;margin-top:12px">
+                        <a class="form-control form-a-control" style="text-decoration: none" href="#" id="openAddModalBtn">
+                            <span class="fas fa-plus"> Thêm quy trình</span>
+                        </a>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="w3-bar w3-black">
+                            @if (Model.QuyTrinhISOs != null && Model.QuyTrinhISOs.Any())
+                            {
+                                var randomQuyTrinhISOs = Model.QuyTrinhISOs.OrderBy(x => Guid.NewGuid()).ToList();
+                                var count = 1;
+
+                                foreach (var item in randomQuyTrinhISOs.OrderBy(m => m.id))
+                                {
+                                    <button class="w3-bar-item w3-button" onclick="openCity('QuyTrinh@(item.id)')">QT @(count++)</button>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <div id="modalContent"></div>
+        </div>
+    </div>
+    <div class="modal uploadModal" style="display: none;">
+        <div class="modal-content">
+            <div class="uploadmodalContent"></div>
+        </div>
+    </div>
+    <div class="modal editFileModal" style="display: none;">
+        <div class="modal-content">
+            <div class="editFilemodalContent"></div>
+        </div>
+    </div>
+    <div class="modal editModal" style="display: none;">
+        <div class="modal-content">
+            <div class="editmodalContent"></div>
+        </div>
+    </div>
+    @{
+        foreach (var item in Model.QuyTrinhISOs)
+        {
+            <div id="QuyTrinh@(item.id)" class="w3-container city" style="display:none;">
+                <section class="content py-2">
+                    <div class="container">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="form-group form-inline">
+                                    <div class="row">
+                                        <div class="col-md-2" style="width:auto;">
+                                            <a class="form-control form-a-control openUploadModalBtn" href="#" style="text-decoration: none" data-id="@item.id">
+                                                <span class="fas fa-upload"> Tải lên</span>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-5" style="margin-top:5px;width:auto">
+                                            <h5><strong>QUY TRÌNH: </strong><strong style="color:blue">@item.TenQuyTrinh</strong></h5>
+                                        </div>
+                                        <div class="col-md-4" style="margin-top:10px">
+                                            @Html.Partial("Message")
+                                        </div>
+                                        <div class="col-md-2" style="width:auto;position:absolute;right:0">
+                                            <div class="dropdown-select">
+                                                <div class="form-control"><span class="fas fa-list-ul"> Tùy chọn</span></div>
+                                                <div class="dropdown-content-select">
+                                                    <a class="form-control form-a-control openEditModalBtn" style="text-decoration: none" href="#" data-id="@item.id">
+                                                        <span class="fas fa-edit"> Sửa QT</span>
+                                                    </a>
+                                                    @using (Html.BeginForm("Delete", "QuyTrinhISO", FormMethod.Post))
+                                                    {
+                                                        @Html.AntiForgeryToken()
+                                                        @Html.Hidden("id", item.id)
+                                                        <input type="submit" value="Xóa QT" class="form-control form-a-control-delete" onclick="return confirm('Bạn có chắc muốn xóa quy trình này?');" />
+                                                    } 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row" style="overflow-x:auto">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th width="130px" style="text-align:center">Chức năng</th>
+                                                <th width="50px">STT</th>
+                                                <th style="text-align:left">Tên File</th>
+                                                <th width="100px" style="text-align:center">Link</th>
+                                                <th width="100px" style="text-align:center">Xóa</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model.QuyTrinhISO02 != null && Model.QuyTrinhISO02.Any())
+                                            {
+                                                var count = 1;
+                                                foreach (var item2 in Model.QuyTrinhISO02.Where(x => x.id_quytrinh == item.id).OrderByDescending(m => m.id))
+                                                {
+                                                    <tr>
+                                                        <td style="text-align:center">
+                                                            <a class="form-control form-a-control openEditFileModalBtn" href="#" style="text-decoration: none" data-id="@item2.id">
+                                                                <span class="fas fa-upload"> Cập nhật</span>
+                                                            </a>
+                                                        </td>
+                                                        <td>@(count++)</td>
+                                                        <td style="text-align:left">@item2.FileName</td>
+                                                        <td style="text-align:center">
+                                                            <a href="#" onclick="downloadFile('@item2.FilePath')">Download</a>
+                                                        </td>
+                                                        <td>
+                                                            @using (Html.BeginForm("Delete2", "QuyTrinhISO", FormMethod.Post))
+                                                            {
+                                                                @Html.AntiForgeryToken()
+                                                                @Html.Hidden("id", item2.id)
+                                                                <input type="submit" value="Xóa" class="form-control form-a-control-delete" onclick="return confirm('Bạn có chắc chắn muốn xóa file này?');" />
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+
+                                            else
+                                            {
+                                                <tr>
+                                                    <td colspan="10" class="text-center">Không có dữ liệu.</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        }
+    }
+
+</div>
+<script> 
+    document.getElementById("openAddModalBtn").addEventListener('click', function () {
+    $.ajax({
+        url: '@Url.Action("Create", "QuyTrinhISO")',
+        type: 'GET',
+        success: function (reponse) {
+            document.getElementById("modalContent").innerHTML = reponse;
+            document.getElementById("addModal").style.display = "block";
+        },
+        error: function () {
+            alert('Có lỗi xảy ra khi tải dữ liệu!');
+        }
+    });
+    });
+    function closeAddModal() {
+        document.getElementById("addModal").style.display = "none";
+    } 
+    document.querySelectorAll(".openUploadModalBtn").forEach(function (button) {
+        button.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            var id = button.getAttribute("data-id");
+
+            $.ajax({
+                url: '@Url.Action("Upload", "QuyTrinhISO", new { id = "__ID__" })'.replace("__ID__", id),
+                type: 'GET',
+                success: function (response) {
+                    document.querySelector(".uploadmodalContent").innerHTML = response;
+                    document.querySelector(".uploadModal").style.display = "block";
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi tải dữ liệu!');
+                }
+            });
+        });
+    });
+    function closeUploadModal() {
+        document.querySelector(".uploadModal").style.display = "none";
+    } 
+    document.querySelectorAll(".openEditFileModalBtn").forEach(function (button) {
+        button.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            var id = button.getAttribute("data-id");
+
+            $.ajax({
+                url: '@Url.Action("EditFile", "QuyTrinhISO", new { id = "__ID__" })'.replace("__ID__", id),
+                type: 'GET',
+                success: function (response) {
+                    document.querySelector(".editFilemodalContent").innerHTML = response;
+                    document.querySelector(".editFileModal").style.display = "block";
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi tải dữ liệu!');
+                }
+            });
+        });
+    });
+    function closeEditfileModal() {
+        document.querySelector(".editFileModal").style.display = "none";
+    } 
+    document.querySelectorAll(".openEditModalBtn").forEach(function (button) {
+        button.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            var id = button.getAttribute("data-id");
+
+            $.ajax({
+                url: '@Url.Action("Edit", "QuyTrinhISO", new { id = "__ID__" })'.replace("__ID__", id),
+                type: 'GET',
+                success: function (response) {
+                    document.querySelector(".editmodalContent").innerHTML = response;
+                    document.querySelector(".editModal").style.display = "block";
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi tải dữ liệu!');
+                }
+            });
+        });
+    });
+    function closeEditModal() {
+        document.querySelector(".editModal").style.display = "none";
+    }
+</script>
+<script>
+    function downloadFile(filePath) { 
+        var a = document.createElement('a');
+        a.href = filePath;  
+        a.download = '';  
+        document.body.appendChild(a); 
+        a.click();  
+        document.body.removeChild(a); 
+    }
+</script>
+

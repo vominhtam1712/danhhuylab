@@ -1,0 +1,102 @@
+﻿@model List<ListClass.Model.PhieuTheoDoiNhietDo>
+@using (Html.BeginForm("Xoa", "PhieuTheoDoiNhietDo", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:red"><strong>BẠN CÓ CHẮC MUỐN XÓA KHÔNG?</strong></h3>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th width="50px">
+                            Id
+                        </th>
+                        <th>
+                            Mã phiếu
+                        </th>
+                        <th>
+                            Mã số nhiệt kế/Model No
+                        </th>
+                        <th>
+                            Phòng
+                        </th>
+                        <th>
+                            Tháng
+                        </th>
+                        <th>
+                            Năm
+                        </th>
+                        <th>
+                            Khoảng chấp nhận: Nhiệt độ (&#176;C)
+                        </th>
+                        <th>
+                            Độ ẩm (&#37;)
+                        </th>
+                        <th>
+                            Ngày tạo
+                        </th>
+                        <th>
+                            Người tạo
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        var item = Model.ElementAt(i);
+                        <tr>
+                            <td>
+                                @(i+1)
+                                @Html.Hidden("PhieuTheoDoiNhietDos[" + i + "].Id", Model[i].Id, new { @readonly = "readonly", @class = "form-control" })
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MaPhieuTheoDoiNhietDo)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MSNhietKe_Model_No)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Phong)
+                            </td>
+                            <td>
+                                @item.Thang_Nam.ToString("MM")
+                            </td>
+                            <td>
+                                @item.Thang_Nam.ToString("yyyy")
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NhietDo_Dau)&#176;C -
+                                @Html.DisplayFor(modelItem => item.NhietDo_Sau)&#176;C
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DoAm)&#37;
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NgayTao)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NguoiTao)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div> 
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                    <a style="text-decoration:none;" href="#" onclick="closeDeleteModal()"><img src="~/Public/Img/close.png" width="40" /></a>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+

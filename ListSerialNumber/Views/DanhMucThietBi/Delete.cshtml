@@ -1,0 +1,65 @@
+﻿@model List<ListClass.Model.DanhMucThietBi>
+@using (Html.BeginForm("Delete", "DanhMucThietBi", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:red"><strong>BẠN CÓ CHẮC MUỐN XÓA KHÔNG?</strong></h3>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th width="40px">STT</th>
+                    <th>Mã thiết bị</th>
+                    <th style="text-align:center">Hình SP</th>
+                    <th>Tên thiết bị</th>
+                    <th>Số SN</th>
+                    <th>Hãng SX</th>
+                    <th>Ngày đưa vào sử dụng</th>
+                </tr>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    var item = Model.ElementAt(i);
+                    <tr>
+                        <td>
+                            @(i+1)
+                            @Html.Hidden("ids[" + i + "].Id", Model[i].Id, new { @readonly = "readonly", @class = "form-control" })
+                        </td>
+                        <td>
+                            @item.MaThietBi
+                        </td>
+                        <td style="text-align:center">
+                            <img src="~/Public/Products/@item.Img" alt="Image" style="width: 100px; height: auto;" />
+                        </td>
+                        <td>
+                            @item.TenThietBi
+                        </td>
+                        <td>
+                            @item.Serial
+                        </td>
+                        <td>
+                            @item.HangSX
+                        </td>
+                        <td>
+                            @item.NgayDuaVaoSuDung.ToString("dd/MM/yyy")
+                        </td>
+                    </tr>
+                }
+            </table>
+            <div class="row">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div> 
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                    <a style="text-decoration:none;" href="#" onclick="closeDeleteModal()"><img src="~/Public/Img/close.png" width="40" /></a>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+

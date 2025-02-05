@@ -1,0 +1,7 @@
+﻿@if (TempData.ContainsKey("Message"))
+{
+    string message = TempData["Message"].ToString();
+    <div class="text-danger">
+        @message
+    </div>
+}

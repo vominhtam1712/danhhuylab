@@ -1,0 +1,279 @@
+﻿@model List<ListClass.Model.Join_KeHoachHieuChuanKiemTra_ThietBi>
+<style>
+    .col-md-12 img {
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+    }
+</style>
+@using (Html.BeginForm("Edit", "KeHoachHieuChuan", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:blue"><strong>CHỈNH SỬA KẾ HOẠCH HIỆU CHUẨN THIẾT BỊ</strong></h3>
+                </div>
+            </div>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var item = Model.ElementAt(i);
+                <div class="form-horizontal">
+                    <div class="row py-1">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="col-md-12" style="text-align:center;">
+                                    @if (item.Img == null)
+                                    {
+                                        <img src="~/Public/Img/logo.png" alt="Image"/>
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Public/Products/@item.Img" alt="Image" />
+                                    }
+                                    @Html.Hidden("ids[" + i + "].Id_DanhMucThietBi", Model[i].Id_DanhMucThietBi, new { @readonly = "readonly", @class = "form-control" })
+                                    @Html.Hidden("ids[" + i + "].Id", Model[i].Id, new { @readonly = "readonly", @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <strong class="control-label col-md-3">Tên thiết  bị</strong>
+                                <div class="col-md-12">
+                                    @item.TenThietBi
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <strong class="control-label col-md-3">Hãng sản xuất</strong>
+                                <div class="col-md-12">
+                                    @item.HangSX
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <strong class="control-label col-md-3">Số SN</strong>
+                                <div class="col-md-12">
+                                    @item.Serial
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="margin-left:0%">
+                            <div class="form-group">
+                                <p><strong style="color:red">Ghi chú :<br />   CEx :</strong><i>  ­ Hiệu chuẩn bên ngoài</i><br /><strong style="color:red">Intrv : </strong> <i>­Kiểm tra giữa kỳ</i><br /> <strong style="color:red">Cin :</strong><i> Hiệu chuẩn nội bộ</i><br /><strong style="color:red">Main : </strong><i>Bảo trì bảo dưỡng</i></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row py-2" style="overflow-x:auto">
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <th colspan="2" style="text-align:center">
+                                    Jan
+                                </th>
+                                <th colspan="2" style="text-align:center">
+                                    Feb
+                                </th>
+                                <th colspan="2" style="text-align:center">
+                                    March
+                                </th>
+                                <th colspan="2" style="text-align:center">
+                                    April
+                                </th>
+                                <th colspan="2" style="text-align:center">
+                                    May
+                                </th>
+                                <th colspan="2" style="text-align:center">
+                                    June
+                                </th>
+                            </tr>
+                            <tr>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Plan</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Act</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Plan</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Act</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Plan</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Act</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Plan</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Act</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Plan</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Act</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Plan</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Act</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="100px" style="text-align:center">
+                                    @Html.TextBox("ids[" + i + "].Jan_Plan", Model[i].Jan_Plan, new { @class = "form-control" })
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @Html.TextBox("ids[" + i + "].Jan_Act", Model[i].Jan_Act, new { @class = "form-control" })
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @Html.TextBox("ids[" + i + "].Feb_Plan", Model[i].Feb_Plan, new { @class = "form-control" })
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @Html.TextBox("ids[" + i + "].Feb_Act", Model[i].Feb_Act, new { @class = "form-control" })
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @Html.TextBox("ids[" + i + "].March_Plan", Model[i].March_Plan, new { @class = "form-control" })
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @Html.TextBox("ids[" + i + "].March_Act", Model[i].March_Act, new { @class = "form-control" })
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @Html.TextBox("ids[" + i + "].April_Plan", Model[i].April_Plan, new { @class = "form-control" })
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @Html.TextBox("ids[" + i + "].April_Act", Model[i].April_Act, new { @class = "form-control" })
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @Html.TextBox("ids[" + i + "].May_Plan", Model[i].May_Plan, new { @class = "form-control" })
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @Html.TextBox("ids[" + i + "].May_Act", Model[i].May_Act, new { @class = "form-control" })
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @Html.TextBox("ids[" + i + "].June_Plan", Model[i].June_Plan, new { @class = "form-control" })
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @Html.TextBox("ids[" + i + "].June_Act", Model[i].June_Act, new { @class = "form-control" })
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <th colspan="2" style="text-align:center">
+                                    July
+                                </th>
+                                <th colspan="2" style="text-align:center">
+                                    Aug
+                                </th>
+                                <th colspan="2" style="text-align:center">
+                                    Sep
+                                </th>
+                                <th colspan="2" style="text-align:center">
+                                    Oct
+                                </th>
+                                <th colspan="2" style="text-align:center">
+                                    Nov
+                                </th>
+                                <th colspan="2" style="text-align:center">
+                                    Dec
+                                </th>
+                            </tr>
+                            <tr>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Plan</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Act</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Plan</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Act</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Plan</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Act</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Plan</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Act</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Plan</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Act</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Plan</strong>
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    <strong>Act</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="100px" style="text-align:center">
+                                    @Html.TextBox("ids[" + i + "].July_Plan", Model[i].July_Plan, new { @class = "form-control" })
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @Html.TextBox("ids[" + i + "].July_Act", Model[i].July_Act, new { @class = "form-control" })
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @Html.TextBox("ids[" + i + "].Aug_Plan", Model[i].Aug_Plan, new { @class = "form-control" })
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @Html.TextBox("ids[" + i + "].Aug_Act", Model[i].Aug_Act, new { @class = "form-control" })
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @Html.TextBox("ids[" + i + "].Sep_Plan", Model[i].Sep_Plan, new { @class = "form-control" })
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @Html.TextBox("ids[" + i + "].Sep_Act", Model[i].Sep_Act, new { @class = "form-control" })
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @Html.TextBox("ids[" + i + "].Oct_Plan", Model[i].Oct_Plan, new { @class = "form-control" })
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @Html.TextBox("ids[" + i + "].Oct_Act", Model[i].Oct_Act, new { @class = "form-control" })
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @Html.TextBox("ids[" + i + "].Nov_Plan", Model[i].Nov_Plan, new { @class = "form-control" })
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @Html.TextBox("ids[" + i + "].Nov_Act", Model[i].Nov_Act, new { @class = "form-control" })
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @Html.TextBox("ids[" + i + "].Dec_Plan", Model[i].Dec_Plan, new { @class = "form-control" })
+                                </td>
+                                <td width="100px" style="text-align:center">
+                                    @Html.TextBox("ids[" + i + "].Dec_Act", Model[i].Dec_Act, new { @class = "form-control" })
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+            }
+        <div class="row">
+            <div class="col-md-2" style="width: auto;">
+                <button class="form-control form-a-control" type="submit" value="Edit">
+                    <span class="fas fa-edit"> OK</span>
+                </button>
+            </div>
+            <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                <a style="text-decoration:none;" href="#" onclick="closeEditModal()"><img src="~/Public/Img/close.png" width="40" /></a>
+            </div> 
+        </div>
+        </div>
+    </section>
+}

@@ -1,0 +1,112 @@
+﻿@model IEnumerable<ListClass.Model.Join_phieuchuyen_phieunhan_listnumber_khachhang>
+<script src="~/Public/Js/DropDownSelect.js"></script>
+<style>
+    .col-md-4 img {
+        width: 300px;
+        height: 300px;
+        border-radius: 50%
+    }
+</style>
+
+@foreach (var item in Model)
+{
+    <section class="content py-2">
+        <div class="container">
+            <div class="row" style="margin-left:10%"> 
+                <div class="col-md-2" style="width:auto">
+                    @using (Html.BeginForm("ExportPdf", "PhieuChuyenMauHieuChuan", FormMethod.Post, new { id = "exportForm_" + item.Id_phieuchuyen }))
+                    {
+                        @Html.Hidden("id", item.Id_phieuchuyen)
+                        <a href="#" class="form-control form-a-control downloadLink" data-id="@item.Id_phieuchuyen" style="text-decoration:none">
+                            <span class="fas fa-file-export">ExportPdf</span>
+                        </a>
+                    }
+                </div>
+            </div>
+            <div class="form-horizontal" style="margin-top:10px">
+                <div class="row">
+                    <div class="col-md-4 col-12">
+                        @if (item.Img != null)
+                        {
+                            <p style="text-align:center"><img src="~/Public/Products/@item.Img" /></p>
+                        }
+                        else
+                        {
+                            <p style="text-align:center"><img src="~/Public/Img/logo.png" /></p>
+                        }
+                    </div>
+                    <div class="col-md-4 col-12">
+                        <div class="form-group">
+                            <p><strong>Mã phiếu chuyển : </strong> @item.Ma_phieuchuyen</p>
+                        </div>
+                        <div class="form-group">
+                            <p><strong>Số nhận dạng : </strong> @item.SoNhanDang</p>
+                        </div>
+                        <div class="form-group">
+                            <p><strong>Tên KH : </strong> @item.TenKH</p>
+                        </div>
+                        <div class="form-group">
+                            <p><strong>Số SN: </strong> @item.SoSN</p>
+                        </div>
+                        <div class="form-group">
+                            <p><strong>Người nhận : </strong> @item.NguoiNhan</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12">
+                        <div class="form-group">
+                            <p><strong>Người được phân công: </strong> @item.NguoiDuocPC</p>
+                        </div>
+                        <div class="form-group">
+                            <p> <strong>Phương pháp hiệu chuẩn : </strong> @item.PhuocPhapHC</p>
+                        </div>
+                        <div class="form-group">
+                            <p><strong>Thông số hiệu chuẩn : </strong> @item.ThongSoHC</p>
+                        </div>
+                        <div class="form-group">
+                            <p> <strong>Ngày nhận : </strong> @item.NgayNhan.ToString("dd/MM/yyyy")</p>
+                        </div>
+                        <div class="form-group">
+                            <p> <strong>Ngày trả : </strong> @item.NgayTra.Value.ToString("dd/MM/yyyy")</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}
+<script>
+    $(document).ready(function () {
+        $(".downloadLink").click(function (e) {
+            e.preventDefault();
+
+            var form = $(this).closest('form');
+            var formData = form.serialize();
+
+            $("#loading").show();
+
+            $.ajax({
+                url: form.attr("action"),
+                type: 'POST',
+                data: formData,
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function (data) {
+                    var blob = new Blob([data], { type: 'application/pdf' });
+                    var link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = 'PhieuChuyenMauHieuChuan.pdf';
+                    link.click();
+
+                    $("#loading").hide();
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi tải PDF.');
+                    $("#loading").hide();
+                }
+            });
+        });
+    });
+
+</script>

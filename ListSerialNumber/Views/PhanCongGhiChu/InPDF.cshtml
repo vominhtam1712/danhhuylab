@@ -1,0 +1,478 @@
+﻿@model IEnumerable<ListClass.Model.Join_PhanCongGhiChu>
+@{ 
+    var distinctItems = Model
+    .GroupBy(x => x.Id_PhanCong)
+    .Select(g => g.FirstOrDefault())
+    .ToList();
+    var count = 1;
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inpdf</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            height: 140px;
+            border-bottom: 1px solid #000;
+            margin-top: -1075px
+        }
+
+        .header-content-info {
+            display: flex;
+            height: 150px;
+            border-bottom: 1px solid #000;
+        }
+
+        .Sesion {
+            border: 1px solid #000;
+            min-height: 1650px;
+        }
+
+        .intro-info:nth-child(1) img {
+            width: 180px;
+            height: auto;
+            margin-right: 5px;
+        }
+
+        .intro-info:nth-child(3) img {
+            width: 180px;
+            height: auto;
+            margin-left: 5px;
+        }
+
+        .intro-info:nth-child(1),
+        .intro-info:nth-child(3) {
+            margin-top: 25px
+        }
+
+        .header .header-content {
+            text-align: center;
+            justify-content: center;
+            display: flex;
+        }
+
+        .header-info-content:nth-child(1) {
+            text-align: center;
+            align-self: center;
+            width: 20%;
+        }
+
+        .header-info-content:nth-child(2) {
+            width: 60%;
+            text-align: center;
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+        }
+
+        .header-info-content:nth-child(3) {
+            width: 20%;
+            text-align: center;
+            align-self: center;
+        }
+
+        .size-chu {
+            font-size: 25px;
+        }
+
+        .row {
+            width: 100%;
+            display: flex;
+            font-size: 25px;
+            padding: 5px 0 5px 10px;
+        }
+
+            .row .col-md-1 {
+                width: 10%;
+            }
+
+            .row .col-md-2 {
+                width: 20%;
+            }
+
+            .row .col-md-3 {
+                width: 30%;
+            }
+
+            .row .col-md-4 {
+                width: 40%;
+            }
+
+            .row .col-md-5 {
+                width: 50%;
+            }
+
+            .row .col-md-6 {
+                width: 60%;
+            }
+
+            .row .col-md-7 {
+                width: 70%;
+            }
+
+            .row .col-md-8 {
+                width: 80%;
+            }
+
+            .row .col-md-9 {
+                width: 90%;
+            }
+
+            .row .col-md-10 {
+                width: 100%;
+            }
+
+
+        .color-intro:nth-child(1) {
+            margin-top: 5px;
+            font-size: 25px;
+        }
+
+        .color-intro:nth-child(2) {
+            margin-top: -37px;
+            font-size: 35px;
+        }
+
+        .color-intro:nth-child(3) {
+            margin-top: -40px;
+            font-size: 25px;
+        }
+
+        .color-intro:nth-child(4) {
+            margin-top: -35px;
+            font-size: 18px;
+        }
+
+        .color-intro:nth-child(5) {
+            margin-top: 0px;
+            font-size: 18px;
+        }
+
+        .color-intro {
+            color: #0e75dd;
+        }
+
+        .color-intro-content {
+            color: #0e75dd;
+            font-size: 35px;
+        }
+            .color-intro-content:nth-child(1) {
+                margin-top: 35px;
+            }
+        .color-intro-orange {
+            color: #f6722e
+        }
+
+        .footer {
+            color: #0e75dd;
+            background-color: #f1f1f1;
+            padding: 20px 20px 20px 20px;
+            border-top: 1px solid #000;
+            margin-top: 150px
+        }
+
+        .footer-content {
+            width: 100%;
+            font-size: 20px;
+            padding: 5px;
+            display: flex
+        }
+
+            .footer-content .footer-content-text:nth-child(1) {
+                width: 2%
+            }
+
+            .footer-content .footer-content-text:nth-child(2) {
+                width: 98%
+            }
+
+        .page-break {
+            page-break-before: always;
+            border: none;
+            margin: 0;
+            padding: 0;
+            background-color: transparent;
+            visibility: hidden;
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 80%;
+            margin-left: 10%;
+        }
+
+        td, th {
+            font-size: 20px;
+            border: 1px solid #757575;
+            text-align: center;
+            padding: 8px;
+        }
+
+        input {
+            width: 20px;
+            height: 20px;
+        }
+
+        .Referentce {
+            margin-left: 25%;
+            font-size: 30px;
+            padding: 10px 0 10px 0;
+        }
+
+        .Referentce-content {
+            display: flex;
+            text-align: center;
+            font-size: 23px;
+            border: 1px solid #000;
+            justify-content: space-between;
+            padding: 10px 20px 10px 20px;
+        }
+
+        .Measurments {
+            display: flex;
+            text-align: center;
+            font-size: 23px;
+            justify-content: space-between;
+            padding: 10px 80px 10px 80px
+        }
+
+        .UV {
+            border-top: 1px solid #000;
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+            width: 75%;
+            text-align: center;
+            padding: 5px 0 5px;
+            font-size: 20px
+        }
+
+        .lamp {
+            padding: 30px 0 0 30px
+        }
+
+        .Referentce-content-text:nth-child(1) {
+            width: 10%;
+            font-size: 20px
+        }
+
+        .Referentce-content-text:nth-child(2) {
+            width: 20%
+        }
+
+        .Referentce-content-text:nth-child(3) {
+            width: 10%
+        }
+
+        .Referentce-content-text:nth-child(4) {
+            width: 20%
+        }
+
+        .Referentce-content-text:nth-child(5) {
+            width: 20%
+        }
+
+        .Referentce-content-text:nth-child(6) {
+            width: 20%
+        }
+
+        .Average-Stand {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            font-size: 20px;
+        }
+
+        .Average {
+            width: 100%;
+            padding: 10px 20px 10px 20px;
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+            border-bottom: 1px solid #000;
+        }
+
+        .Stand {
+            width: 100%;
+            padding: 10px 20px 10px 20px;
+            border-right: 1px solid #000;
+            border-bottom: 1px solid #000;
+        }
+
+        p {
+            color: #0e75dd;
+        }
+
+        .footer-2 {
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+            color: #0e75dd;
+            margin-top: 20px;
+        }
+
+        .page {
+            border: 1px solid #000;
+            height:1650px
+        }
+
+        .nhietdo {
+            display: flex;
+        }
+
+        .nhietdo-text:nth-child(2) {
+            margin-left: 5px;
+            font-size: 17px
+        }
+
+        .nhietdo-text:nth-child(3) {
+            font-size: 17px;
+            margin-left: -9px;
+            margin-top: 2px;
+        }
+
+        .nhietdo-text:nth-child(4) {
+            margin-left: 5px;
+        }
+
+        .nhietdo-doam {
+            display: flex;
+            text-align: center
+        }
+
+        .header-img {
+            display: flex;
+            margin-top: 50%;
+            justify-content: center;
+            opacity: .1;
+        } 
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="header-img">
+            <img src="https://danhhuylab.vn/Public/Img/logo-danhhuy.png" />
+        </div>
+        <div class="header">
+            <div class="header-content">
+                <div class="intro-info">
+                    <img src="https://danhhuylab.vn/Public/Img/logo-danhhuy.png" />
+                </div>
+                <div class="intro-info">
+                    <h4 class="color-intro">CÔNG TY TNHH THƯƠNG MẠI DANH HUY ( DK 579)</h4>
+                    <h3 class="color-intro">TRUNG TÂM HIỆU CHUẨN DANH HUY</h3>
+                    <h4 class="color-intro"><i>DANH HUY CO., LTD & DANH HUY CALIBRATION CENTER</i></h4>
+                    <div class="color-intro">171, Đường TX43, Phường Thạnh Xuân, Quận 12, TP.Hồ Chí Minh, Việt Nam</div>
+                    <div class="color-intro">Tel: 028 37156 168 &nbsp;F: 028 37156 167 &nbsp; &nbsp; E-mail: info@danhhuy.com.vn &nbsp; &nbsp; Web: www.danhhuy.com.vn</div>
+                </div>
+                <div class="intro-info">
+                    <img src="https://danhhuylab.vn/Public/Img/logo-iso.png" />
+                </div>
+            </div>
+        </div>
+        <div class="header-content-info">
+            @foreach (var item in distinctItems)
+            {
+                <div class="header-info-content">
+                    <div class="size-chu">Số GCN:</div>
+                    <div class="size-chu">@item.SoNhanDang</div>
+                </div>
+                <div class="header-info-content">
+                    <div class="color-intro-content"><strong>BẢN GHI CHÚ</strong></div> 
+                    <div class="color-intro-content"><strong>QUÁ TRÌNH HIỆU CHUẨN</strong></div> 
+                </div>
+                <div class="header-info-content">
+                    <div class="size-chu">01-04-2024</div>
+                    <div class="size-chu">Page: 1</div>
+                </div>
+            }
+        </div>
+        <div class="Content">
+            @foreach (var item in distinctItems)
+            {
+                <div class="row" style="margin-top:10px">
+                    <div class="col-md-3">1.Phương tiện đo <i>(Object)</i>:</div>
+                    <div class="col-md-7"><strong>@item.TenTB</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">2.Kiểu <i>(Type)</i>:</div>
+                    <div class="col-md-7"><strong>@item.Model</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">3.Số Serial Number <i>(Serial No)</i>: </div>
+                    <div class="col-md-7"><strong>@item.SN</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">4.Nơi sản xuất <i>(Manufacturer)</i>:</div>
+                    <div class="col-md-7"><strong>@item.Hang</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10">5. Đặc trưng kỹ thuật đo lường <i>(Specification)</i> :</div>
+                </div>
+                <div class="row" style="margin-left: 10%">
+                    <div class="col-md-4">5.1 Chức năng đo  <i>(Measurement) </i>:</div>
+                    <div class="col-md-6">Bức xạ cường độ UV</div>
+                </div>
+                <div class="row" style="margin-left: 10%">
+                    <div class="col-md-4">5.2 Phạm vi đo  <i>(Range) </i>:     </div>
+                    <div class="col-md-6">
+                        0­-10 W/cm²
+                    </div>
+                </div>
+                <div class="row" style="margin-left: 10% ">
+                    <div class="col-md-4">5.3 Độ phân giải  <i>(Resolution) </i>:    </div>
+                    <div class="col-md-6">
+                        0.001 mW/cm²
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">6. Khách hàng  <i>(Customer) </i>:</div>
+                    <div class="col-md-5">
+                        <strong>@item.TenKH</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">7. Nơi hiệu chuẩn  <i>(Place of Calibration) </i>:</div>
+                    <div class="col-md-5">
+                        <strong> Trung Tâm Hiệu Chuẩn Danh Huy</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">8. Phương pháp hiệu chuẩn  <i>(Method of Calibration) </i>:</div>
+                    <div class="col-md-5">
+                        <strong> DH/HC/01/2023</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10">9. Nội dung ghi chú</div>
+                </div> 
+            }
+            <table style="margin-top:5%">
+                <thead> 
+                    <tr>
+                        <th style="width:20px">Lần</th>
+                        <th>Nội dung</th>
+                        <th style="width:20px">Ngày tạo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    @foreach (var item in Model) 
+                    {
+                        <tr>
+                            <td>@(count++)</td>
+                            <td style="text-align:left;padding:10px 10px 10px 10px">@item.GhiChu_PhanCongGhiChu</td>
+                            <td>@item.Ngaytao.ToString("dd/MM/yyyy")</td>
+                        </tr>
+                     }
+                </tbody>
+            </table> 
+        </div>
+    </div>
+</body>
+</html>

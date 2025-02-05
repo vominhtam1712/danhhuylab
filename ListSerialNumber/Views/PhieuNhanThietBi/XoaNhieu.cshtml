@@ -1,0 +1,65 @@
+﻿@model List<ListClass.Model.PhieuNhanThietBi>
+@using (Html.BeginForm("XoaNhieu", "PhieuNhanThietBi", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:red"><strong>BẠN CÓ CHẮC MUỐN XÓA KHÔNG?</strong></h3>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th width="90px">STT</th>
+                    <th>Số yêu cầu</th>
+                    <th>Số nhận dạng</th>
+                    <th>Người thực hiện</th>
+                    <th>Hiện trạng</th>
+                    <th>Ngày thực hiện</th>
+                    <th>Ghi chú</th>
+                </tr>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    var item = Model.ElementAt(i);
+                    <tr>
+                        <td>
+                            @(i+1)
+                            @Html.Hidden("ids[" + i + "].Id", Model[i].Id, new { @readonly = "readonly", @class = "form-control" })
+                        </td>
+                        <td>
+                            @item.SoYeuCau
+                        </td>
+                        <td>
+                            @item.SoNhanDang
+                        </td>
+                        <td>
+                            @item.NguoiThucHien
+                        </td>
+                        <td>
+                            @item.HienTrang
+                        </td>
+                        <td>
+                            @item.NgayThucHien.ToString("dd/MM/yyyy")
+                        </td>
+                        <td>
+                            @item.GhiChu
+                        </td>
+                    </tr>
+                }
+            </table>
+            <div class="row">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div>
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                    <a href="@Url.Action("Index","PhieuNhanThietBi")"><img src="~/Public/Img/close.png" width="40" /></a>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+

@@ -1,0 +1,832 @@
+﻿@model IEnumerable<ListClass.Model.Join_Giaychungnhan>
+@{
+    var distinctItems = Model
+        .GroupBy(x => x.Id_BienBanHieuChuan)
+        .Select(g => g.FirstOrDefault())
+        .ToList();
+    var distinctItems1 = Model
+        .GroupBy(x => x.ID_STD)
+        .Select(g => g.FirstOrDefault())
+        .ToList();
+    var distinctItems2 = Model
+        .GroupBy(x => x.Id_PhanCong)
+        .Select(g => g.FirstOrDefault())
+        .ToList();
+    var distinctItems3 = Model
+        .GroupBy(x => x.Id_GiaTriTruocHieuChinh)
+        .Select(g => g.FirstOrDefault())
+        .ToList();
+    var distinctItems4 = Model
+        .GroupBy(x => x.Id_KetQuaHieuChinh)
+        .Select(g => g.FirstOrDefault())
+        .ToList();
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inpdf</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            height: 140px;
+            border-bottom: 1px solid #000;
+            margin-top: -1075px
+        }
+
+        .header-content-info {
+            display: flex;
+            height: 150px;
+            border-bottom: 1px solid #000;
+        }
+
+        .Sesion {
+            border: 1px solid #000;
+            min-height: 1650px;
+        }
+
+        .intro-info:nth-child(1) img {
+            width: 190px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .intro-info:nth-child(3) img {
+            width: 190px;
+            height: auto;
+            margin-left: 10px;
+        }
+
+        .intro-info:nth-child(1),
+        .intro-info:nth-child(3) {
+            margin-top: 25px
+        }
+
+        .header .header-content {
+            text-align: center;
+            justify-content: center;
+            display: flex;
+        }
+
+        .header-info-content:nth-child(1) {
+            text-align: center;
+            align-self: center;
+            width: 20%;
+        }
+
+        .header-info-content:nth-child(2) {
+            width: 60%;
+            text-align: center;
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+        }
+
+        .header-info-content:nth-child(3) {
+            width: 20%;
+            text-align: center;
+            align-self: center;
+        }
+
+        .size-chu {
+            font-size: 20px;
+        }
+
+        .row {
+            width: 100%;
+            display: flex;
+            font-size: 25px;
+            padding: 5px 0 5px 10px;
+        }
+
+            .row .col-md-1 {
+                width: 10%;
+            }
+
+            .row .col-md-2 {
+                width: 20%;
+            }
+
+            .row .col-md-3 {
+                width: 30%;
+            }
+
+            .row .col-md-4 {
+                width: 40%;
+            }
+
+            .row .col-md-5 {
+                width: 50%;
+            }
+
+            .row .col-md-6 {
+                width: 60%;
+            }
+
+            .row .col-md-7 {
+                width: 70%;
+            }
+
+            .row .col-md-8 {
+                width: 80%;
+            }
+
+            .row .col-md-9 {
+                width: 90%;
+            }
+
+            .row .col-md-10 {
+                width: 100%;
+            }
+
+
+        .color-intro:nth-child(1) {
+            margin-top: 5px;
+            font-size: 25px;
+        }
+
+        .color-intro:nth-child(2) {
+            margin-top: -37px;
+            font-size: 35px;
+        }
+
+        .color-intro:nth-child(3) {
+            margin-top: -40px;
+            font-size: 25px;
+        }
+
+        .color-intro:nth-child(4) {
+            margin-top: -35px;
+            font-size: 18px;
+        }
+
+        .color-intro:nth-child(5) {
+            margin-top: 0px;
+            font-size: 18px;
+        }
+
+        .color-intro {
+            color: #0e75dd;
+        }
+
+        .color-intro-content {
+            color: #0e75dd;
+        }
+
+            .color-intro-content:nth-child(1) {
+                margin-top: 10px;
+                font-size: 35px
+            }
+
+            .color-intro-content:nth-child(2) {
+                margin-top: 5px;
+                font-size: 35px
+            }
+
+            .color-intro-content:nth-child(3) {
+                margin-top: 5px;
+                font-size: 20px
+            }
+
+        .color-intro-orange {
+            color: #f6722e
+        }
+
+        .footer {
+            color: #0e75dd;
+            background-color: #f1f1f1;
+            padding: 20px 20px 20px 20px;
+            border-top: 1px solid #000;
+            border-right: 1px solid #000;
+            margin-top: 200px;
+            position: absolute;
+            top: 1190px;
+        }
+        .footer-3 {
+        color: #0e75dd;
+        background-color: #f1f1f1;
+        padding: 20px 20px 20px 20px;
+        border-top: 1px solid #000;
+        border-right: 1px solid #000;
+        margin-top: 200px;
+        position: absolute;
+        top: 2855px;
+        }
+
+        .footer-content {
+            width: 100%;
+            font-size: 17.4px;
+            padding: 5px;
+            display: flex;
+        }
+
+            .footer-content .footer-content-text:nth-child(1) {
+                width: 2%
+            }
+
+            .footer-content .footer-content-text:nth-child(2) {
+                width: 98%
+            }
+
+        .page-break {
+            page-break-before: always;
+            border: none;
+            margin: 0;
+            padding: 0;
+            background-color: transparent;
+            visibility: hidden;
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 80%;
+            margin-left: 10%;
+        }
+
+        td, th {
+            font-size: 20px;
+            border: 1px solid #757575;
+            text-align: center;
+            padding: 8px;
+        }
+
+        input {
+            width: 20px;
+            height: 20px;
+        }
+
+        .Referentce {
+            margin-left: 25%;
+            font-size: 30px;
+            padding: 10px 0 10px 0;
+        }
+
+        .Referentce-content {
+            display: flex;
+            text-align: center;
+            font-size: 23px;
+            border: 1px solid #000;
+            justify-content: space-between;
+            padding: 10px 20px 10px 20px;
+        }
+
+        .Referentce-content-2 {
+            display: flex;
+            text-align: center;
+            font-size: 23px;
+            border-top: 1px solid #000;
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+            justify-content: space-between;
+            padding: 10px 20px 10px 20px;
+        }
+
+        .Referentce-content-3 {
+            border-bottom: 1px solid #000;
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+        }
+
+        .Referentce-content-4 {
+            display: flex;
+            text-align: center;
+            font-size: 23px;
+            justify-content: space-between;
+            padding: 10px 20px 10px 20px;
+        }
+
+        .Measurments {
+            display: flex;
+            text-align: center;
+            font-size: 23px;
+            justify-content: space-between;
+            padding: 10px 80px 10px 80px
+        }
+
+        .UV {
+            border-top: 1px solid #000;
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+            width: 60%;
+            padding: 5px 0 5px 25px;
+            font-size: 20px
+        }
+
+        .lamp {
+            font-size: 20px;
+            padding: 30px 0 0 30px
+        }
+
+        .Referentce-content-text:nth-child(1) {
+            width: 10%;
+            font-size: 20px
+        }
+
+        .Referentce-content-text:nth-child(2) {
+            width: 20%;
+            font-size: 20px
+        }
+
+        .Referentce-content-text:nth-child(3) {
+            width: 10%;
+            font-size: 20px
+        }
+
+        .Referentce-content-text:nth-child(4) {
+            width: 20%;
+            font-size: 20px
+        }
+
+        .Referentce-content-text:nth-child(5) {
+            width: 20%;
+            font-size: 20px
+        }
+
+        .Referentce-content-text:nth-child(6) {
+            width: 20%;
+            font-size: 20px
+        }
+
+        .Average-Stand {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            font-size: 20px;
+        }
+
+        .Average {
+            width: 100%;
+            padding: 10px 20px 10px 20px;
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+            border-bottom: 1px solid #000;
+        }
+
+        .Stand {
+            width: 100%;
+            padding: 10px 20px 10px 20px;
+            border-right: 1px solid #000;
+            border-bottom: 1px solid #000;
+        }
+
+        p {
+            color: #0e75dd;
+        }
+
+        .footer-2 {
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+            color: #0e75dd;
+            margin-top: 20px;
+        } 
+        .page {
+            border: 1px solid #000;
+        }
+
+        .nhietdo {
+            display: flex;
+        }
+
+        .nhietdo-text:nth-child(2) {
+            margin-left: 5px;
+            font-size: 17px
+        }
+
+        .nhietdo-text:nth-child(3) {
+            font-size: 17px;
+            margin-left: -9px;
+            margin-top: 2px;
+        }
+
+        .nhietdo-text:nth-child(4) {
+            margin-left: 5px;
+        }
+
+        .nhietdo-doam {
+            display: flex;
+            text-align: center
+        }
+
+        .header-img {
+            display: flex;
+            margin-top: 50%;
+            justify-content: center;
+            opacity: .1;
+        } 
+        .body{ 
+            border:1px solid #000;
+            height: 1600px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="page" style="height:1600px">
+        <div class="header-img">
+            <img src="https://danhhuylab.vn/Public/Img/logo-danhhuy.png" />
+        </div>
+        <div class="header">
+            <div class="header-content">
+                <div class="intro-info">
+                    <img src="https://danhhuylab.vn/Public/Img/logo-danhhuy.png" />
+                </div>
+                <div class="intro-info">
+                    <h4 class="color-intro">CÔNG TY TNHH THƯƠNG MẠI DANH HUY ( DK 579)</h4>
+                    <h3 class="color-intro">TRUNG TÂM HIỆU CHUẨN DANH HUY</h3>
+                    <h4 class="color-intro"><i>DANH HUY CO., LTD & DANH HUY CALIBRATION CENTER</i></h4>
+                    <div class="color-intro">171, Đường TX43, Phường Thạnh Xuân, Quận 12, TP.Hồ Chí Minh, Việt Nam</div>
+                    <div class="color-intro">Tel: 028 37156 168 &nbsp;F: 028 37156 167 &nbsp; &nbsp; E-mail: info@danhhuy.com.vn &nbsp; &nbsp; Web: www.danhhuy.vn</div>
+                </div>
+                <div class="intro-info">
+                    <img src="https://danhhuylab.vn/Public/Img/logo-iso.png" />
+                </div>
+            </div>
+        </div>
+        <div class="header-content-info">
+            @foreach (var item in distinctItems)
+            {
+                <div class="header-info-content">
+                    <div class="size-chu">Số GCN/Certificate No.:</div>
+                    <div class="size-chu">@item.SoNhanDang</div>
+                </div>
+                <div class="header-info-content">
+                    <div class="color-intro-content"><strong>GIẤY CHỨNG NHẬN HIỆU CHUẨN</strong></div>
+                    <div class="color-intro-content color-intro-orange"><strong><i>CERTIFICATE OF CALIBRATION</i></strong></div>
+                    <div class="color-intro-content"><strong>Số giấy chứng nhận đăng ký cung cấp dịch vụ: DK579<br /><i>Service Registration Certificate No. : DK579</i></strong></div>
+                </div>
+                <div class="header-info-content">
+                    <div class="size-chu">@item.NgayHieuChuan.ToString("dd/MM/yyyy")</div>
+                    <div class="size-chu">Page: 1</div>
+                </div>
+            }
+        </div>
+        <div class="Content">
+            @foreach (var item in distinctItems)
+            {
+                <div class="row" style="margin-top:10px">
+                    <div class="col-md-3">1.Phương tiện đo <i>(Object)</i>:</div>
+                    <div class="col-md-7"><strong>@item.Tenthietbi</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">2.Kiểu <i>(Type)</i>:</div>
+                    <div class="col-md-7"><strong>@item.Model</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">3.Số Serial Number <i>(Serial No)</i>: </div>
+                    <div class="col-md-7"><strong>@item.SerialNumber</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">4.Nơi sản xuất <i>(Manufacturer)</i>:</div>
+                    <div class="col-md-7"><strong>@item.Hang</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">5. Đặc trưng kỹ thuật đo lường <i>(Specification)</i> :</div>
+                    <div class="col-md-5">
+                        <div>
+                            Sai số toàn dải là [<span style="position: relative; font-size: 20px; top: -5px;left:5px">+</span><span style="position: relative;top:5px;right:2.5px; font-size: 20px; ">-</span> 6.5%],
+                            [<span style="position: relative; font-size: 20px; top: -5px;left:5px">+</span><span style="position: relative;top:5px;right:2.5px; font-size: 20px; ">-</span> 6.5%] <i>of full scale</i>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-left: 10%">
+                    <div class="col-md-4">5.1 Chức năng đo  <i>(Measurement) </i>:</div>
+                    <div class="col-md-6">Cường độ UV và Năng lượng UV / <i>UV Irradiance and <br /> UV Energy</i></div>
+                </div>
+                <div class="row" style="margin-left: 10%">
+                    <div class="col-md-4">5.2 Phạm vi đo  <i>(Range) </i>:     </div>
+                    <div class="col-md-6">
+                        @if (item.PhammVido_listnumber != null)
+                        {
+                            <div>@item.PhammVido_listnumber W/cm²</div>
+                        }
+                        else
+                        {
+                            <div style="color:red">Chưa có dữ liệu!</div>
+                        }
+                    </div>
+                </div>
+                <div class="row" style="margin-left: 10% ">
+                    <div class="col-md-4">5.3 Độ phân giải  <i>(Resolution) </i>:    </div>
+                    <div class="col-md-6">
+                        @if (item.DoPhanGiai_listnumber != null)
+                        {
+                            <div>@item.DoPhanGiai_listnumber mW/cm²</div>
+                        }
+                        else
+                        {
+                            <div style="color:red">Chưa có dữ liệu!</div>
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">6. Khách hàng  <i>(Customer) </i>:</div>
+                    <div class="col-md-5" style="margin-right:10px">
+                        <strong>@item.KhachHang</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">7. Nơi hiệu chuẩn  <i>(Place of Calibration) </i>:</div>
+                    <div class="col-md-5">
+                        <strong>Trung Tâm Hiệu Chuẩn Danh Huy/Danh Huy Calibration Center</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">8. Phương pháp hiệu chuẩn  <i>(Method of Calibration) </i>:</div>
+                    <div class="col-md-5">
+                        <strong> DH/HC/01/2023</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10">9. Chuẩn được sử dụng  <i>(Standards Used) </i>:</div>
+                </div>
+                <table>
+                    <tr>
+                        <th>Model</th>
+                        <th>Serial Number</th>
+                        <th>Cal. Date</th>
+                        <th>Due Date</th>
+                        <th>Traceable to</th>
+                    </tr>
+                    <tr>
+                        <td>@item.TenHieuChuan</td>
+                        <td>@item.SN</td>
+                        <td>@item.Cal_Date.ToString("dd/MM/yyyy")</td>
+                        <td>@item.Due_Day.ToString("dd/MM/yyyy")</td>
+                        <td>VMI</td>
+                    </tr>
+                </table>
+                <div class="row">
+                    <div class="col-md-5">10. Môi trường hiệu chuẩn: <br /> <i style="margin-left:30px">(Calibration Environment) </i> </div>
+                    <div class="col-md-2 nhietdo">
+                        <div class="nhietdo-text">[ @item.NhietDo </div>
+                        <div class="nhietdo-text">+</div>
+                        <div class="nhietdo-text">_</div>
+                        <div class="nhietdo-text">2 ]ºC</div>
+                    </div>
+                    <div class="col-md-2 nhietdo">
+                        <div class="nhietdo-text">[ @item.DoAm </div>
+                        <div class="nhietdo-text">+</div>
+                        <div class="nhietdo-text">_</div>
+                        <div class="nhietdo-text">10 ]%RH</div>
+                    </div>
+                    <div class="col-md-2">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">11. Hiệu chỉnh phương tiện đo  <i>(Adjustment) </i> :  </div>
+                    <div class="col-md-2">
+                        <input type="checkbox" /> Không/No
+                    </div>
+                    <div class="col-md-2">
+                        <input type="checkbox" checked style="background:blue" /> Có/Yes
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">12. Ngày hiệu chuẩn  <i>(Date of Calibration) </i>:  </div>
+                    <div class="col-md-5">
+                        <strong>@item.NgayHieuChuan.ToString("dd/MM/yyyy")</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">13. Tem hiệu chuẩn  <i>(Calibration Label) </i>: </div>
+                    <div class="col-md-5">
+                        <strong>@item.SoNhanDang</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">14. Ngày hiệu chuẩn lại theo yêu cầu của khách hàng:<br />  <i style="margin-left:30px">(Recalibration date as request of customers) </i></div>
+                    <div class="col-md-5">
+                        <strong>@item.NgayHieuChuanLai.ToString("dd/MM/yyyy")</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5" style="text-align:center"><strong>Người thực hiện <i style="font-size: 20px; margin-top: -20px"> (Technician)</i></strong></div>
+                    <div class="col-md-5" style="text-align:center"><strong>Giám đốc <i style="font-size:20px;margin-top:-20px"> (Director)</i></strong></div>
+                </div>
+            }
+        </div>
+        <div class="footer">
+            <div class="footer-content">
+                <div class="footer-content-text">
+                    1.
+                </div>
+                <div class="footer-content-text">
+                    Giấy chứng nhận hiệu chuẩn này thể hiện việc liên kết chuẩn với VMI. Với đơn vị đo theo hệ đơn vị đo quốc tế SI<br />
+                    <i>(This calibration certificate documents the traceable to Vietnam Metrology Institue (VMI), The units of measuremnt according to the SI)</i>
+                </div>
+            </div>
+            <div class="footer-content">
+                <div class="footer-content-text">
+                    2.
+                </div>
+                <div class="footer-content-text">
+                    Độ không đảm bảo đo mở rộng được tính từ độ không đảm bảo đo chuẩn nhân với hệ số phủ k=2, phân bố chuẩn tương ứng với độ tin cậy 95%<br />
+                    <i>(The expanded uncertainty of measurement is stated as the standard uncertainty of measurement multiplied by the coverage factor k=2, at 95% confidence level)</i>.
+                </div>
+            </div>
+            <div class="footer-content">
+                <div class="footer-content-text">
+                    3.
+                </div>
+                <div class="footer-content-text">
+                    Không được sao trích một phần giấy chứng nhận hiệu chuẩn này nếu không có sự đồng ý bằng văn bản của Công Ty TNHH Thương Mại Danh Huy<br />
+                    <i>(This certificate shall not be reproduced, except in full, without the written permission by Danh Huy Co., Ltd)</i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-2">
+        <div class="footer-2-text">Số biểu mẫu: DH-QT04/BM03 </div>
+        <div class="footer-2-text">Số soát xét :  02 </div>
+        <div class="footer-2-text">Ngày hiệu lực : 27-03-2024</div>
+    </div>
+    <div class="page-break">123</div>
+
+    <div class="body">
+        <div class="header-content-info">
+            @foreach (var item in distinctItems)
+            {
+                <div class="header-info-content">
+                    <div class="size-chu">Số GCN/Certificate No.:</div>
+                    <div class="size-chu">@item.SoNhanDang</div>
+                </div>
+                <div class="header-info-content">
+                    <div class="color-intro-content"><strong>KẾT QUẢ HIỆU CHUẨN</strong></div>
+                    <div class="color-intro-content color-intro-orange"><strong><i>RESULTS OF CALIBRATION</i></strong></div>
+                    <div class="color-intro-content"><strong> Kèm theo giấy chứng nhận hiệu chuẩn số :  @item.SoNhanDang<br /><i>Accompanied by Calibration Certificate No. :  @item.SoNhanDang</i></strong></div>
+                </div>
+                <div class="header-info-content">
+                    <div class="size-chu">@item.NgayHieuChuan.ToString("dd/MM/yyyy")</div>
+                    <div class="size-chu">Page: 2</div>
+                </div>
+            }
+        </div>
+        <div class="row" style="margin-left:10%; margin-top:20px">
+            @foreach (var item in distinctItems2)
+            {
+                <div>
+                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldTruocHieuChinh
+                </div>
+            }
+        </div>
+        <div class="row" style="margin-left:10%">
+            @foreach (var item in distinctItems2)
+            {
+                <div>
+                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldTruocHieuChinh
+                </div>
+            }
+        </div>
+        <div class="Content" style="margin-top:20px">
+            <table style="height:auto">
+                <tr>
+                    <th>
+                        Giá trị chuẩn<br />
+                        Reference values<br />
+                        W/cm²
+                    </th>
+                    <th>
+                        Giá trị đo được<br />
+                        Measured values<br />
+                        W/cm²
+                    </th>
+                    <th>
+                        Sai số<br />
+                        Errors<br />
+                        %
+                    </th>
+                    <th>
+                        Độ KĐBĐ<br />
+                        Uncertainty<br />
+                        ( % )
+                    </th>
+                </tr>
+                @foreach (var item in distinctItems1)
+                {
+                    <tr>
+                        <td>@item.TB_STD.Value.ToString("F2")</td>
+                        <td>@item.TrungBinh_DUT.Value.ToString("F2")</td>
+                        <td>@item.Saiso.Value.ToString("F2")</td>
+                        <td>@item.DoDKDB.Value.ToString("F2")</td>
+                    </tr>
+                }
+            </table>
+            <div class="row">
+                <div class="col-md-10">
+                    Kết quả sai số trong bảng trên nằm trong dải sai số cho phép của nhà sản xuất (Đạt tiêu chuẩn )./<i>The error results in the table above are within the manufacturer's allowable error range ( Pass for use )</i>
+                </div>
+            </div>
+            <div class="row" style="margin-top:30px">
+                <div class="col-md-10">
+                    15. Thông tin khác <i>(Other Informations):</i>
+                </div>
+            </div>
+            <div class="row">
+                <div class="footer-content-text">
+                    a. &nbsp;
+                </div>
+                <div class="footer-content-text">
+                    Kết quả hiệu chuẩn chỉ có giá trị tương ứng với điều kiện theo phương pháp hiệu chuẩn nêu ở mục 8<br />
+                    <i>(Calibraiton results are valid with respect to the procedure conditions as description at Item 8 only)</i>
+                </div>
+            </div>
+            <div class="row">
+                <div class="footer-content-text">
+                    b. &nbsp;
+                </div>
+                <div class="footer-content-text">
+                    Các kết quả hiệu chuẩn được thực hiện với năm lượt đo để tính giá trị trung bình và sai số.<br />
+                    <i>(All calibration results are based on a series of five measurements, from which the average and errors)</i>
+                </div>
+            </div>
+            <div class="row">
+                <div class="footer-content-text">
+                    c. &nbsp;
+                </div>
+                <div class="footer-content-text">
+                    Các giá trị của đại lượng được hiệu chuẩn theo yêu cầu khách hàng.<br />
+                    <i>(The quantity values are calibrated as request of customer)</i>
+                </div>
+            </div>
+            <div class="row">
+                <div class="footer-content-text">
+                    d. &nbsp;
+                </div>
+                <div class="footer-content-text">
+                    Phương tiện đo này không được sử dụng trực tiếp để kiểm định phương tiện đo nhóm 2.<br />
+                    <i>(This measuring instrument is not use directly to verify the measuring instrument of group 2.)</i>
+                </div>
+            </div>
+            <div class="row">
+                <div class="footer-content-text">
+                    e. &nbsp;
+                </div>
+                <div class="footer-content-text" style="margin-left:20px;">
+                    Phương tiện đo này không được sử dụng để định lượng hàng hoá, dịch vụ trong mua bán, thanh toán, bảo
+                    đảm an toàn, bảo vệ sức khoẻ cộng đồng, bảo vệ môi trường, trong thanh tra, ,kiểm tra, giám định tư pháp
+                    và trong các hoạt động công vụ khác <br />
+                    <i>
+                        (This measuring instrument is not to be used for the quantification of goods or services in transactions, payments
+                        safety assurance, public health protection, environmental protection, inspections, judicial examinations, or in other
+                        official activities.)
+                    </i>
+                </div>
+            </div>
+            <div class="row">
+                <div class="footer-content-text">
+                    f. &nbsp;
+                </div>
+                <div class="footer-content-text">
+                    Ngày đề nghị hiệu chuẩn dựa trên yêu cầu của khách hàng.
+                    <br />
+                    <i>(The quantity values are calibrated as request of customer)</i>
+                </div>
+            </div>
+        </div>
+        <div class="footer-3">
+            <div class="footer-content">
+                <div class="footer-content-text">
+                    1.
+                </div>
+                <div class="footer-content-text">
+                    Giấy chứng nhận hiệu chuẩn này thể hiện việc liên kết chuẩn với VMI. Với đơn vị đo theo hệ đơn vị đo quốc tế SI<br />
+                    <i>(This calibration certificate documents the traceable to Vietnam Metrology Institue (VMI), The units of measuremnt according to the SI)</i>
+                </div>
+            </div>
+            <div class="footer-content">
+                <div class="footer-content-text">
+                    2.
+                </div>
+                <div class="footer-content-text">
+                    Độ không đảm bảo đo mở rộng được tính từ độ không đảm bảo đo chuẩn nhân với hệ số phủ k=2, phân bố chuẩn tương ứng với độ tin cậy 95%<br />
+                    <i>(The expanded uncertainty of measurement is stated as the standard uncertainty of measurement multiplied by the coverage factor k=2, at 95% confidence level)</i>.
+                </div>
+            </div>
+            <div class="footer-content">
+                <div class="footer-content-text">
+                    3.
+                </div>
+                <div class="footer-content-text">
+                    Không được sao trích một phần giấy chứng nhận hiệu chuẩn này nếu không có sự đồng ý bằng văn bản của Công Ty TNHH Thương Mại Danh Huy<br />
+                    <i>(This certificate shall not be reproduced, except in full, without the written permission by Danh Huy Co., Ltd)</i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-2">
+        <div class="footer-2-text">Số biểu mẫu: DH-QT04/BM03 </div>
+        <div class="footer-2-text" style="margin-left:220px">Số soát xét :02 </div>
+        <div class="footer-2-text" style="margin-left:220px">Ngày hiệu lực : 27-03-2024</div>
+    </div>
+    <div class="header-img" style="margin-top:-100%">
+        <img src="https://danhhuylab.vn/Public/Img/logo-danhhuy.png" />
+    </div>
+</body>
+</html>

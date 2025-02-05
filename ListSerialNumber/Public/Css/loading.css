@@ -1,0 +1,16 @@
+﻿#loading {
+    display: none;
+    position: fixed;
+    top: 40%;
+    left: 45%;
+    z-index: 9999;
+}
+
+    #loading p {
+        text-align:center
+    }
+
+    #loading img {
+        width: 150px;
+        height: 150px;
+    }

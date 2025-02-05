@@ -1,0 +1,242 @@
+﻿@model IEnumerable<ListClass.Model.Join_STD_DUT_Bienbanhieuchuan>
+@{
+    var distinctItems = Model
+        .GroupBy(x => x.Id_BienBanHieuChuan)
+        .Select(g => g.FirstOrDefault())
+        .ToList();
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng với 3 Hàng trong Cột 3</title>
+    <style>
+        .body{
+            margin:0;
+            left:0
+        }  
+        .header {
+            display: flex;
+            border: 1px solid #000;
+            justify-content: space-between; 
+        } 
+        .header-content:nth-child(1) img {
+            width: 160px;
+            height: auto;
+            padding:30px 5px 10px 15px
+        }
+        .header-content:nth-child(1) {
+           justify-content:center;
+           width:20%;
+        }
+        .header-content:nth-child(2) {
+            text-align: center;
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+            padding: 30px 30px 30px 30px;
+            width: 60%;
+        }
+        .header-content:nth-child(3) {
+            align-content: center; 
+            width:20%;
+        }
+        .text-2:nth-child(1){ 
+            padding: 10px 5px 10px 10px
+        }
+        .text-2:nth-child(2) {
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+            padding: 10px 0 10px 10px
+        }
+        .text-2:nth-child(3) {
+            padding: 10px 5px 10px 10px
+        }
+        .text {
+            font-size: 23px
+        }
+        .col-md-5{
+            width:49%
+        }
+        .row{ 
+            display:flex;
+            justify-content:space-between;
+            width:100%
+
+        }
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #000;
+            text-align: left;
+            padding: 8px;
+            text-align: center
+        }
+        .footer{
+            display:flex;
+            justify-content:center;
+        }
+        .content-footer:nth-child(1){
+            margin-right:50%
+        }
+        .content-csd {
+            border: 1px solid #000;
+            display: flex; 
+            text-align:center;
+            justify-content:center;
+        }
+        .content-csd-header:nth-child(1) {
+            border-right: 1px solid #000;
+            padding: 5px 0 5px 5px; 
+            width:50%
+        }
+        .content-csd-header:nth-child(2) {
+            padding: 5px 5px 5px 0;
+            width: 50%
+        }
+        .body-csd {
+            border-left: 1px solid #000;
+            border-bottom: 1px solid #000;
+            display: flex;
+            text-align: center;
+            justify-content: center;
+        }
+        .content-csd-body {
+            border-right: 1px solid #000 ;
+            width: 25%
+        }
+    </style>
+</head>
+<body> 
+    <div class="Sesion">
+        <div class="header">
+            <div class="header-content">
+                <img src="https://danhhuylab.vn/Public/Img/logo.png" />
+            </div>
+            <div class="header-content">
+                <div class="text"><strong>QUY TRÌNH HIỆU CHUẨN THIẾT BỊ</strong></div>
+                <div class="text"><strong>BẢNG KIỂM TRA ĐỘ ĐỒNG ĐỀU CỦA NGUỒN UV</strong></div>
+            </div>
+            <div class="header-content">
+                <div class="text-2">Mã số: DH­QT04/BM08</div>
+                <div class="text-2">Số soát xét: 02</div>
+                <div class="text-2">Ngày hiệu lực: 27/03/2024</div>
+            </div>
+        </div>
+        @foreach (var item in distinctItems)
+        {
+            <h3>Ngày kiểm tra: @item.NgayThucHien.ToString("dd/MM/yyyy")</h3>
+        }
+        <div class="row">
+            <div class="col-md-5">
+                STD
+                <table>
+                    <tr>
+                        <th>
+                            Mức đo
+                            (mW/cm&#178;)
+                        </th>
+                        <th>Lần 1</th>
+                        <th>Lần 2</th>
+                        <th>Lần 3</th>
+                        <th>Lần 4</th>
+                        <th>Lần 5</th>
+                        <th>GTTB</th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td>@item.MucKiemTra_STD</td>
+
+                            <td>@item.Lan1_STD</td>
+
+                            <td>@item.Lan2_STD</td>
+
+                            <td>@item.Lan3_STD</td>
+
+                            <td>@item.Lan4_STD</td>
+
+                            <td>@item.Lan5_DUT</td>
+
+                            <td>@item.TrungBinh_STD.Value.ToString("F3")</td>
+
+                        </tr>
+                    }
+                </table>
+            </div>
+            <div class="col-md-5">
+                DUT
+                <table>
+                    <tr>
+                        <th>
+                            Mức đo
+                            (mW/cm&#178;)
+                        </th>
+                        <th>Lần 1</th>
+                        <th>Lần 2</th>
+                        <th>Lần 3</th>
+                        <th>Lần 4</th>
+                        <th>Lần 5</th>
+                        <th>GTTB</th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td>@item.MucKiemTra_DUT</td>
+
+                            <td>@item.Lan1_DUT</td>
+
+                            <td>@item.Lan2_DUT</td>
+
+                            <td>@item.Lan3_DUT</td>
+
+                            <td>@item.Lan4_DUT</td>
+
+                            <td>@item.Lan5_DUT</td>
+
+                            <td>@item.TrungBinh_DUT.Value.ToString("F3")</td>
+
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+        @foreach (var item in distinctItems)
+        {
+            <div class="row" style="margin-top: 10px">
+                <div class="col-md-5">
+                    <div class="content-csd">
+                        <div class="content-csd-header">Chuẩn sử dụng </div>
+                        <div class="content-csd-header">Nguồn UV</div>
+                    </div>
+                    <div class="body-csd">
+                        <div class="content-csd-body">a = </div>
+                        <div class="content-csd-body">@ViewBag.Slope</div>
+                        <div class="content-csd-body">Độ đồng đều</div>
+                        <div class="content-csd-body">@ViewBag.DoDongDeu</div>
+                    </div>
+                    <div class="body-csd">
+                        <div class="content-csd-body">b = </div>
+                        <div class="content-csd-body">@ViewBag.Intercept</div>
+                        <div class="content-csd-body">Ngày kiểm tra</div>
+                        <div class="content-csd-body">@item.NgayThucHien.ToString("dd/MM/yyyy")</div>
+                    </div>
+                </div>
+            </div>
+        } 
+        <div class="footer" style="margin-top:30px">
+            <div class="content-footer"><strong>NGƯỜI LẬP BIỂU</strong></div>
+            <div class="content-footer"><strong>NGƯỜI PHÊ DUYỆT</strong></div>
+        </div>
+    </div> 
+</body>
+</html>
+

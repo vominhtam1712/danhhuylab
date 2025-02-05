@@ -1,0 +1,71 @@
+﻿@model List<ListClass.Model.NhatKyBaoTriVaSuChua>
+@using (Html.BeginForm("Edit", "NhatKyBaoTriVaSuChua", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:blue"><strong>CHỈNH SỬA NHẬT KÝ BẢO TRÌ VÀ SỬA CHỮA THIẾT BỊ</strong></h3>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            @Html.Hidden("ids[" + i + "].Id", Model[i].Id, new { @readonly = "readonly", @class = "form-control" })
+                            <strong>Số SN</strong><br />
+                            @Html.DropDownList("ids[" + i + "].Id_DanhMucThietBi", new SelectList(ViewBag.ThietBi, "Value", "Text", Model[i].Id_DanhMucThietBi), "Chọn số SN...", new { @class = "form-control idDropdown", required = "required" })
+                        </td>
+                        <td width="200px">
+                            <strong>Ngày lắp đặt</strong>
+                            @Html.TextBox("ids[" + i + "].NgayLapDat", Model[i].NgayLapDat.ToString("yyyy-MM-ddTHH:mm"), new { @type = "datetime-local", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                        </td>
+                        <td>
+                            <strong>Nhật ký bảo trì</strong>
+                            @Html.TextArea("ids[" + i + "].NhatKyBaoTri", Model[i].NhatKyBaoTri, new { @class = "form-control" })
+                        </td>
+                    </tr>
+                }
+            </table>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="customerInfo" style="display:none; margin-top:20px">
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <th>Số SN</th>
+                                <th>Mã thiết bị</th>
+                            </tr>
+                            <tr>
+                                <td><span style="color:blue" id="customerSerial"></span></td>
+                                <td><span style="color:blue" id="customerMaThietBi"></span></td>
+                            </tr>
+                        </table>
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <th>Tên thiết bị</th>
+                                <th>Hãng SX</th>
+                            </tr>
+                            <tr>
+                                <td><span style="color:blue" id="customerTenThietBi"></span></td>
+                                <td> <span style="color:blue" id="customerHangSX"></span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div> 
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                    <a style="text-decoration:none;" href="#" onclick="closeEditModal()"><img src="~/Public/Img/close.png" width="40" /></a>
+                </div>
+            </div>
+        </div>
+    </section>
+}

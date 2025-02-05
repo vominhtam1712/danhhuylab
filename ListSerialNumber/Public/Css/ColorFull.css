@@ -1,0 +1,9 @@
+﻿.ColorFull {
+    animation: colorfull 1s linear infinite;
+}
+
+@keyframes colorfull {
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}

@@ -1,0 +1,243 @@
+﻿@model IEnumerable<ListClass.Model.Join_KeHoachHieuChuanKiemTra_ThietBi>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng với 3 Hàng trong Cột 3</title>
+    <style>
+        table {
+            width: 60%;
+            margin-left: 8px;
+            border-spacing:0;  
+        }
+
+        th, td {
+            border: 1px solid #939393;
+            padding: 8px;
+            text-align: center; 
+        } 
+        .header {
+            display: flex;
+            border: 1px solid #000;
+            justify-content: space-between;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+            width: 90%;
+            margin-left: 5%
+        }
+        .header-content:nth-child(1) img{
+            width:250px
+        }
+        .header-content:nth-child(1) {
+            width: 20%
+        }
+        .header-content:nth-child(2){
+            width:60%;
+            border-left:1px solid #000;
+            border-right:1px solid #000;
+        }
+        .header-content:nth-child(3) {
+            width: 20%;
+            text-align:left
+        }
+        .header-content-text{
+            font-size:25px; 
+            height: 100%
+        }
+            .header-content-text:nth-child(1) {
+                height: 33%;
+                padding: 10px 0 15px 10px
+            }
+            .header-content-text:nth-child(2) {
+                border-top: 1px solid #000;
+                border-bottom: 1px solid #000;
+                height: 33%;
+                padding: 15px 0 15px 10px
+            }
+            .header-content-text:nth-child(3) {
+                height: 33%;
+                padding: 15px 0 10px 10px
+            }
+        .row{
+            display:flex;
+            text-align:center;
+        }
+        .col-md-5{
+            width:50%;
+        }
+        .col-md-2 {
+            font-size:20px;
+            width: 20%;
+        }
+        .col-md-2:nth-child(2){
+            text-align:left
+        } 
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <img src="https://danhhuylab.vn/Public/Img/logo-danhhuy.png" />
+        </div>
+        <div class="header-content">
+            <h1>
+                QUY TRÌNH QUẢN LÝ THIẾT BỊ
+            </h1>
+            <h1>
+                KẾ HOẠCH HIỆU CHUẨN/ KIỂM TRA
+            </h1>
+            <h1>
+                GIỮA KỲ/ BẢO TRÌ BẢO DƯỠNG
+            </h1>
+        </div>
+        <div class="header-content">
+            <div class="header-content-text">
+                Mã số: DH­QT03/BM02
+            </div>
+            <div class="header-content-text">
+                Số soát xét: 02
+            </div>
+            <div class="header-content-text">
+                Ngày hiệu lực: 27/03/2024
+            </div>
+        </div>
+    </div>
+    <div class="container" style="margin-top:20px">
+        <table>
+            <tr>
+                <th rowspan="2">STT</th>
+                <th rowspan="2">TÊN THIẾT BỊ</th>
+                <th rowspan="2">MÃ THIẾT BỊ</th>
+                <th colspan="2" width="20px">
+                    Jan
+                </th>
+                <th colspan="2" width="20px">
+                    Feb
+                </th>
+                <th colspan="2" width="20px">
+                    March
+                </th>
+                <th colspan="2" width="20px">
+                    April
+                </th>
+                <th colspan="2" width="20px">
+                    May
+                </th>
+                <th colspan="2" width="20px">
+                    June
+                </th>
+                <th colspan="2" width="20px">
+                    July
+                </th>
+                <th colspan="2" width="20px">
+                    Aug
+                </th>
+                <th colspan="2" width="20px">
+                    Sep
+                </th>
+                <th colspan="2" width="20px">
+                    Oct
+                </th>
+                <th colspan="2" width="20px">
+                    Nov
+                </th>
+                <th colspan="2" width="20px">
+                    Dec
+                </th>
+            </tr>
+            <tr>
+                <td>Plan</td>
+                <td>Act</td>
+                <td>Plan</td>
+                <td>Act</td>
+                <td>Plan</td>
+                <td>Act</td>
+                <td>Plan</td>
+                <td>Act</td>
+                <td>Plan</td>
+                <td>Act</td>
+                <td>Plan</td>
+                <td>Act</td>
+                <td>Plan</td>
+                <td>Act</td>
+                <td>Plan</td>
+                <td>Act</td>
+                <td>Plan</td>
+                <td>Act</td>
+                <td>Plan</td>
+                <td>Act</td>
+                <td>Plan</td>
+                <td>Act</td>
+                <td>Plan</td>
+                <td>Act</td>
+            </tr>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                var item = Model.ElementAt(i);
+                <tr>
+                    <td>@(i + 1)</td>
+                    <td><p style="width:300px;text-align:left">@Html.DisplayFor(modelItem => item.TenThietBi)</p></td>
+                    <td><p style="width:150px">@Html.DisplayFor(modelItem => item.MaThietBi)</p></td>
+                    <td>@Html.DisplayFor(modelItem => item.Jan_Plan)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Jan_Act)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Feb_Plan)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Feb_Act)</td>
+                    <td>@Html.DisplayFor(modelItem => item.March_Plan)</td>
+                    <td>@Html.DisplayFor(modelItem => item.March_Act)</td>
+                    <td>@Html.DisplayFor(modelItem => item.April_Plan)</td>
+                    <td>@Html.DisplayFor(modelItem => item.April_Act)</td>
+                    <td>@Html.DisplayFor(modelItem => item.May_Plan)</td>
+                    <td>@Html.DisplayFor(modelItem => item.May_Act)</td>
+                    <td>@Html.DisplayFor(modelItem => item.June_Plan)</td>
+                    <td>@Html.DisplayFor(modelItem => item.June_Act)</td>
+                    <td>@Html.DisplayFor(modelItem => item.July_Plan)</td>
+                    <td>@Html.DisplayFor(modelItem => item.July_Act)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Aug_Plan)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Aug_Act)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Sep_Plan)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Sep_Act)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Oct_Plan)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Oct_Act)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Nov_Plan)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Nov_Act)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Dec_Plan)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Dec_Act)</td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="row" style="margin-top:2%">
+        <div class="col-md-2">
+            <strong>Ghi chú:</strong>
+        </div>
+        <div class="col-md-2">
+            <strong>CEx</strong> - Hiệu chuẩn bên ngoài
+        </div>
+        <div class="col-md-2">
+            <strong>Intrv</strong> - Kiểm tra giữa kỳ
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <strong> 
+            </strong>
+        </div>
+        <div class="col-md-2">
+            <strong>Cin</strong> - Hiệu chuẩn nội bộ
+        </div>
+        <div class="col-md-2">
+            <strong> Main</strong> - Bảo trì bảo dưỡng
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <h2>NGƯỜI LẬP BIỂU</h2>
+        </div>
+        <div class="col-md-5">
+            <h2>PHÊ DUYỆT BỞI</h2>
+        </div>
+    </div> 
+</body>
+</html>

@@ -1,0 +1,31 @@
+﻿@model List<ListClass.Model.KhuVuc>
+@using (Html.BeginForm("Edit", "KhuVuc", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<section class="content py-2">
+    <div class="container">
+        <div class="row" style="margin-left:10%"> 
+            <div class="col-md-2" style="width: auto;">
+                <button class="form-control form-a-control" type="submit" value="Edit">
+                    <span class="fas fa-edit"> OK</span>
+                </button>
+            </div>
+        </div>
+        <table class="table table-bordered table-striped" style="margin-top:10px">
+            @for (int i = 0; i < Model.Count; i++)
+            { 
+                <tr>
+                    <td width="250px">
+                        @Html.Hidden("ids[" + i + "].Id", Model[i].Id, new { @readonly = "readonly", @class = "form-control" })
+                        <strong>Tên tập đoàn</strong>
+                        @Html.TextBox("ids[" + i + "].Tenkhuvuc", Model[i].Tenkhuvuc, new { @class = "form-control"})
+                    </td>
+                </tr>
+
+            }
+        </table>
+    </div>
+</section> 
+}
+

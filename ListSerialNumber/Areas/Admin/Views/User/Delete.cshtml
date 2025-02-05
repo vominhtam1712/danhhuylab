@@ -1,0 +1,47 @@
+﻿@model ListClass.Model.User
+
+@{
+    ViewBag.Title = "Xóa tài khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    button:hover {
+        background-color: blue;
+    }
+</style>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-12 text-center" style="background-color:red">
+                        <h1 class="text-light py-3"><strong>BẠN CÓ CHẮC MUỐN XÓA TÀI KHOẢN NÀY KHÔNG ?</strong></h1>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+        <section class="content-body">
+            <div class="container-fluid ">
+                <div class="row">
+                    <div class="col-sm-3">
+                    </div>
+                    <div class="col-sm-3">
+                        <button class="form-control" type="submit" value="Delete">
+                            <p style="color:black">XÓA TÀI KHOẢN</p>
+                        </button>
+                    </div>
+                    <div class="col-sm-3">
+                        <button class=" form-control" type="button">
+                            <a style="color:black" href="@Url.Action("Index","User")">TRỞ VỀ</a>
+                        </button>
+                    </div>
+                    <div class="col-sm-3">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+}

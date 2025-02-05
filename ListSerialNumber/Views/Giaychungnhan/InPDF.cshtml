@@ -1,0 +1,2960 @@
+﻿@model IEnumerable<ListClass.Model.Join_Giaychungnhan>
+@{
+    var distinctItems = Model
+        .GroupBy(x => x.Id_BienBanHieuChuan)
+        .Select(g => g.FirstOrDefault())
+        .ToList();
+    var distinctItems1 = Model
+        .GroupBy(x => x.ID_STD)
+        .Select(g => g.FirstOrDefault())
+        .ToList();
+    var distinctItems2 = Model
+        .GroupBy(x => x.Id_PhanCong)
+        .Select(g => g.FirstOrDefault())
+        .ToList();
+    var distinctItems3 = Model
+        .GroupBy(x => x.Id_GiaTriTruocHieuChinh)
+        .Select(g => g.FirstOrDefault())
+        .ToList();
+    var distinctItems4 = Model
+        .GroupBy(x => x.Id_KetQuaHieuChinh)
+        .Select(g => g.FirstOrDefault())
+        .ToList();
+    var dem = 1;
+    var dem2 = 1;
+    var dem3 = 1;
+    var dem4 = 1;
+    var dem5 = 1;
+    var dem6 = 1;
+    var dem7 = 1;
+    var dem8 = 1;
+    var dem9 = 1;
+    var dem10 = 1;
+    var dem11 = 1;
+    var dem12 = 1;
+    var dem13 = 1;
+    var dem14 = 1;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inpdf</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            height: 140px;
+            border-bottom: 1px solid #000;
+            margin-top: -1075px
+        }
+
+        .header-content-info {
+            display: flex;
+            height: 150px;
+            border-bottom: 1px solid #000;
+        }
+
+        .Sesion {
+            border: 1px solid #000;
+            min-height: 1650px;
+        }
+
+        .intro-info:nth-child(1) img {
+            width: 190px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        .intro-info:nth-child(3) img {
+            width: 190px;
+            height: auto;
+            margin-left: 10px;
+        }
+
+        .intro-info:nth-child(1),
+        .intro-info:nth-child(3) {
+            margin-top: 25px
+        }
+
+        .header .header-content {
+            text-align: center;
+            justify-content: center;
+            display: flex;
+        }
+
+        .header-info-content:nth-child(1) {
+            text-align: center;
+            align-self: center;
+            width: 20%;
+        }
+
+        .header-info-content:nth-child(2) {
+            width: 60%;
+            text-align: center;
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+        }
+
+        .header-info-content:nth-child(3) {
+            width: 20%;
+            text-align: center;
+            align-self: center;
+        }
+
+        .size-chu {
+            font-size: 20px;
+        }
+
+        .row {
+            width: 100%;
+            display: flex;
+            font-size: 25px;
+            padding: 5px 0 5px 10px;
+        }
+
+            .row .col-md-1 {
+                width: 10%;
+            }
+
+            .row .col-md-2 {
+                width: 20%;
+            }
+
+            .row .col-md-3 {
+                width: 30%;
+            }
+
+            .row .col-md-4 {
+                width: 40%;
+            }
+
+            .row .col-md-5 {
+                width: 50%;
+            }
+
+            .row .col-md-6 {
+                width: 60%;
+            }
+
+            .row .col-md-7 {
+                width: 70%;
+            }
+
+            .row .col-md-8 {
+                width: 80%;
+            }
+
+            .row .col-md-9 {
+                width: 90%;
+            }
+
+            .row .col-md-10 {
+                width: 100%;
+            }
+
+
+        .color-intro:nth-child(1) {
+            margin-top: 5px;
+            font-size: 25px;
+        }
+
+        .color-intro:nth-child(2) {
+            margin-top: -37px;
+            font-size: 35px;
+        }
+
+        .color-intro:nth-child(3) {
+            margin-top: -40px;
+            font-size: 25px;
+        }
+
+        .color-intro:nth-child(4) {
+            margin-top: -35px;
+            font-size: 18px;
+        }
+
+        .color-intro:nth-child(5) {
+            margin-top: 0px;
+            font-size: 18px;
+        }
+
+        .color-intro {
+            color: #0e75dd;
+        }
+
+        .color-intro-content {
+            color: #0e75dd;
+        }
+
+            .color-intro-content:nth-child(1) {
+                margin-top: 10px;
+                font-size: 35px
+            }
+
+            .color-intro-content:nth-child(2) {
+                margin-top: 5px;
+                font-size: 35px
+            }
+
+            .color-intro-content:nth-child(3) {
+                margin-top: 5px;
+                font-size: 20px
+            }
+
+        .color-intro-orange {
+            color: #f6722e
+        }
+
+        .footer {
+            color: #0e75dd;
+            background-color: #f1f1f1;
+            padding: 20px 20px 20px 20px;
+            border-top: 1px solid #000;
+            border-right: 1px solid #000;
+            margin-top: 200px;
+            position: absolute;
+            top:1220px; 
+        }
+
+        .footer-content {
+            width: 100%;
+            font-size: 17.4px;
+            padding: 5px;
+            display: flex;
+           
+        }
+
+            .footer-content .footer-content-text:nth-child(1) {
+                width: 2%
+            }
+
+            .footer-content .footer-content-text:nth-child(2) {
+                width: 98%
+            }
+
+        .page-break {
+            page-break-before: always; 
+            margin: 5px;
+            padding: 5px;  
+            visibility:hidden; 
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 80%;
+            margin-left: 10%;
+        }
+
+        td, th {
+            font-size: 20px;
+            border: 1px solid #757575;
+            text-align: center;
+            padding: 8px;
+        }
+
+        input {
+            width: 20px;
+            height: 20px;
+        }
+
+        .Referentce {
+            margin-left: 25%;
+            font-size: 30px;
+            padding: 10px 0 10px 0;
+        }
+
+        .Referentce-content {
+            display: flex;
+            text-align: center;
+            font-size: 23px;
+            border: 1px solid #000;
+            justify-content: space-between;
+            padding: 10px 20px 10px 20px;
+        }
+
+        .Referentce-content-2 {
+            display: flex;
+            text-align: center;
+            font-size: 23px;
+            border-top: 1px solid #000;
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+            justify-content: space-between;
+            padding: 10px 20px 10px 20px; 
+        }
+
+        .Referentce-content-3 {
+            border-bottom: 1px solid #000;
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+        }
+
+        .Referentce-content-4 {
+            display: flex;
+            text-align: center;
+            font-size: 23px;
+            justify-content: space-between;
+            padding: 10px 20px 10px 20px;
+        }
+
+        .Measurments {
+            display: flex;
+            text-align: center;
+            font-size: 23px;
+            justify-content: space-between;
+            padding: 10px 80px 10px 80px
+        }
+
+        .UV {
+            border-top: 1px solid #000;
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+            width: 60%;
+            padding: 5px 0 5px 25px;
+            font-size: 20px
+        }
+
+        .lamp {
+            font-size: 20px;
+            padding: 30px 0 0 30px
+        }
+
+        .Referentce-content-text:nth-child(1) {
+            width: 10%;
+            font-size: 20px
+        }
+
+        .Referentce-content-text:nth-child(2) {
+            width: 20%;
+            font-size: 20px
+        }
+
+        .Referentce-content-text:nth-child(3) {
+            width: 10%;
+            font-size: 20px
+        }
+
+        .Referentce-content-text:nth-child(4) {
+            width: 20%;
+            font-size: 20px
+        }
+
+        .Referentce-content-text:nth-child(5) {
+            width: 20%;
+            font-size: 20px
+        }
+
+        .Referentce-content-text:nth-child(6) {
+            width: 20%;
+            font-size: 20px
+        }
+
+        .Average-Stand {
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            font-size: 20px;
+        }
+
+        .Average {
+            width: 100%;
+            padding: 10px 20px 10px 20px;
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+            border-bottom: 1px solid #000;
+        }
+
+        .Stand {
+            width: 100%;
+            padding: 10px 20px 10px 20px;
+            border-right: 1px solid #000;
+            border-bottom: 1px solid #000;
+        }
+
+        p {
+            color: #0e75dd;
+        }
+
+        .footer-2 {
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+            color: #0e75dd;
+            margin-top: 20px;
+        }
+
+        .page {
+            border: 1px solid #000;
+        }
+
+        .nhietdo {
+            display: flex;
+        }
+
+        .nhietdo-text:nth-child(2) {
+            margin-left: 5px;
+            font-size: 17px
+        }
+
+        .nhietdo-text:nth-child(3) {
+            font-size: 17px;
+            margin-left: -9px;
+            margin-top: 2px;
+        }
+
+        .nhietdo-text:nth-child(4) {
+            margin-left: 5px;
+        }
+
+        .nhietdo-doam {
+            display: flex;
+            text-align: center
+        }
+
+        .header-img {
+            display: flex;
+            margin-top: 50%;
+            justify-content: center;
+            opacity: .1;
+        }
+    </style>
+</head>
+<body>
+    <div class="page" style="margin-top:30px;height:1600px">
+        <div class="header-img">
+            <img src="https://danhhuylab.vn/Public/Img/logo-danhhuy.png" />
+        </div>
+        <div class="header">
+            <div class="header-content">
+                <div class="intro-info">
+                    <img src="https://danhhuylab.vn/Public/Img/logo-danhhuy.png" />
+                </div>
+                <div class="intro-info">
+                    <h4 class="color-intro">CÔNG TY TNHH THƯƠNG MẠI DANH HUY ( DK 579)</h4>
+                    <h3 class="color-intro">TRUNG TÂM HIỆU CHUẨN DANH HUY</h3>
+                    <h4 class="color-intro"><i>DANH HUY CO., LTD & DANH HUY CALIBRATION CENTER</i></h4>
+                    <div class="color-intro">171, Đường TX43, Phường Thạnh Xuân, Quận 12, TP.Hồ Chí Minh, Việt Nam</div>
+                    <div class="color-intro">Tel: 028 37156 168 &nbsp;F: 028 37156 167 &nbsp; &nbsp; E-mail: info@danhhuy.com.vn &nbsp; &nbsp; Web: www.danhhuy.vn</div>
+                </div>
+                <div class="intro-info">
+                    <img src="https://danhhuylab.vn/Public/Img/logo-iso.png" />
+                </div>
+            </div>
+        </div>
+        <div class="header-content-info">
+            @foreach (var item in distinctItems)
+            {
+                <div class="header-info-content">
+                    <div class="size-chu">Số GCN/Certificate No.:</div>
+                    <div class="size-chu">@item.SoNhanDang</div>
+                </div>
+                <div class="header-info-content">
+                    <div class="color-intro-content"><strong>GIẤY CHỨNG NHẬN HIỆU CHUẨN</strong></div>
+                    <div class="color-intro-content color-intro-orange"><strong><i>CERTIFICATE OF CALIBRATION</i></strong></div>
+                    <div class="color-intro-content"><strong>Số giấy chứng nhận đăng ký cung cấp dịch vụ: DK579<br /><i>Service Registration Certificate No. : DK579</i></strong></div>
+                </div>
+                <div class="header-info-content">
+                    <div class="size-chu">@item.NgayHieuChuan.ToString("dd/MM/yyyy")</div>
+                    <div class="size-chu">Page: @(dem10++)</div>
+                </div>
+            }
+        </div>
+        <div class="Content">
+            @foreach (var item in distinctItems)
+            {
+                <div class="row" style="margin-top:10px">
+                    <div class="col-md-3">1.Phương tiện đo <i>(Object)</i>:</div>
+                    <div class="col-md-7"><strong>@item.Tenthietbi</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">2.Kiểu <i>(Type)</i>:</div>
+                    <div class="col-md-7"><strong>@item.Model</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">3.Số Serial Number <i>(Serial No)</i>: </div>
+                    <div class="col-md-7"><strong>@item.SerialNumber</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">4.Nơi sản xuất <i>(Manufacturer)</i>:</div>
+                    <div class="col-md-7"><strong>@item.Hang</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">5. Đặc trưng kỹ thuật đo lường <i>(Specification)</i> :</div>
+                    <div class="col-md-5">
+                        <div>
+                            Sai số toàn dải là [<span style="position: relative; font-size: 20px; top: -5px;left:5px">+</span><span style="position: relative;top:5px;right:2.5px; font-size: 20px; ">-</span> 10%] +
+                            [<span style="position: relative; font-size: 20px; top: -5px;left:5px">+</span><span style="position: relative;top:5px;right:2.5px; font-size: 20px; ">-</span> 0.2%],<br />
+                            [<span style="position: relative; font-size: 20px; top: -5px;left:5px">+</span><span style="position: relative;top:5px;right:2.5px; font-size: 20px; ">-</span> 10%] +
+                            [<span style="position: relative; font-size: 20px; top: -5px;left:5px">+</span><span style="position: relative;top:5px;right:2.5px; font-size: 20px; ">-</span> 0.2%] <i>of full scale</i>
+                        </div> 
+                    </div> 
+                </div>
+                <div class="row" style="margin-left: 10%">
+                    <div class="col-md-4">5.1 Chức năng đo  <i>(Measurement) </i>:</div>
+                    <div class="col-md-6">Cường độ UV và Năng lượng UV / <i>UV Irradiance and <br /> UV Energy</i></div>
+                </div>
+                <div class="row" style="margin-left: 10%">
+                    <div class="col-md-4">5.2 Phạm vi đo  <i>(Range) </i>:     </div>
+                    <div class="col-md-6">
+                        @if(item.PhammVido_listnumber !=null)
+                        { 
+                            <div>@item.PhammVido_listnumber W/cm²</div>
+                        }
+                        else
+                        {
+                            <div style="color:red">Chưa có dữ liệu!</div>
+                        }
+                    </div>
+                </div>
+                <div class="row" style="margin-left: 10% ">
+                    <div class="col-md-4">5.3 Độ phân giải  <i>(Resolution) </i>:    </div>
+                    <div class="col-md-6">
+                        @if (item.DoPhanGiai_listnumber != null)
+                        {
+                            <div>@item.DoPhanGiai_listnumber mW/cm²</div>
+                        }
+                        else
+                        {
+                            <div style="color:red">Chưa có dữ liệu!</div>
+                        } 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">6. Khách hàng  <i>(Customer) </i>:</div>
+                    <div class="col-md-5" style="margin-right:10px">
+                        <strong>@item.KhachHang</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">7. Nơi hiệu chuẩn  <i>(Place of Calibration) </i>:</div>
+                    <div class="col-md-5">
+                        <strong>Trung Tâm Hiệu Chuẩn Danh Huy/Danh Huy Calibration Center</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">8. Phương pháp hiệu chuẩn  <i>(Method of Calibration) </i>:</div>
+                    <div class="col-md-5">
+                        <strong> DH/HC/01/2023</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10">9. Chuẩn được sử dụng  <i>(Standards Used) </i>:</div>
+                </div>
+                <table>
+                    <tr>
+                        <th>Model</th>
+                        <th>Serial Number</th>
+                        <th>Cal. Date</th>
+                        <th>Due Date</th>
+                        <th>Traceable to</th>
+                    </tr>
+                    <tr>
+                        <td>@item.TenHieuChuan</td>
+                        <td>@item.SN</td>
+                        <td>@item.Cal_Date.ToString("dd/MM/yyyy")</td>
+                        <td>@item.Due_Day.ToString("dd/MM/yyyy")</td>
+                        <td>VMI</td>
+                    </tr>
+                </table>
+                <div class="row">
+                    <div class="col-md-5">10. Môi trường hiệu chuẩn: <br /> <i style="margin-left:30px">(Calibration Environment) </i> </div>
+                    <div class="col-md-2 nhietdo">
+                        <div class="nhietdo-text">[ @item.NhietDo </div>
+                        <div class="nhietdo-text">+</div>
+                        <div class="nhietdo-text">_</div>
+                        <div class="nhietdo-text">2 ]ºC</div>
+                    </div>
+                    <div class="col-md-2 nhietdo">
+                        <div class="nhietdo-text">[ @item.DoAm </div>
+                        <div class="nhietdo-text">+</div>
+                        <div class="nhietdo-text">_</div>
+                        <div class="nhietdo-text">10 ]%RH</div>
+                    </div>
+                    <div class="col-md-2">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">11. Hiệu chỉnh phương tiện đo  <i>(Adjustment) </i> :  </div>
+                    <div class="col-md-2">
+                        <input type="checkbox" /> Không/No
+                    </div>
+                    <div class="col-md-2">
+                        <input type="checkbox" checked style="background:blue" /> Có/Yes
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">12. Ngày hiệu chuẩn  <i>(Date of Calibration) </i>:  </div>
+                    <div class="col-md-5">
+                        <strong>@item.NgayHieuChuan.ToString("dd/MM/yyyy")</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">13. Tem hiệu chuẩn  <i>(Calibration Label) </i>: </div>
+                    <div class="col-md-5">
+                        <strong>@item.SoNhanDang</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">14. Ngày hiệu chuẩn lại theo yêu cầu của khách hàng:<br />  <i style="margin-left:30px">(Recalibration date as request of customers) </i></div>
+                    <div class="col-md-5">
+                        <strong>@item.NgayHieuChuanLai.ToString("dd/MM/yyyy")</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5" style="text-align:center"><strong>Người thực hiện <i style="font-size: 20px; margin-top: -20px"> (Technician)</i></strong></div>
+                    <div class="col-md-5" style="text-align:center"><strong>Giám đốc <i  style="font-size:20px;margin-top:-20px"> (Director)</i></strong></div>
+                </div>
+            }
+        </div>
+        <div class="footer">
+            <div class="footer-content">
+                <div class="footer-content-text">
+                    1.
+                </div>
+                <div class="footer-content-text">
+                    Giấy chứng nhận hiệu chuẩn này thể hiện việc liên kết chuẩn với VMI. Với đơn vị đo theo hệ đơn vị đo quốc tế SI<br />
+                    <i>(This calibration certificate documents the traceable to Vietnam Metrology Institue (VMI), The units of measuremnt according to the SI)</i>
+                </div>
+            </div>
+            <div class="footer-content">
+                <div class="footer-content-text">
+                    2.
+                </div>
+                <div class="footer-content-text">
+                    Độ không đảm bảo đo mở rộng được tính từ độ không đảm bảo đo chuẩn nhân với hệ số phủ k=2, phân bố chuẩn tương ứng với độ tin cậy 95%<br />
+                    <i>(The expanded uncertainty of measurement is stated as the standard uncertainty of measurement multiplied by the coverage factor k=2, at 95% confidence level)</i>.
+                </div>
+            </div>
+            <div class="footer-content">
+                <div class="footer-content-text">
+                    3.
+                </div>
+                <div class="footer-content-text">
+                    Không được sao trích một phần giấy chứng nhận hiệu chuẩn này nếu không có sự đồng ý bằng văn bản của Công Ty TNHH Thương Mại Danh Huy<br />
+                    <i>(This certificate shall not be reproduced, except in full, without the written permission by Danh Huy Co., Ltd)</i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-2">
+        <div class="footer-2-text">Số biểu mẫu: DH-QT04/BM03 </div>
+        <div class="footer-2-text">Số soát xét :  02 </div>
+        <div class="footer-2-text">Ngày hiệu lực : 27-03-2024</div>
+    </div>
+    <div class="page-break">@(dem14++)</div>
+    @if (distinctItems4.Any(item => item.BuocSong_KetQuaHieuChinh == "UV-A") && distinctItems4.Any(item => item.BuocSong_KetQuaHieuChinh == "UV-B") && distinctItems4.Any(item => item.BuocSong_KetQuaHieuChinh == "UV-C") && distinctItems4.Any(item => item.BuocSong_KetQuaHieuChinh == "UV-V"))
+    {
+        <div class="page-specific">
+            <div class="header-img">
+                <img src="https://danhhuylab.vn/Public/Img/logo-danhhuy.png" />
+            </div>
+            <div class="Sesion" style="margin-top:-1080px">
+                <div class="header-content-info">
+                    @foreach (var item in distinctItems)
+                    {
+                        <div class="header-info-content">
+                            <div class="size-chu">Số GCN/Certificate No.:</div>
+                            <div class="size-chu">@item.SoNhanDang</div>
+                        </div>
+                        <div class="header-info-content">
+                            <div class="color-intro-content"><strong>KẾT QUẢ HIỆU CHỈNH</strong></div>
+                            <div class="color-intro-content color-intro-orange"><strong><i>RESULTS OF CALIBRATION</i></strong></div>
+                            <div class="color-intro-content">
+                                <strong>
+                                    Kèm theo giấy chứng nhận hiệu chuẩn số: @item.SoNhanDang <br />
+                                    <i>Accompanied by Calibration Certificate No. : @item.SoNhanDang</i>
+                                </strong>
+                            </div>
+                        </div>
+                        <div class="header-info-content">
+                            <div class="size-chu">@item.NgayHieuChuan.ToString("dd/MM/yyyy")</div>
+                            <div class="size-chu">Page: @(dem10++)</div>
+                        </div>
+                    }
+                </div>
+                <div class="Content">
+                    <div class="footer-2" style="margin-left:20px">
+                        <div class="footer-2-text">
+                            Công Ty TNHH TM Danh Huy là cơ sở Hiệu Chỉnh / Hiệu Chuẩn được ủy quyền của EIT20, Được đào tạo tại nhà máy của EIT20.<br />
+                            <i>(Danh Huy Trading Co., Ltd. is an authorized calibration facility of EIT20., Trained at the EIT20 facility)</i>.<br />
+                            Các dịch vụ Hiệu Chỉnh / Hiệu Chuẩn và sửa chữa được cung cấp theo giấy phép của EIT20.<br />
+                            <i>(Calibration and repair services are provided under the license of EIT20)</i>.
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9" style="font-size:20px;margin-left:10px">
+                            Tiêu chuẩn sai số cho phép sau hiệu chỉnh <3% (Cường độ UV) . / <i> Acceptance Criteria Deviation <3% (Irradiance) . </i><br />
+                            Kết quả hiệu chỉnh bên dưới đáp ứng tiêu chuẩn của nhà sản xuất, đủ tiêu chuẩn sử dụng <i>/ The calibration results below meet the manufacturer's standards and are qualified for use.</i>
+                        </div>
+                    </div>
+                    <div class="Referentce">
+                        Chuẩn Được Sử Dụng <i>(Reference Standard Used)</i>
+                    </div>
+                    @foreach (var item in distinctItems2)
+                    {
+                        <div class="Referentce-content" style="border-bottom:none">
+                            <div><strong>No</strong><br />1</div>
+                            <div><strong>Model</strong><br />@item.Model_ChuanSuDung</div>
+                            <div><strong>Description</strong><br />@item.Description_ChuanSuDung</div>
+                            <div><strong>Serial No.</strong><br />@item.Serial_ChuanSuDung</div>
+                            <div><strong>Certificate No.</strong><br />@item.Cetificate_ChuanSuDung</div>
+                            <div><strong>Cal Date</strong><br />@item.Cal_Date_ChuanSuDung.ToString("dd/MM/yyyy")</div>
+                            <div><strong>Cal Due</strong><br />@item.Cal_Due_ChuanSuDung.ToString("dd/MM/yyyy")</div>
+                        </div>
+                        <div class="Referentce-content" style="font-size:20px;border-top:none">
+                            <div>Chuẩn sử dụng này từ EIT20, có thể truy nguyên SI thông qua NIST theo quy trình ISO9001 đã được EIT đăng ký. / <i>This Reference Standard from EIT20, which are traceable to SI through the NIST in accordance with EIT lSO9001 registered procedures. </i> </div> 
+                        </div>
+                    }
+                    <div class="Referentce" style="margin-top:20px">
+                        Giá Trị Trước Hiệu Chỉnh <i>( As Received Measurments )</i>
+                    </div>
+                    @foreach (var item in distinctItems2)
+                    {
+                        <div class="Measurments">
+                            <div><strong>Ngày (Date:)</strong><br />@item.NgayTao_NgayTaoTechnicialBuldTruocHieuChinh.ToString("dd/MM/yyyy")</div>
+                            <div><strong>Technicial: </strong><br />@item.Technicial_NgayTaoTechnicialBuldTruocHieuChinh</div>
+                            <div>
+                                <strong> Điều kiện nhiệt độ, độ ẩm <i>( Lab Condition: )</i></strong><br />
+                                <div class="nhietdo-doam">
+                                    <div class="col-md-2 nhietdo">
+                                        <div class="nhietdo-text">[ @item.NhietDo </div>
+                                        <div class="nhietdo-text">+</div>
+                                        <div class="nhietdo-text">_</div>
+                                        <div class="nhietdo-text">2 ]ºC - </div>
+                                    </div>
+                                    <div class="col-md-2 nhietdo" style="margin-left:5px">
+                                        <div class="nhietdo-text"> [ @item.DoAm </div>
+                                        <div class="nhietdo-text">+</div>
+                                        <div class="nhietdo-text">_</div>
+                                        <div class="nhietdo-text">10 ]%RH</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="row" style="margin-top:30px">
+                        <div class="col-md-7">
+                            <div class="row" style="margin-left:-10px">
+                                <div class="UV">
+                                    <strong> Dải đo UVA : 320-390nm [ Band: UVA (320 - 390nm )]</strong>
+                                </div>
+                                @foreach (var item in distinctItems3)
+                                {
+                                    if (item.BuocSong_GiaTriTruocHieuChinh == "UV-A")
+                                    {
+                                        if (item.Deviation_1_GiaTriTruocHieuChinh <= 10 || item.Deviation_1_GiaTriTruocHieuChinh <= -10)
+                                        {
+                                            <div style="margin-left:10px"> IN TOLERANCE </div>
+                                        }
+                                        else
+                                        {
+                                            <div style="margin-left:10px"> OUT OF TOLERANCE</div>
+                                        }
+                                    }
+                                }
+                            </div>
+                            <div class="Referentce-content-2" style="margin-top:-5px">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems3)
+                                {
+                                    if (item.BuocSong_GiaTriTruocHieuChinh == "UV-A")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">1</div>
+                                            <div class="Referentce-content-text">@item.Measurand_1_GiaTriTruocHieuChinh</div>
+                                            <div class="Referentce-content-text">mW/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_1_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_1_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_1_GiaTriTruocHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="row" style="margin-left:-10px">
+                                <div class="UV">
+                                    <strong> Dải đo UVA : 320-390nm [ Band: UVA (320 - 390nm )]</strong>
+                                </div>
+                            </div>
+                            <div class="Referentce-content-2" style="margin-top:-5px">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong><br /></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems3)
+                                {
+                                    if (item.BuocSong_GiaTriTruocHieuChinh == "UV-A")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">1</div>
+                                            <div class="Referentce-content-text">@item.Measurand_2_GiaTriTruocHieuChinh</div>
+                                            <div class="Referentce-content-text">mJ/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_2_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_2_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_2_GiaTriTruocHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 30px ">
+                        <div class="col-md-7">
+                            <div class="row" style="margin-left:-10px">
+                                <div class="UV">
+                                    <strong>Dải đo UVB : 280-­320nm [ Band: UVB (280-­320nm )]</strong>
+                                </div>
+                                @foreach (var item in distinctItems3)
+                                {
+                                    if (item.BuocSong_GiaTriTruocHieuChinh == "UV-B")
+                                    {
+                                        if (item.Deviation_1_GiaTriTruocHieuChinh <= 10 || item.Deviation_1_GiaTriTruocHieuChinh <= -10)
+                                        {
+                                            <div style="margin-left:10px"> IN TOLERANCE </div>
+                                        }
+                                        else
+                                        {
+                                            <div style="margin-left:10px"> OUT OF TOLERANCE</div>
+                                        }
+                                    }
+                                }
+                            </div>
+                            <div class="Referentce-content-2" style="margin-top:-5px">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems3)
+                                {
+                                    if (item.BuocSong_GiaTriTruocHieuChinh == "UV-B")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">1</div>
+                                            <div class="Referentce-content-text">@item.Measurand_1_GiaTriTruocHieuChinh</div>
+                                            <div class="Referentce-content-text">mW/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_1_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_1_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_1_GiaTriTruocHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="row" style="margin-left:-10px">
+                                <div class="UV">
+                                    <strong>Dải đo UVB : 280-­320nm [ Band: UVB (280-­320nm )]</strong>
+                                </div>
+                            </div>
+                            <div class="Referentce-content-2" style="margin-top:-5px">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong><br /></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems3)
+                                {
+                                    if (item.BuocSong_GiaTriTruocHieuChinh == "UV-B")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">1</div>
+                                            <div class="Referentce-content-text">@item.Measurand_2_GiaTriTruocHieuChinh</div>
+                                            <div class="Referentce-content-text">mJ/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_2_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_2_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_2_GiaTriTruocHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 30px ">
+                        <div class="col-md-7">
+                            <div class="row" style="margin-left:-10px">
+                                <div class="UV">
+                                    <strong>  Dải đo UVC : 250-­260nm [ Band: UVC (250­-260nm)]</strong>
+                                </div>
+                                @foreach (var item in distinctItems3)
+                                {
+                                    if (item.BuocSong_GiaTriTruocHieuChinh == "UV-C")
+                                    {
+                                        if (item.Deviation_1_GiaTriTruocHieuChinh <= 10 || item.Deviation_1_GiaTriTruocHieuChinh <= -10)
+                                        {
+                                            <div style="margin-left:10px"> IN TOLERANCE </div>
+                                        }
+                                        else
+                                        {
+                                            <div style="margin-left:10px"> OUT OF TOLERANCE</div>
+                                        }
+                                    }
+                                }
+                            </div>
+                            <div class="Referentce-content-2" style="margin-top:-5px">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems3)
+                                {
+                                    if (item.BuocSong_GiaTriTruocHieuChinh == "UV-C")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">1</div>
+                                            <div class="Referentce-content-text">@item.Measurand_1_GiaTriTruocHieuChinh</div>
+                                            <div class="Referentce-content-text">mW/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_1_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_1_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_1_GiaTriTruocHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="row" style="margin-left:-10px">
+                                <div class="UV">
+                                    <strong>  Dải đo UVC : 250-­260nm [ Band: UVC (250­-260nm)]</strong>
+                                </div>
+                            </div>
+                            <div class="Referentce-content-2" style="margin-top:-5px">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong><br /></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems3)
+                                {
+                                    if (item.BuocSong_GiaTriTruocHieuChinh == "UV-C")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">1</div>
+                                            <div class="Referentce-content-text">@item.Measurand_2_GiaTriTruocHieuChinh</div>
+                                            <div class="Referentce-content-text">mJ/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_2_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_2_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_2_GiaTriTruocHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="page-break">@(dem14++)</div>
+        <div class="page-specific">
+            <div class="header-img">
+                <img src="https://danhhuylab.vn/Public/Img/logo-danhhuy.png" />
+            </div>
+            <div class="Sesion" style="margin-top:-1080px">
+                <div class="header-content-info">
+                    @foreach (var item in distinctItems)
+                    {
+                        <div class="header-info-content">
+                            <div class="size-chu">Số GCN/Certificate No.:</div>
+                            <div class="size-chu">@item.SoNhanDang</div>
+                        </div>
+                        <div class="header-info-content">
+                            <div class="color-intro-content"><strong>KẾT QUẢ HIỆU CHỈNH</strong></div>
+                            <div class="color-intro-content color-intro-orange"><strong><i>RESULTS OF CALIBRATION</i></strong></div>
+                            <div class="color-intro-content">
+                                <strong>
+                                    Kèm theo giấy chứng nhận hiệu chuẩn số: @item.SoNhanDang <br />
+                                    <i>Accompanied by Calibration Certificate No. : @item.SoNhanDang</i>
+                                </strong>
+                            </div>
+                        </div>
+                        <div class="header-info-content">
+                            <div class="size-chu">@item.NgayHieuChuan.ToString("dd/MM/yyyy")</div>
+                            <div class="size-chu">Page: @(dem10++)</div>
+                        </div>
+                    }
+                </div>
+                <div class="Content">
+                    <div class="row" style="margin-top: 30px ">
+                        <div class="col-md-7">
+                            <div class="row" style="margin-left:-10px">
+                                <div class="UV">
+                                    <strong> Dải đo UVV : 395-­450nm [ Band: UVV (395-­450nm)]</strong>
+                                </div>
+                                @foreach (var item in distinctItems3)
+                                {
+                                    if (item.BuocSong_GiaTriTruocHieuChinh == "UV-V")
+                                    {
+                                        if (item.Deviation_1_GiaTriTruocHieuChinh <= 10 || item.Deviation_1_GiaTriTruocHieuChinh <= -10)
+                                        {
+                                            <div style="margin-left:10px"> IN TOLERANCE </div>
+                                        }
+                                        else
+                                        {
+                                            <div style="margin-left:10px"> OUT OF TOLERANCE</div>
+                                        }
+                                    }
+                                }
+                            </div>
+                            <div class="Referentce-content-2" style="margin-top:-5px">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems3)
+                                {
+                                    if (item.BuocSong_GiaTriTruocHieuChinh == "UV-V")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">1</div>
+                                            <div class="Referentce-content-text">@item.Measurand_1_GiaTriTruocHieuChinh</div>
+                                            <div class="Referentce-content-text">mW/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_1_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_1_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_1_GiaTriTruocHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="row" style="margin-left:-10px">
+                                <div class="UV">
+                                    <strong> Dải đo UVV : 395-­450nm [ Band: UVV (395-­450nm)]</strong>
+                                </div>
+                            </div>
+                            <div class="Referentce-content-2" style="margin-top:-5px">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems3)
+                                {
+                                    if (item.BuocSong_GiaTriTruocHieuChinh == "UV-V")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">1</div>
+                                            <div class="Referentce-content-text">@item.Measurand_2_GiaTriTruocHieuChinh</div>
+                                            <div class="Referentce-content-text">mJ/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_2_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_2_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_2_GiaTriTruocHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="Referentce" style="margin-top:20px">
+                        Kết Quả Hiệu Chỉnh <i>( Calibration Results )</i>
+                    </div>
+                    @foreach (var item in distinctItems2)
+                    {
+                        <div class="Measurments">
+                            <div><strong>Ngày (Date:)</strong><br />@item.NgayTao_NgayTaoTechnicialBuldKetQuaHieuChinh.ToString("dd/MM/yyyy")</div>
+                            <div><strong>Technicial: </strong><br />@item.Technicial_NgayTaoTechnicialBuldKetQuaHieuChinh</div>
+                            <div>
+                                <strong> Điều kiện nhiệt độ, độ ẩm <i>( Lab Condition: )</i></strong><br />
+                                <div class="nhietdo-doam">
+                                    <div class="col-md-2 nhietdo">
+                                        <div class="nhietdo-text">[ @item.NhietDo </div>
+                                        <div class="nhietdo-text">+</div>
+                                        <div class="nhietdo-text">_</div>
+                                        <div class="nhietdo-text">2 ]ºC - </div>
+                                    </div>
+                                    <div class="col-md-2 nhietdo" style="margin-left:5px">
+                                        <div class="nhietdo-text"> [ @item.DoAm </div>
+                                        <div class="nhietdo-text">+</div>
+                                        <div class="nhietdo-text">_</div>
+                                        <div class="nhietdo-text">10 ]%RH</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="row" style="margin-top: 30px ">
+                        <div class="col-md-7">
+                            <div class="UV">
+                                <strong>  Dải đo UVA : 320-390nm [ Band: UVA (320 - 390nm )]</strong>
+                            </div>
+                            <div class="Referentce-content-2">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems4)
+                                {
+                                    if (item.BuocSong_KetQuaHieuChinh == "UV-A")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">@(dem++)</div>
+                                            <div class="Referentce-content-text">@item.Measurand_1_KetQuaHieuChinh</div>
+                                            <div class="Referentce-content-text">mW/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_1_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_1_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_1_KetQuaHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            <div class="Average-Stand">
+                                <div class="Average">
+                                    Average of Deviation : @ViewBag.AverageA_1 %
+                                </div>
+                                <div class="Stand">Standard deviation of Deviation : @ViewBag.StandardA_1 %</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="UV">
+                                <strong>  Dải đo UVA : 320-390nm [ Band: UVA (320 - 390nm )]</strong>
+                            </div>
+                            <div class="Referentce-content-2">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong><br /></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems4)
+                                {
+                                    if (item.BuocSong_KetQuaHieuChinh == "UV-A")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">@(dem2++)</div>
+                                            <div class="Referentce-content-text">@item.Measurand_2_KetQuaHieuChinh</div>
+                                            <div class="Referentce-content-text">mJ/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_2_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_2_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_2_KetQuaHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            <div class="Average-Stand">
+                                <div class="Average">
+                                    Average of Deviation : @ViewBag.AverageA_2 %
+                                </div>
+                                <div class="Stand">Standard deviation of Deviation : @ViewBag.StandardA_2 %</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 30px ">
+                        <div class="col-md-7">
+                            <div class="UV">
+                                <strong>Dải đo UVB : 280­-320nm [ Band: UVB (280­-320nm )]</strong>
+
+                            </div>
+                            <div class="Referentce-content-2">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems4)
+                                {
+                                    if (item.BuocSong_KetQuaHieuChinh == "UV-B")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">@(dem3++)</div>
+                                            <div class="Referentce-content-text">@item.Measurand_1_KetQuaHieuChinh</div>
+                                            <div class="Referentce-content-text">mW/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_1_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_1_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_1_KetQuaHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            <div class="Average-Stand">
+                                <div class="Average">
+                                    Average of Deviation : @ViewBag.AverageB_1 %
+                                </div>
+                                <div class="Stand">Standard deviation of Deviation : @ViewBag.StandardB_1 %</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+                 
+                </div>
+            </div>
+        </div>
+        <div class="page-break">@(dem14++)</div>
+        <div class="page-specific">
+            <div class="header-img">
+                <img src="https://danhhuylab.vn/Public/Img/logo-danhhuy.png" />
+            </div>
+            <div class="Sesion" style="margin-top:-1080px">
+                <div class="header-content-info">
+                    @foreach (var item in distinctItems)
+                    {
+                        <div class="header-info-content">
+                            <div class="size-chu">Số GCN/Certificate No.:</div>
+                            <div class="size-chu">@item.SoNhanDang</div>
+                        </div>
+                        <div class="header-info-content">
+                            <div class="color-intro-content"><strong>KẾT QUẢ HIỆU CHỈNH</strong></div>
+                            <div class="color-intro-content color-intro-orange"><strong><i>RESULTS OF CALIBRATION</i></strong></div>
+                            <div class="color-intro-content">
+                                <strong>
+                                    Kèm theo giấy chứng nhận hiệu chuẩn số: @item.SoNhanDang <br />
+                                    <i>Accompanied by Calibration Certificate No. : @item.SoNhanDang</i>
+                                </strong>
+                            </div>
+                        </div>
+                        <div class="header-info-content">
+                            <div class="size-chu">@item.NgayHieuChuan.ToString("dd/MM/yyyy")</div>
+                            <div class="size-chu">Page: @(dem10++)</div>
+                        </div>
+                    }
+                </div>
+                <div class="Content">
+                    <div class="row" style="margin-top:30px">
+                        <div class="col-md-7">
+                            <div class="UV">
+                                <strong>  Dải đo UVB : 280­-320nm [ Band: UVB (280­-320nm )]</strong>
+                            </div>
+                            <div class="Referentce-content-2">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong><br /></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems4)
+                                {
+                                    if (item.BuocSong_KetQuaHieuChinh == "UV-B")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">@(dem4++)</div>
+                                            <div class="Referentce-content-text">@item.Measurand_2_KetQuaHieuChinh</div>
+                                            <div class="Referentce-content-text">mJ/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_2_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_2_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_2_KetQuaHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            <div class="Average-Stand">
+                                <div class="Average">
+                                    Average of Deviation : @ViewBag.AverageB_2 %
+                                </div>
+                                <div class="Stand">Standard deviation of Deviation : @ViewBag.StandardB_2 %</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top:40px">
+                        <div class="col-md-7">
+                            <div class="UV">
+                                <strong>  Dải đo UVC : 250­-260nm [ Band: UVC (250­-260nm)]</strong>
+
+                            </div>
+                            <div class="Referentce-content-2">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong><br /></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems4)
+                                {
+                                    if (item.BuocSong_KetQuaHieuChinh == "UV-C")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">@(dem5++)</div>
+                                            <div class="Referentce-content-text">@item.Measurand_1_KetQuaHieuChinh</div>
+                                            <div class="Referentce-content-text">mW/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_1_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_1_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_1_KetQuaHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            <div class="Average-Stand">
+                                <div class="Average">
+                                    Average of Deviation : @ViewBag.AverageC_1 %
+                                </div>
+                                <div class="Stand">Standard deviation of Deviation : @ViewBag.StandardC_1 %</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="UV">
+                                <strong>  Dải đo UVC : 250­-260nm [ Band: UVC (250­-260nm)]</strong>
+                            </div>
+                            <div class="Referentce-content-2">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong><br /></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems4)
+                                {
+                                    if (item.BuocSong_KetQuaHieuChinh == "UV-C")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">@(dem6++)</div>
+                                            <div class="Referentce-content-text">@item.Measurand_2_KetQuaHieuChinh</div>
+                                            <div class="Referentce-content-text">mJ/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_2_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_2_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_2_KetQuaHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            <div class="Average-Stand">
+                                <div class="Average">
+                                    Average of Deviation : @ViewBag.AverageC_2 %
+                                </div>
+                                <div class="Stand">Standard deviation of Deviation : @ViewBag.StandardC_2 %</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 40px ">
+                        <div class="col-md-7">
+                            <div class="UV">
+                                <strong>  Dải đo UVV : 395-­450nm [ Band: UVV (395-­450nm)]</strong>
+                            </div>
+                            <div class="Referentce-content-2">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong><br /></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems4)
+                                {
+                                    if (item.BuocSong_KetQuaHieuChinh == "UV-V")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">@(dem7++)</div>
+                                            <div class="Referentce-content-text">@item.Measurand_1_KetQuaHieuChinh</div>
+                                            <div class="Referentce-content-text">mW/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_1_KetQuaHieuChinh</div>
+                                            <div class="Referentce-content-text">@item.Instrument_1_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_1_KetQuaHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            <div class="Average-Stand">
+                                <div class="Average">
+                                    Average of Deviation : @ViewBag.AverageV_1 %
+                                </div>
+                                <div class="Stand">Standard deviation of Deviation : @ViewBag.StandardV_1 %</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="UV">
+                                <strong>  Dải đo UVV : 395-­450nm [ Band: UVV (395-­450nm)]</strong>
+                            </div>
+                            <div class="Referentce-content-2">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong><br /></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems4)
+                                {
+                                    if (item.BuocSong_KetQuaHieuChinh == "UV-V")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">@(dem8++)</div>
+                                            <div class="Referentce-content-text">@item.Measurand_2_KetQuaHieuChinh</div>
+                                            <div class="Referentce-content-text">mJ/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_2_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_2_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_2_KetQuaHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            <div class="Average-Stand">
+                                <div class="Average">
+                                    Average of Deviation : @ViewBag.AverageV_2 %
+                                </div>
+                                <div class="Stand">Standard deviation of Deviation : @ViewBag.StandardV_2 %</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+    else if (distinctItems4.Any(item => item.BuocSong_KetQuaHieuChinh == "UV-A"))
+    {
+        <div class="page-specific">
+            <div class="header-img">
+                <img src="https://danhhuylab.vn/Public/Img/logo-danhhuy.png" />
+            </div>
+            <div class="Sesion" style="margin-top:-1080px">
+                <div class="header-content-info">
+                    @foreach (var item in distinctItems)
+                    {
+                        <div class="header-info-content">
+                            <div class="size-chu">Số Số GCN/Certificate No.:</div>
+                            <div class="size-chu">@item.SoNhanDang</div>
+                        </div>
+                        <div class="header-info-content">
+                            <div class="color-intro-content"><strong>KẾT QUẢ HIỆU CHỈNH</strong></div>
+                            <div class="color-intro-content color-intro-orange"><strong><i>RESULTS OF CALIBRATION</i></strong></div>
+                            <div class="color-intro-content">
+                                <strong>
+                                    Kèm theo giấy chứng nhận hiệu chuẩn số: @item.SoNhanDang <br />
+                                    <i>Accompanied by Calibration Certificate No. : @item.SoNhanDang</i>
+                                </strong>
+                            </div>
+                        </div>
+                        <div class="header-info-content">
+                            <div class="size-chu">@item.NgayHieuChuan.ToString("dd/MM/yyyy")</div>
+                            <div class="size-chu">Page: @(dem10++)</div>
+                        </div>
+                    }
+                </div>
+                <div class="Content">
+                    <div class="footer-2" style="margin-left:20px">
+                        <div class="footer-2-text">
+                            Công Ty TNHH TM Danh Huy là cơ sở Hiệu chỉnh / Hiệu chuẩn được ủy quyền của EIT20, Được đào tạo tại nhà máy của EIT20.<br />
+                            <i>Danh Huy Trading Co., Ltd. is an authorized calibration facility of EIT20., Trained at the EIT20 facility</i>.<br />
+                            Các dịch vụ hiệu chỉnh / hiệu chuẩn và sửa chữa được cung cấp theo giấy phép của EIT20.<br />
+                            <i>Calibration and repair services are provided under the license of EIT20</i>.
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9" style="font-size:20px;margin-left:10px">
+                            Tiêu chuẩn sai số cho phép sau hiệu chỉnh <3% (Cường độ UV) . / <i> Acceptance Criteria Deviation <3% (Irradiance) . </i><br />
+         Kết quả hiệu chỉnh bên dưới đáp ứng tiêu chuẩn của nhà sản xuất, đủ tiêu chuẩn sử dụng <i>/ The calibration results below meet the manufacturer's standards and are qualified for use.</i>
+                        </div>
+                    </div>
+                    <div class="Referentce">
+                        Chuẩn Được Sử Dụng <i>(Reference Standard Used)</i>
+                    </div>
+                    @foreach (var item in distinctItems2)
+                    {
+                        <div class="Referentce-content" style="border-bottom:none">
+                            <div><strong>No</strong><br />1</div>
+                            <div><strong>Model</strong><br />@item.Model_ChuanSuDung</div>
+                            <div><strong>Description</strong><br />@item.Description_ChuanSuDung</div>
+                            <div><strong>Serial No.</strong><br />@item.Serial_ChuanSuDung</div>
+                            <div><strong>Certificate No.</strong><br />@item.Cetificate_ChuanSuDung</div>
+                            <div><strong>Cal Date</strong><br />@item.Cal_Date_ChuanSuDung.ToString("dd/MM/yyyy")</div>
+                            <div><strong>Cal Due</strong><br />@item.Cal_Due_ChuanSuDung.ToString("dd/MM/yyyy")</div>
+                        </div>
+                        <div class="Referentce-content" style="font-size:20px;border-top:none">
+                            <div> Chuẩn sử dụng này từ EIT20, có thể truy nguyên SI thông qua NIST theo quy trình ISO9001 đã được EIT đăng ký. / <i>This Reference Standard from EIT20, which are traceable to SI through the NIST in accordance with EIT lSO9001 registered procedures. </i></div>
+                        </div>
+                    }
+                    <div class="Referentce">
+                        Giá Trị Trước Hiệu Chỉnh <i>( As Received Measurments )</i>
+                    </div>
+                    @foreach (var item in distinctItems2)
+                    {
+                        <div class="Measurments">
+                            <div><strong>Ngày (Date:)</strong><br />@item.NgayTao_NgayTaoTechnicialBuldTruocHieuChinh.ToString("dd/MM/yyyy")</div>
+                            <div><strong>Technicial: </strong><br />@item.Technicial_NgayTaoTechnicialBuldTruocHieuChinh</div>
+                            <div>
+                                <strong> Điều kiện nhiệt độ, độ ẩm <i>( Lab Condition: )</i></strong><br />
+                                <div class="nhietdo-doam">
+                                    <div class="col-md-2 nhietdo">
+                                        <div class="nhietdo-text">[ @item.NhietDo </div>
+                                        <div class="nhietdo-text">+</div>
+                                        <div class="nhietdo-text">_</div>
+                                        <div class="nhietdo-text">2 ]ºC - </div>
+                                    </div>
+                                    <div class="col-md-2 nhietdo" style="margin-left:5px">
+                                        <div class="nhietdo-text"> [ @item.DoAm </div>
+                                        <div class="nhietdo-text">+</div>
+                                        <div class="nhietdo-text">_</div>
+                                        <div class="nhietdo-text">10 ]%RH</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="row" style="margin-left:-10px">
+                                <div class="UV">
+                                    <strong> Dải đo UVA : 320-390nm [ Band: UVA (320 - 390nm )]</strong>
+                                </div>
+                                @foreach (var item in distinctItems3)
+                                {
+                                    if (item.BuocSong_GiaTriTruocHieuChinh == "UV-A")
+                                    {
+                                        if (item.Deviation_1_GiaTriTruocHieuChinh <= 10 || item.Deviation_1_GiaTriTruocHieuChinh <= -10)
+                                        {
+                                            <div style="margin-left:10px"> IN TOLERANCE </div>
+                                        }
+                                        else
+                                        {
+                                            <div style="margin-left:10px"> OUT OF TOLERANCE</div>
+                                        }
+                                    }
+                                }
+                            </div>
+                            <div class="Referentce-content-2" style="margin-top:-5px">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems3)
+                                {
+                                    if (item.BuocSong_GiaTriTruocHieuChinh == "UV-A")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">@(dem9++)</div>
+                                            <div class="Referentce-content-text">@item.Measurand_1_GiaTriTruocHieuChinh</div>
+                                            <div class="Referentce-content-text">mW/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_1_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_1_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_1_GiaTriTruocHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="row" style="margin-left:-10px">
+                                <div class="UV">
+                                    <strong> Dải đo UVA : 320-390nm [ Band: UVA (320 - 390nm )]</strong>
+                                </div>
+                            </div>
+                            <div class="Referentce-content-2" style="margin-top:-5px">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong><br /></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems3)
+                                {
+                                    if (item.BuocSong_GiaTriTruocHieuChinh == "UV-A")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">@(dem11++)</div>
+                                            <div class="Referentce-content-text">@item.Measurand_2_GiaTriTruocHieuChinh</div>
+                                            <div class="Referentce-content-text">mJ/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_2_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_2_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_2_GiaTriTruocHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="Referentce" style="margin-top:5px">
+                        Kết Quả Hiệu Chỉnh <i>( Calibration Results )</i>
+                    </div>
+
+                    @foreach (var item in distinctItems2)
+                    {
+                        <div class="Measurments">
+                            <div><strong>Ngày (Date:)</strong><br />@item.NgayTao_NgayTaoTechnicialBuldKetQuaHieuChinh.ToString("dd/MM/yyyy")</div>
+                            <div><strong>Technicial: </strong><br />@item.Technicial_NgayTaoTechnicialBuldKetQuaHieuChinh</div>
+                            <div>
+                                <strong> Điều kiện nhiệt độ, độ ẩm <i>( Lab Condition: )</i></strong><br />
+                                <div class="nhietdo-doam">
+                                    <div class="col-md-2 nhietdo">
+                                        <div class="nhietdo-text">[ @item.NhietDo </div>
+                                        <div class="nhietdo-text">+</div>
+                                        <div class="nhietdo-text">_</div>
+                                        <div class="nhietdo-text">2 ]ºC - </div>
+                                    </div>
+                                    <div class="col-md-2 nhietdo" style="margin-left:5px">
+                                        <div class="nhietdo-text"> [ @item.DoAm </div>
+                                        <div class="nhietdo-text">+</div>
+                                        <div class="nhietdo-text">_</div>
+                                        <div class="nhietdo-text">10 ]%RH</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="row" style="margin-top: 5px ">
+                        <div class="col-md-7">
+                            <div class="UV">
+                                <strong> Dải đo UVA : 320-390nm [ Band: UVA (320 - 390nm )]</strong>
+                            </div>
+                            <div class="Referentce-content-2">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems4)
+                                {
+                                    if (item.BuocSong_KetQuaHieuChinh == "UV-A")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">@(dem12++)</div>
+                                            <div class="Referentce-content-text">@item.Measurand_1_KetQuaHieuChinh</div>
+                                            <div class="Referentce-content-text">mW/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_1_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_1_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_1_KetQuaHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+
+                            </div>
+                            <div class="Average-Stand">
+                                <div class="Average">
+                                    Average of Deviation : @ViewBag.AverageA_1 %
+                                </div>
+                                <div class="Stand">Standard deviation of Deviation : @ViewBag.StandardA_1 %</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="UV">
+                                <strong> Dải đo UVA : 320-390nm [ Band: UVA (320 - 390nm )]</strong>
+                            </div>
+                            <div class="Referentce-content-2">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong><br /></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems4)
+                                {
+                                    if (item.BuocSong_KetQuaHieuChinh == "UV-A")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">@(dem13++)</div>
+                                            <div class="Referentce-content-text">@item.Measurand_2_KetQuaHieuChinh</div>
+                                            <div class="Referentce-content-text">mJ/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_2_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_2_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_2_KetQuaHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            <div class="Average-Stand">
+                                <div class="Average">
+                                    Average of Deviation : @ViewBag.AverageA_2 %
+                                </div>
+                                <div class="Stand">Standard deviation of Deviation : @ViewBag.StandardA_2 %</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+    else if (distinctItems4.Any(item => item.BuocSong_KetQuaHieuChinh == "UV-B"))
+    {
+        <div class="page-specific">
+            <div class="header-img">
+                <img src="https://danhhuylab.vn/Public/Img/logo-danhhuy.png" />
+            </div>
+            <div class="Sesion" style="margin-top:-1080px">
+                <div class="header-content-info">
+                    @foreach (var item in distinctItems)
+                    {
+                        <div class="header-info-content">
+                            <div class="size-chu">Số Số GCN/Certificate No.:</div>
+                            <div class="size-chu">@item.SoNhanDang</div>
+                        </div>
+                        <div class="header-info-content">
+                            <div class="color-intro-content"><strong>KẾT QUẢ HIỆU CHỈNH</strong></div>
+                            <div class="color-intro-content color-intro-orange"><strong><i>RESULTS OF CALIBRATION</i></strong></div>
+                            <div class="color-intro-content">
+                                <strong>
+                                    Kèm theo giấy chứng nhận hiệu chuẩn số: @item.SoNhanDang <br />
+                                    <i>Accompanied by Calibration Certificate No. : @item.SoNhanDang</i>
+                                </strong>
+                            </div>
+                        </div>
+                        <div class="header-info-content">
+                            <div class="size-chu">@item.NgayHieuChuan.ToString("dd/MM/yyyy")</div>
+                            <div class="size-chu">Page: @(dem10++)</div>
+                        </div>
+                    }
+                </div>
+                <div class="Content">
+                    <div class="footer-2" style="margin-left:20px">
+                        <div class="footer-2-text">
+                            Công Ty TNHH TM Danh Huy là cơ sở Hiệu chỉnh / Hiệu chuẩn được ủy quyền của EIT20, Được đào tạo tại nhà máy của EIT20.<br />
+                            <i>Danh Huy Trading Co., Ltd. is an authorized calibration facility of EIT20., Trained at the EIT20 facility</i>.<br />
+                            Các dịch vụ hiệu chỉnh / hiệu chuẩn và sửa chữa được cung cấp theo giấy phép của EIT20.<br />
+                            <i>Calibration and repair services are provided under the license of EIT20</i>.
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9" style="font-size:20px;margin-left:10px">
+                            Tiêu chuẩn sai số cho phép sau hiệu chỉnh <3% (Cường độ UV) . / <i> Acceptance Criteria Deviation <3% (Irradiance) . </i><br />
+                            Kết quả hiệu chỉnh bên dưới đáp ứng tiêu chuẩn của nhà sản xuất, đủ tiêu chuẩn sử dụng <i>/ The calibration results below meet the manufacturer's standards and are qualified for use.</i>
+                        </div>
+                    </div>
+
+                    <div class="Referentce">
+                        Chuẩn Được Sử Dụng <i>(Reference Standard Used)</i>
+                    </div>
+                    @foreach (var item in distinctItems2)
+                    {
+                        <div class="Referentce-content" style="border-bottom:none">
+                            <div><strong>No</strong><br />1</div>
+                            <div><strong>Model</strong><br />@item.Model_ChuanSuDung</div>
+                            <div><strong>Description</strong><br />@item.Description_ChuanSuDung</div>
+                            <div><strong>Serial No.</strong><br />@item.Serial_ChuanSuDung</div>
+                            <div><strong>Certificate No.</strong><br />@item.Cetificate_ChuanSuDung</div>
+                            <div><strong>Cal Date</strong><br />@item.Cal_Date_ChuanSuDung.ToString("dd/MM/yyyy")</div>
+                            <div><strong>Cal Due</strong><br />@item.Cal_Due_ChuanSuDung.ToString("dd/MM/yyyy")</div>
+                        </div>
+                        <div class="Referentce-content" style="font-size:20px;border-top:none">
+                            <div>Chuẩn sử dụng này từ EIT20, có thể truy nguyên SI thông qua NIST theo quy trình ISO9001 đã được EIT đăng ký. / <i>This Reference Standard from EIT20, which are traceable to SI through the NIST in accordance with EIT lSO9001 registered procedures. </i> </div>
+                        </div>
+                    }
+                    <div class="Referentce">
+                        Giá Trị Trước Hiệu Chỉnh <i>( As Received Measurments )</i>
+                    </div>
+                    @foreach (var item in distinctItems2)
+                    {
+                        <div class="Measurments">
+                            <div><strong>Ngày (Date:)</strong><br />@item.NgayTao_NgayTaoTechnicialBuldTruocHieuChinh.ToString("dd/MM/yyyy")</div>
+                            <div><strong>Technicial: </strong><br />@item.Technicial_NgayTaoTechnicialBuldTruocHieuChinh</div>
+                            <div>
+                                <strong> Điều kiện nhiệt độ, độ ẩm <i>( Lab Condition: )</i></strong><br />
+                                <div class="nhietdo-doam">
+                                    <div class="col-md-2 nhietdo">
+                                        <div class="nhietdo-text">[ @item.NhietDo </div>
+                                        <div class="nhietdo-text">+</div>
+                                        <div class="nhietdo-text">_</div>
+                                        <div class="nhietdo-text">2 ]ºC - </div>
+                                    </div>
+                                    <div class="col-md-2 nhietdo" style="margin-left:5px">
+                                        <div class="nhietdo-text"> [ @item.DoAm </div>
+                                        <div class="nhietdo-text">+</div>
+                                        <div class="nhietdo-text">_</div>
+                                        <div class="nhietdo-text">10 ]%RH</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="row" style="margin-left:-10px">
+                                <div class="UV">
+                                    <strong>Dải đo UVB : 280-­320nm [ Band: UVB (280-­320nm )]</strong>
+                                </div>
+                                @foreach (var item in distinctItems3)
+                                {
+                                    if (item.BuocSong_GiaTriTruocHieuChinh == "UV-B")
+                                    {
+                                        if (item.Deviation_1_GiaTriTruocHieuChinh <= 10 || item.Deviation_1_GiaTriTruocHieuChinh <= -10)
+                                        {
+                                            <div style="margin-left:10px"> IN TOLERANCE </div>
+                                        }
+                                        else
+                                        {
+                                            <div style="margin-left:10px"> OUT OF TOLERANCE</div>
+                                        }
+                                    }
+                                }
+                            </div>
+                            <div class="Referentce-content-2" style="margin-top:-5px">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems3)
+                                {
+                                    if (item.BuocSong_GiaTriTruocHieuChinh == "UV-B")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">@(dem9++)</div>
+                                            <div class="Referentce-content-text">@item.Measurand_1_GiaTriTruocHieuChinh</div>
+                                            <div class="Referentce-content-text">mW/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_1_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_1_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_1_GiaTriTruocHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+                            } 
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="row" style="margin-left:-10px">
+                                <div class="UV">
+                                    <strong>Dải đo UVB : 280-­320nm [ Band: UVB (280-­320nm )]</strong>
+                                </div>
+                            </div>
+                            <div class="Referentce-content-2" style="margin-top:-5px">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong><br /></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems3)
+                                {
+                                    if (item.BuocSong_GiaTriTruocHieuChinh == "UV-B")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">@(dem11++)</div>
+                                            <div class="Referentce-content-text">@item.Measurand_2_GiaTriTruocHieuChinh</div>
+                                            <div class="Referentce-content-text">mJ/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_2_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_2_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_2_GiaTriTruocHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="Referentce" style="margin-top:5px">
+                        Kết Quả Hiệu Chỉnh <i>( Calibration Results )</i>
+                    </div>
+
+                    @foreach (var item in distinctItems2)
+                    {
+                        <div class="Measurments">
+                            <div><strong>Ngày (Date:)</strong><br />@item.NgayTao_NgayTaoTechnicialBuldKetQuaHieuChinh.ToString("dd/MM/yyyy")</div>
+                            <div><strong>Technicial: </strong><br />@item.Technicial_NgayTaoTechnicialBuldKetQuaHieuChinh</div>
+                            <div>
+                                <strong> Điều kiện nhiệt độ, độ ẩm <i>( Lab Condition: )</i></strong><br />
+                                <div class="nhietdo-doam">
+                                    <div class="col-md-2 nhietdo">
+                                        <div class="nhietdo-text">[ @item.NhietDo </div>
+                                        <div class="nhietdo-text">+</div>
+                                        <div class="nhietdo-text">_</div>
+                                        <div class="nhietdo-text">2 ]ºC - </div>
+                                    </div>
+                                    <div class="col-md-2 nhietdo" style="margin-left:5px">
+                                        <div class="nhietdo-text"> [ @item.DoAm </div>
+                                        <div class="nhietdo-text">+</div>
+                                        <div class="nhietdo-text">_</div>
+                                        <div class="nhietdo-text">10 ]%RH</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="row" style="margin-top: 5px ">
+                        <div class="col-md-7">
+                            <div class="UV">
+                                <strong>Dải đo UVB : 280-­320nm [ Band: UVB (280-­320nm )]</strong>
+                            </div>
+                            <div class="Referentce-content-2">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems4)
+                                {
+                                    if (item.BuocSong_KetQuaHieuChinh == "UV-B")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">@(dem12++)</div>
+                                            <div class="Referentce-content-text">@item.Measurand_1_KetQuaHieuChinh</div>
+                                            <div class="Referentce-content-text">mW/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_1_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_1_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_1_KetQuaHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+
+                            </div>
+                            <div class="Average-Stand">
+                                <div class="Average">
+                                    Average of Deviation : @ViewBag.AverageB_1 %
+                                </div>
+                                <div class="Stand">Standard deviation of Deviation : @ViewBag.StandardB_1 %</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="UV">
+                                <strong>Dải đo UVB : 280-­320nm [ Band: UVB (280-­320nm )]</strong>
+                            </div>
+                            <div class="Referentce-content-2">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong><br /></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems4)
+                                {
+                                    if (item.BuocSong_KetQuaHieuChinh == "UV-B")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">@(dem13++)</div>
+                                            <div class="Referentce-content-text">@item.Measurand_2_KetQuaHieuChinh</div>
+                                            <div class="Referentce-content-text">mJ/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_2_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_2_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_2_KetQuaHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            <div class="Average-Stand">
+                                <div class="Average">
+                                    Average of Deviation : @ViewBag.AverageB_2 %
+                                </div>
+                                <div class="Stand">Standard deviation of Deviation : @ViewBag.StandardB_2 %</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+    else if (distinctItems4.Any(item => item.BuocSong_KetQuaHieuChinh == "UV-C"))
+    {
+        <div class="page-specific">
+            <div class="header-img">
+                <img src="https://danhhuylab.vn/Public/Img/logo-danhhuy.png" />
+            </div>
+            <div class="Sesion" style="margin-top:-1080px">
+                <div class="header-content-info">
+                    @foreach (var item in distinctItems)
+                    {
+                        <div class="header-info-content">
+                            <div class="size-chu">Số Số GCN/Certificate No.:</div>
+                            <div class="size-chu">@item.SoNhanDang</div>
+                        </div>
+                        <div class="header-info-content">
+                            <div class="color-intro-content"><strong>KẾT QUẢ HIỆU CHỈNH</strong></div>
+                            <div class="color-intro-content color-intro-orange"><strong><i>RESULTS OF CALIBRATION</i></strong></div>
+                            <div class="color-intro-content">
+                                <strong>
+                                    Kèm theo giấy chứng nhận hiệu chuẩn số: @item.SoNhanDang <br />
+                                    <i>Accompanied by Calibration Certificate No. : @item.SoNhanDang</i>
+                                </strong>
+                            </div>
+                        </div>
+                        <div class="header-info-content">
+                            <div class="size-chu">@item.NgayHieuChuan.ToString("dd/MM/yyyy")</div>
+                            <div class="size-chu">Page: @(dem10++)</div>
+                        </div>
+                    }
+                </div>
+                <div class="Content">
+                    <div class="footer-2" style="margin-left:20px">
+                        <div class="footer-2-text">
+                            Công Ty TNHH TM Danh Huy là cơ sở Hiệu chỉnh / Hiệu chuẩn được ủy quyền của EIT20, Được đào tạo tại nhà máy của EIT20.<br />
+                            <i>Danh Huy Trading Co., Ltd. is an authorized calibration facility of EIT20., Trained at the EIT20 facility</i>.<br />
+                            Các dịch vụ hiệu chỉnh / hiệu chuẩn và sửa chữa được cung cấp theo giấy phép của EIT20.<br />
+                            <i>Calibration and repair services are provided under the license of EIT20</i>.
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9" style="font-size:20px;margin-left:10px">
+                            Tiêu chuẩn sai số cho phép sau hiệu chỉnh <3% (Cường độ UV) . / <i> Acceptance Criteria Deviation <3% (Irradiance) . </i><br />
+                            Kết quả hiệu chỉnh bên dưới đáp ứng tiêu chuẩn của nhà sản xuất, đủ tiêu chuẩn sử dụng <i>/ The calibration results below meet the manufacturer's standards and are qualified for use.</i>
+                        </div>
+                    </div>
+                    <div class="Referentce">
+                        Chuẩn Được Sử Dụng <i>(Reference Standard Used)</i>
+                    </div>
+                    @foreach (var item in distinctItems2)
+                    {
+                        <div class="Referentce-content" style="border-bottom:none">
+                            <div><strong>No</strong><br />1</div>
+                            <div><strong>Model</strong><br />@item.Model_ChuanSuDung</div>
+                            <div><strong>Description</strong><br />@item.Description_ChuanSuDung</div>
+                            <div><strong>Serial No.</strong><br />@item.Serial_ChuanSuDung</div>
+                            <div><strong>Certificate No.</strong><br />@item.Cetificate_ChuanSuDung</div>
+                            <div><strong>Cal Date</strong><br />@item.Cal_Date_ChuanSuDung.ToString("dd/MM/yyyy")</div>
+                            <div><strong>Cal Due</strong><br />@item.Cal_Due_ChuanSuDung.ToString("dd/MM/yyyy")</div>
+                        </div>
+                        <div class="Referentce-content" style="font-size:20px;border-top:none">
+                            <div>Chuẩn sử dụng này từ EIT20, có thể truy nguyên SI thông qua NIST theo quy trình ISO9001 đã được EIT đăng ký. / <i>This Reference Standard from EIT20, which are traceable to SI through the NIST in accordance with EIT lSO9001 registered procedures.</i> </div>
+                        </div>
+                    }
+                    <div class="Referentce">
+                        Giá Trị Trước Hiệu Chỉnh <i>( As Received Measurments )</i>
+                    </div>
+                    @foreach (var item in distinctItems2)
+                    {
+                        <div class="Measurments">
+                            <div><strong>Ngày (Date:)</strong><br />@item.NgayTao_NgayTaoTechnicialBuldTruocHieuChinh.ToString("dd/MM/yyyy")</div>
+                            <div><strong>Technicial: </strong><br />@item.Technicial_NgayTaoTechnicialBuldTruocHieuChinh</div>
+                            <div>
+                                <strong> Điều kiện nhiệt độ, độ ẩm <i>( Lab Condition: )</i></strong><br />
+                                <div class="nhietdo-doam">
+                                    <div class="col-md-2 nhietdo">
+                                        <div class="nhietdo-text">[ @item.NhietDo </div>
+                                        <div class="nhietdo-text">+</div>
+                                        <div class="nhietdo-text">_</div>
+                                        <div class="nhietdo-text">2 ]ºC - </div>
+                                    </div>
+                                    <div class="col-md-2 nhietdo" style="margin-left:5px">
+                                        <div class="nhietdo-text"> [ @item.DoAm </div>
+                                        <div class="nhietdo-text">+</div>
+                                        <div class="nhietdo-text">_</div>
+                                        <div class="nhietdo-text">10 ]%RH</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="row" style="margin-left:-10px">
+                                <div class="UV">
+                                    <strong> Dải đo UVC : 250-­260nm [ Band: UVC (250­-260nm)]</strong>
+                                </div>
+                                @foreach (var item in distinctItems3)
+                                {
+                                    if (item.BuocSong_GiaTriTruocHieuChinh == "UV-C")
+                                    {
+                                        if (item.Deviation_1_GiaTriTruocHieuChinh <= 10 || item.Deviation_1_GiaTriTruocHieuChinh <= -10)
+                                        {
+                                            <div style="margin-left:10px"> IN TOLERANCE </div>
+                                        }
+                                        else
+                                        {
+                                            <div style="margin-left:10px"> OUT OF TOLERANCE</div>
+                                        }
+                                    }
+                                }
+                            </div>
+                            <div class="Referentce-content-2" style="margin-top:-5px">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems3)
+                                {
+                                    if (item.BuocSong_GiaTriTruocHieuChinh == "UV-C")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">@(dem9++)</div>
+                                            <div class="Referentce-content-text">@item.Measurand_1_GiaTriTruocHieuChinh</div>
+                                            <div class="Referentce-content-text">mW/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_1_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_1_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_1_GiaTriTruocHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="row" style="margin-left:-10px">
+                                <div class="UV">
+                                    <strong> Dải đo UVC : 250-­260nm [ Band: UVC (250­-260nm)]</strong>
+                                </div>
+                            </div>
+                            <div class="Referentce-content-2" style="margin-top:-5px" s>
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong><br /></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems3)
+                                {
+                                    if (item.BuocSong_GiaTriTruocHieuChinh == "UV-C")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">@(dem11++)</div>
+                                            <div class="Referentce-content-text">@item.Measurand_2_GiaTriTruocHieuChinh</div>
+                                            <div class="Referentce-content-text">mJ/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_2_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_2_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_2_GiaTriTruocHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="Referentce" style="margin-top:5px">
+                        Kết Quả Hiệu Chỉnh <i>( Calibration Results )</i>
+                    </div>
+
+                    @foreach (var item in distinctItems2)
+                    {
+                        <div class="Measurments">
+                            <div><strong>Ngày (Date:)</strong><br />@item.NgayTao_NgayTaoTechnicialBuldKetQuaHieuChinh.ToString("dd/MM/yyyy")</div>
+                            <div><strong>Technicial: </strong><br />@item.Technicial_NgayTaoTechnicialBuldKetQuaHieuChinh</div>
+                            <div>
+                                <strong> Điều kiện nhiệt độ, độ ẩm <i>( Lab Condition: )</i></strong><br />
+                                <div class="nhietdo-doam">
+                                    <div class="col-md-2 nhietdo">
+                                        <div class="nhietdo-text">[ @item.NhietDo </div>
+                                        <div class="nhietdo-text">+</div>
+                                        <div class="nhietdo-text">_</div>
+                                        <div class="nhietdo-text">2 ]ºC - </div>
+                                    </div>
+                                    <div class="col-md-2 nhietdo" style="margin-left:5px">
+                                        <div class="nhietdo-text"> [ @item.DoAm </div>
+                                        <div class="nhietdo-text">+</div>
+                                        <div class="nhietdo-text">_</div>
+                                        <div class="nhietdo-text">10 ]%RH</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="row" style="margin-top: 5px ">
+                        <div class="col-md-7">
+                            <div class="UV">
+                                <strong> Dải đo UVC : 250-­260nm [ Band: UVC (250­-260nm)]</strong>
+                            </div>
+                            <div class="Referentce-content-2">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems4)
+                                {
+                                    if (item.BuocSong_KetQuaHieuChinh == "UV-C")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">@(dem12++)</div>
+                                            <div class="Referentce-content-text">@item.Measurand_1_KetQuaHieuChinh</div>
+                                            <div class="Referentce-content-text">mW/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_1_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_1_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_1_KetQuaHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+
+                            </div>
+                            <div class="Average-Stand">
+                                <div class="Average">
+                                    Average of Deviation : @ViewBag.AverageC_1 %
+                                </div>
+                                <div class="Stand">Standard deviation of Deviation : @ViewBag.StandardC_1 %</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>:  @item.LampSystem_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="UV">
+                                <strong> Dải đo UVC : 250-­260nm [ Band: UVC (250­-260nm)]</strong>
+                            </div>
+                            <div class="Referentce-content-2">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong><br /></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems4)
+                                {
+                                    if (item.BuocSong_KetQuaHieuChinh == "UV-C")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">@(dem13++)</div>
+                                            <div class="Referentce-content-text">@item.Measurand_2_KetQuaHieuChinh</div>
+                                            <div class="Referentce-content-text">mJ/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_2_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_2_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_2_KetQuaHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            <div class="Average-Stand">
+                                <div class="Average">
+                                    Average of Deviation : @ViewBag.AverageC_2 %
+                                </div>
+                                <div class="Stand">Standard deviation of Deviation : @ViewBag.StandardC_2 %</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>:  @item.LampSystem_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+    else if (distinctItems4.Any(item => item.BuocSong_KetQuaHieuChinh == "UV-V"))
+    {
+        <div class="page-specific">
+            <div class="header-img">
+                <img src="https://danhhuylab.vn/Public/Img/logo-danhhuy.png" />
+            </div>
+            <div class="Sesion" style="margin-top:-1080px">
+                <div class="header-content-info">
+                    @foreach (var item in distinctItems)
+                    {
+                        <div class="header-info-content">
+                            <div class="size-chu">Số Số GCN/Certificate No.:</div>
+                            <div class="size-chu">@item.SoNhanDang</div>
+                        </div>
+                        <div class="header-info-content">
+                            <div class="color-intro-content"><strong>KẾT QUẢ HIỆU CHỈNH</strong></div>
+                            <div class="color-intro-content color-intro-orange"><strong><i>RESULTS OF CALIBRATION</i></strong></div>
+                            <div class="color-intro-content">
+                                <strong>
+                                    Kèm theo giấy chứng nhận hiệu chuẩn số: @item.SoNhanDang <br />
+                                    <i>Accompanied by Calibration Certificate No. : @item.SoNhanDang</i>
+                                </strong>
+                            </div>
+                        </div>
+                        <div class="header-info-content">
+                            <div class="size-chu">@item.NgayHieuChuan.ToString("dd/MM/yyyy")</div>
+                            <div class="size-chu">Page: @(dem10++)</div>
+                        </div>
+                    }
+                </div>
+                <div class="Content">
+                    <div class="footer-2" style="margin-left:20px">
+                        <div class="footer-2-text">
+                            Công Ty TNHH TM Danh Huy là cơ sở Hiệu chỉnh / Hiệu chuẩn được ủy quyền của EIT20, Được đào tạo tại nhà máy của EIT20.<br />
+                            <i>Danh Huy Trading Co., Ltd. is an authorized calibration facility of EIT20., Trained at the EIT20 facility</i>.<br />
+                            Các dịch vụ hiệu chỉnh / hiệu chuẩn và sửa chữa được cung cấp theo giấy phép của EIT20.<br />
+                            <i>Calibration and repair services are provided under the license of EIT20</i>.
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9" style="font-size:20px;margin-left:10px">
+                            Tiêu chuẩn sai số cho phép sau hiệu chỉnh <3% (Cường độ UV) . / <i> Acceptance Criteria Deviation <3% (Irradiance) . </i><br />
+         Kết quả hiệu chỉnh bên dưới đáp ứng tiêu chuẩn của nhà sản xuất, đủ tiêu chuẩn sử dụng <i>/ The calibration results below meet the manufacturer's standards and are qualified for use.</i>
+                        </div>
+                    </div>
+
+                    <div class="Referentce">
+                        Chuẩn Được Sử Dụng <i>(Reference Standard Used)</i>
+                    </div>
+                    @foreach (var item in distinctItems2)
+                    {
+                        <div class="Referentce-content" style="border-bottom:none">
+                            <div><strong>No</strong><br />1</div>
+                            <div><strong>Model</strong><br />@item.Model_ChuanSuDung</div>
+                            <div><strong>Description</strong><br />@item.Description_ChuanSuDung</div>
+                            <div><strong>Serial No.</strong><br />@item.Serial_ChuanSuDung</div>
+                            <div><strong>Certificate No.</strong><br />@item.Cetificate_ChuanSuDung</div>
+                            <div><strong>Cal Date</strong><br />@item.Cal_Date_ChuanSuDung.ToString("dd/MM/yyyy")</div>
+                            <div><strong>Cal Due</strong><br />@item.Cal_Due_ChuanSuDung.ToString("dd/MM/yyyy")</div>
+                        </div>
+                        <div class="Referentce-content" style="font-size:20px;border-top:none">
+                            <div>Chuẩn sử dụng này từ EIT20, có thể truy nguyên SI thông qua NIST theo quy trình ISO9001 đã được EIT đăng ký. / <i>This Reference Standard from EIT20, which are traceable to SI through the NIST in accordance with EIT lSO9001 registered procedures.</i> </div>
+                        </div>
+                    }
+                    <div class="Referentce">
+                        Giá Trị Trước Hiệu Chỉnh <i>( As Received Measurments )</i>
+                    </div>
+                    @foreach (var item in distinctItems2)
+                    {
+                        <div class="Measurments">
+                            <div><strong>Ngày (Date:)</strong><br />@item.NgayTao_NgayTaoTechnicialBuldTruocHieuChinh.ToString("dd/MM/yyyy")</div>
+                            <div><strong>Technicial: </strong><br />@item.Technicial_NgayTaoTechnicialBuldTruocHieuChinh</div>
+                            <div>
+                                <strong> Điều kiện nhiệt độ, độ ẩm <i>( Lab Condition: )</i></strong><br />
+                                <div class="nhietdo-doam">
+                                    <div class="col-md-2 nhietdo">
+                                        <div class="nhietdo-text">[ @item.NhietDo </div>
+                                        <div class="nhietdo-text">+</div>
+                                        <div class="nhietdo-text">_</div>
+                                        <div class="nhietdo-text">2 ]ºC - </div>
+                                    </div>
+                                    <div class="col-md-2 nhietdo" style="margin-left:5px">
+                                        <div class="nhietdo-text"> [ @item.DoAm </div>
+                                        <div class="nhietdo-text">+</div>
+                                        <div class="nhietdo-text">_</div>
+                                        <div class="nhietdo-text">10 ]%RH</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="row" style="margin-left:-10px">
+                                <div class="UV">
+                                    <strong> Dải đo UVV : 395-­450nm [ Band: UVV (395-­450nm)]</strong>
+                                </div>
+                                @foreach (var item in distinctItems3)
+                                {
+                                    if (item.BuocSong_GiaTriTruocHieuChinh == "UV-V")
+                                    {
+                                        if (item.Deviation_1_GiaTriTruocHieuChinh <= 10 || item.Deviation_1_GiaTriTruocHieuChinh <= -10)
+                                        {
+                                            <div style="margin-left:10px"> IN TOLERANCE </div>
+                                        }
+                                        else
+                                        {
+                                            <div style="margin-left:10px"> OUT OF TOLERANCE</div>
+                                        }
+                                    }
+                                }
+                            </div>
+                            <div class="Referentce-content-2" style="margin-top:-5px">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems3)
+                                {
+                                    if (item.BuocSong_GiaTriTruocHieuChinh == "UV-V")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">@(dem9++)</div>
+                                            <div class="Referentce-content-text">@item.Measurand_1_GiaTriTruocHieuChinh</div>
+                                            <div class="Referentce-content-text">mW/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_1_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_1_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_1_GiaTriTruocHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="row" style="margin-left:-10px">
+                                <div class="UV">
+                                    <strong> Dải đo UVV : 395-­450nm [ Band: UVV (395-­450nm)]</strong>
+                                </div>
+                            </div>
+                            <div class="Referentce-content-2" style="margin-top:-5px">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong><br /></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems3)
+                                {
+                                    if (item.BuocSong_GiaTriTruocHieuChinh == "UV-V")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">@(dem11++)</div>
+                                            <div class="Referentce-content-text">@item.Measurand_2_GiaTriTruocHieuChinh</div>
+                                            <div class="Referentce-content-text">mJ/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_2_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_2_GiaTriTruocHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_2_GiaTriTruocHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldTruocHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="Referentce" style="margin-top:5px">
+                        Kết Quả Hiệu Chỉnh <i>( Calibration Results )</i>
+                    </div>
+
+                    @foreach (var item in distinctItems2)
+                    {
+                        <div class="Measurments">
+                            <div><strong>Ngày (Date:)</strong><br />@item.NgayTao_NgayTaoTechnicialBuldKetQuaHieuChinh.ToString("dd/MM/yyyy")</div>
+                            <div><strong>Technicial: </strong><br />@item.Technicial_NgayTaoTechnicialBuldKetQuaHieuChinh</div>
+                            <div>
+                                <strong> Điều kiện nhiệt độ, độ ẩm <i>( Lab Condition: )</i></strong><br />
+                                <div class="nhietdo-doam">
+                                    <div class="col-md-2 nhietdo">
+                                        <div class="nhietdo-text">[ @item.NhietDo </div>
+                                        <div class="nhietdo-text">+</div>
+                                        <div class="nhietdo-text">_</div>
+                                        <div class="nhietdo-text">2 ]ºC - </div>
+                                    </div>
+                                    <div class="col-md-2 nhietdo" style="margin-left:5px">
+                                        <div class="nhietdo-text"> [ @item.DoAm </div>
+                                        <div class="nhietdo-text">+</div>
+                                        <div class="nhietdo-text">_</div>
+                                        <div class="nhietdo-text">10 ]%RH</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="row" style="margin-top: 5px ">
+                        <div class="col-md-7">
+                            <div class="UV">
+                                <strong> Dải đo UVV : 395-­450nm [ Band: UVV (395-­450nm)]</strong>
+                            </div>
+                            <div class="Referentce-content-2">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems4)
+                                {
+                                    if (item.BuocSong_KetQuaHieuChinh == "UV-V")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">@(dem12++)</div>
+                                            <div class="Referentce-content-text">@item.Measurand_1_KetQuaHieuChinh</div>
+                                            <div class="Referentce-content-text">mW/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_1_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_1_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_1_KetQuaHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+
+                            </div>
+                            <div class="Average-Stand">
+                                <div class="Average">
+                                    Average of Deviation : @ViewBag.AverageV_1 %
+                                </div>
+                                <div class="Stand">Standard deviation of Deviation : @ViewBag.StandardV_1 %</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div class="UV">
+                                <strong> Dải đo UVV : 395-­450nm [ Band: UVV (395-­450nm)]</strong>
+                            </div>
+                            <div class="Referentce-content-2">
+                                <div class="Referentce-content-text"><strong>Run No.</strong></div>
+                                <div class="Referentce-content-text"><strong>Measurand</strong></div>
+                                <div class="Referentce-content-text"><strong>Units</strong><br /></div>
+                                <div class="Referentce-content-text"><strong>Reference</strong></div>
+                                <div class="Referentce-content-text"><strong>Instrument</strong></div>
+                                <div class="Referentce-content-text"><strong>Deviation</strong></div>
+                            </div>
+                            <div class="Referentce-content-3">
+                                @foreach (var item in distinctItems4)
+                                {
+                                    if (item.BuocSong_KetQuaHieuChinh == "UV-V")
+                                    {
+                                        <div class="Referentce-content-4">
+                                            <div class="Referentce-content-text">@(dem13++)</div>
+                                            <div class="Referentce-content-text">@item.Measurand_2_KetQuaHieuChinh</div>
+                                            <div class="Referentce-content-text">mJ/cm&#178;</div>
+                                            <div class="Referentce-content-text">@item.Reference_2_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Instrument_2_KetQuaHieuChinh.ToString("F3")</div>
+                                            <div class="Referentce-content-text">@item.Deviation_2_KetQuaHieuChinh.ToString("F3") %</div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            <div class="Average-Stand">
+                                <div class="Average">
+                                    Average of Deviation : @ViewBag.AverageV_2 %
+                                </div>
+                                <div class="Stand">Standard deviation of Deviation : @ViewBag.StandardV_2 %</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            @foreach (var item in distinctItems2)
+                            {
+                                <div class="lamp">
+                                    <strong>Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+
+                                <div class="lamp">
+                                    <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldKetQuaHieuChinh
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+</body>
+</html>

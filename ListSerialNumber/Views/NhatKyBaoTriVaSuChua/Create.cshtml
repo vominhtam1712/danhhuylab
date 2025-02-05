@@ -1,0 +1,77 @@
+﻿@model ListClass.Model.NhatKyBaoTriVaSuChua
+<script src="~/Public/Js/DropDownSelect.js"></script>
+@using (Html.BeginForm("Create", "NhatKyBaoTriVaSuChua", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:blue"><strong>THÊM THIẾT BỊ VÀO NHẬT KÝ BẢO TRÌ, SỬA CHỮA</strong></h3>
+                </div>
+            </div>
+            <div class="form-horizontal" style="margin-bottom:10px">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-10"><strong>Chọn thiết bị (Mã thiết bị)</strong></label>
+                            <div class="col-md-12">
+                                @Html.DropDownList("Id_DanhMucThietBi", (SelectList)ViewBag.ThietBi, "Chọn thiết bị ...", new { @class = "form-control", id = "idDropdown", @Required = "Required" })
+                                @Html.ValidationMessageFor(model => model.Id_DanhMucThietBi, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-12"><strong>Ngày lắp đặt</strong></label>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.NgayLapDat, new { htmlAttributes = new { @class = "form-control", type = "date", @Required = "Required" } })
+                                @Html.ValidationMessageFor(model => model.NgayLapDat, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-12"><strong>Nhật ký bảo trì sửa chữa</strong></label>
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(model => model.NhatKyBaoTri, new { @class = "form-control", @Required = "Required", @style = "height:120px" })
+                                @Html.ValidationMessageFor(model => model.NhatKyBaoTri, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <div id="customerInfo" style="display:none; margin-top:20px">
+                            <table class="table table-bordered table-striped">
+                                <tr>
+                                    <th>Số SN</th>
+                                    <th>Mã thiết bị</th>
+                                </tr>
+                                <tr>
+                                    <td><span style="color:blue" id="customerSerial"></span></td>
+                                    <td><span style="color:blue" id="customerMaThietBi"></span></td>
+                                </tr>
+                            </table>
+                            <table class="table table-bordered table-striped">
+                                <tr>
+                                    <th>Tên thiết bị</th>
+                                    <th>Hãng SX</th>
+                                </tr>
+                                <tr>
+                                    <td><span style="color:blue" id="customerTenThietBi"></span></td>
+                                    <td> <span style="color:blue" id="customerHangSX"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div> 
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                    <a style="text-decoration:none;" href="#" onclick="closeAddModal()"><img src="~/Public/Img/close.png" width="40" /></a>
+                </div>
+            </div>
+        </div>
+    </section> 
+}

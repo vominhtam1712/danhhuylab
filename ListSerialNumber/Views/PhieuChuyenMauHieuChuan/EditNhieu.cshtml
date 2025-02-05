@@ -1,0 +1,89 @@
+﻿@model List<ListClass.Model.PhieuChuyenMauHieuChuan>
+@using (Html.BeginForm("EditNhieu", "PhieuChuyenMauHieuChuan", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:blue"><strong>CHỈNH SỬA PHIẾU CHUYỂN MẪU HIỆU CHUẨN</strong></h3>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped">
+
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <th colspan="5">Phiếu chuyển: @Model[i].MaSoMau</th>
+                    </tr>
+                    <tr>
+                        <td width="350px">
+                            @Html.Hidden("ids[" + i + "].Id", Model[i].Id, new { @readonly = "readonly", @class = "form-control", @required = "required" })
+                            <strong>Số nhận dạng</strong><br />
+                            @Html.DropDownList("ids[" + i + "].Id_PhieuNhanThietBi", new SelectList(ViewBag.SoYeuCauList, "Value", "Text", Model[i].Id_PhieuNhanThietBi), "Chọn số SN...", new { @class = "form-control idDropdown", required = "required" })
+                            <strong>Người được phân công</strong>
+                            @Html.TextBox("ids[" + i + "].NguoiDuocPhanCong", Model[i].NguoiDuocPhanCong, new { @class = "form-control", @required = "required", style = "margin-top:10px" })
+                        </td>
+                        <td>
+                            <strong>Người nhận</strong>
+                            @Html.TextBox("ids[" + i + "].NguoiNhan", Model[i].NguoiNhan, new { @class = "form-control", @required = "required" })
+                            <strong>Phương pháp hiệu chuẩn</strong>
+                            @Html.TextBox("ids[" + i + "].PhuongPhamHieuChuan", Model[i].PhuongPhamHieuChuan, new { @class = "form-control", @required = "required" })
+                        </td>
+                        <td>
+                            <strong>Ngày nhận</strong>
+                            @Html.TextBox("ids[" + i + "].NgayNhan", Model[i].NgayNhan.ToString("yyyy-MM-ddTHH:mm"), new { @type = "datetime-local", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                            <strong>Thông số hiệu chuẩn</strong>
+                            @Html.TextBox("ids[" + i + "].ThongSoHieuChuan", Model[i].ThongSoHieuChuan, new { @class = "form-control", @required = "required" })
+                            @Html.Hidden("ids[" + i + "].MaSoMau", Model[i].MaSoMau, new { @class = "form-control", @required = "required" })
+                        </td>
+                        <td>
+                            <strong>Ngày trả báo cáo</strong>
+                            @Html.TextBox("ids[" + i + "].NgayTraBaoCao", Model[i].NgayTraBaoCao.Value.ToString("yyyy-MM-ddTHH:mm"), new { @type = "datetime-local", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                        </td>
+                    </tr>
+                }
+            </table>
+            <div id="customerInfo" style="display:none; margin-top:20px">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>Mã KH</th>
+                        <th>Tên KH</th>
+                        <th>Địa chỉ</th>
+                        <th>Ngành</th>
+                    </tr>
+                    <tr>
+                        <td><span style="color:blue" id="customerMaKH"></span></td>
+                        <td><span style="color:blue" id="customerTenKH"></span></td>
+                        <td><span style="color:blue" id="customerDiaChi"></span></td>
+                        <td> <span style="color:blue" id="customerNhomNganh"></span></td>
+                    </tr>
+                    <tr>
+                        <th>Số SN</th>
+                        <th>Tên thiết bị</th>
+                        <th>Hãng</th>
+                        <th>Model</th>
+                    </tr>
+                    <tr>
+                        <td><span style="color:blue" id="customerSerialNumber"></span></td>
+                        <td><span style="color:blue" id="customerTenthietbi"></span></td>
+                        <td><span style="color:blue" id="customerHang"></span></td>
+                        <td> <span style="color:blue" id="customerModel"></span></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div>
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                    <a href="@Url.Action("Index","PhieuChuyenMauHieuChuan")"><img src="~/Public/Img/close.png" width="40" /></a>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+

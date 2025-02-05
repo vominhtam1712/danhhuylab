@@ -1,0 +1,38 @@
+﻿@model ListClass.Model.PhieuTra_form
+@{
+    ViewBag.Title = "Tạo phiếu trả thiết bị";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<div class="content-wrapper"> 
+    <section>
+        <div class="container" style="text-align:center">
+            <h3><strong style="color:blue">TẠO PHIẾU TRẢ THIẾT BỊ</strong></h3>
+        </div>
+    </section>
+    <section class="content py-2">
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <div class="form-group form-inline">
+                        <div class="row">
+                            <div class="col-md-2" style="width:auto">
+                                <a class="form-control  form-a-control" style="text-decoration:none;" href="@Url.Action("Index","PhieuTra_form")"><span class="fas fa-backward"> Trở về</span></a>
+                            </div>
+                            <div class="col-md-2" style="width: auto;">
+                                <button class="form-control  form-a-control" type="submit" value="Edit">
+                                    <span class="fas">OK</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+}

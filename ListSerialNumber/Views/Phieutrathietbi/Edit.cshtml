@@ -1,0 +1,55 @@
+﻿@model List<ListClass.Model.Phieutrathietbi>
+@using (Html.BeginForm("Edit", "Phieutrathietbi", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:blue"><strong>CHỈNH SỬA PHIẾU TRẢ THIẾT BỊ</strong></h3>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr class="center">
+                        <th colspan="4">#</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Phương thức giao trả</strong>
+                            @Html.TextArea("Phieutrathietbis[" + i + "].PhuongThucGiaoTra", Model[i].PhuongThucGiaoTra, new { @class = "form-control" })
+                            @Html.Hidden("Phieutrathietbis[" + i + "].Id", Model[i].Id, new { @readonly = "readonly", @class = "form-control" })
+                            @Html.Hidden("Phieutrathietbis[" + i + "].Id_Giaychungnhan", Model[i].Id_Giaychungnhan, new { @readonly = "readonly", @class = "form-control" })
+                            @Html.Hidden("Phieutrathietbis[" + i + "].MaPT", Model[i].MaPT, new { @readonly = "readonly", @class = "form-control" })
+                        </td>
+                        <td>
+                            <strong>Trạng thái thiết bị</strong><br />
+                            @Html.TextArea("Phieutrathietbis[" + i + "].TrangThaiThietbi", Model[i].TrangThaiThietbi, new { @class = "form-control" })
+                        </td>
+                        <td>
+                            <strong>Ngày thực hiện</strong><br />
+                            @Html.TextBox("Phieutrathietbis[" + i + "].NgayThucHien", Model[i].NgayThucHien.ToString("yyyy-MM-ddTHH:mm"), new { @type = "datetime-local", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                        </td>
+                        <td>
+                            <strong>Ghi chú</strong><br />
+                            @Html.TextArea("Phieutrathietbis[" + i + "].Ghichu", Model[i].Ghichu, new { @class = "form-control" })
+                        </td>
+                    </tr>
+                }
+            </table>
+            <div class="row">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div>
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                    <a href="@Url.Action("Index","Phieutrathietbi")"><img src="~/Public/Img/close.png" width="40" /></a>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+

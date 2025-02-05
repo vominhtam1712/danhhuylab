@@ -1,0 +1,117 @@
+﻿@model IEnumerable<ListClass.Model.GiayCNSanPham>
+@{
+    var count = 1;
+}
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0; 
+        justify-items:center;
+        justify-content:center;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+    }
+</style>
+<section class="content py-2">
+    <div class="container">
+        <div class="row" style="margin-left:10%">
+            <div class="col-md-2" style="width:auto">
+                <a class="form-control form-a-control openUploadModalBtn" href="#" style="text-decoration: none" data-id="@ViewBag.id">
+                    <span class="fas fa-upload"> Tải lên</span>
+                </a>
+            </div>
+        </div>
+        <div class="form-horizontal" style="margin-top:10px">
+            <div class="row">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th class="text-center" width="90px">
+                                <span class="fa">STT</span>
+                            </th>
+
+                            <th width="75%">
+                                Tên file
+                            </th> 
+                            <th style="text-align:center">
+                                Download
+                            </th>
+                            <th style="text-align:center" width="120px">
+                                Chức năng
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td style="text-align:center">
+                                    @(count++)
+                                </td>
+                                <td style="text-align:left">@item.FileName</td> 
+                                <td style="text-align:center"><a href="@item.FilePath" target="_blank">Download</a></td>
+                                <td>
+                                    @using (Html.BeginForm("Delete", "GiayCNSanPham", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.Hidden("ids", item.Id)  
+                                        <input type="submit" value="Xóa" class="form-control form-a-control-delete"
+                                               onclick="return confirm('Bạn có chắc chắn muốn xóa file này?');" />
+                                    } 
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="modal uploadModal" style="display: none;">
+    <div class="modal-content">
+        <div class="uploadmodalContent"></div>
+    </div>
+</div>
+<script>
+    document.querySelectorAll(".openUploadModalBtn").forEach(function (button) {
+    button.addEventListener('click', function (e) {
+        e.preventDefault();
+
+        var id = button.getAttribute("data-id");
+
+        $.ajax({
+            url: '@Url.Action("Upload", "GiayCNSanPham", new { id = "__ID__" })'.replace("__ID__", id),
+            type: 'GET',
+            success: function (response) {
+                document.querySelector(".uploadmodalContent").innerHTML = response;
+                document.querySelector(".uploadModal").style.display = "block";
+            },
+            error: function () {
+                alert('Có lỗi xảy ra khi tải dữ liệu!');
+                }
+            });
+        });
+    });
+    function closeUploadModal() {
+        $(".uploadModal").css("display", "none");
+    }
+</script> 
+<script>
+    window.onclick = function (event) {
+        var myDuyetModal = document.querySelector(".uploadModal");
+        if (event.target == myDuyetModal) {
+            myDuyetModal.style.display = "none";
+        }
+    }
+</script> 

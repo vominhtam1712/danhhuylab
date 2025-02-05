@@ -1,0 +1,92 @@
+﻿@model List<ListClass.Model.KhachHang>
+@using (Html.BeginForm("Edit", "KhachHang", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:blue"><strong>SỬA THÔNG TIN KHÁCH HÀNG</strong></h3>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr class="center">
+                        <th style="color:#ffffff;background:#808080" colspan="9">Khách hàng: @Model[i].TenKH</th>
+                    </tr>
+                    <tr>
+                        <td width="250px">
+                            @Html.Hidden("KhachHangs[" + i + "].Id", Model[i].Id, new { @readonly = "readonly", @class = "form-control" })
+                            <strong>Mã KH</strong>
+                            @Html.TextBox("KhachHangs[" + i + "].MaKH", Model[i].MaKH, new { @readonly = "readonly", @class = "form-control" })
+                        </td>
+                        <td>
+                            <strong>Tên KH</strong>
+                            @Html.TextBox("KhachHangs[" + i + "].TenKH", Model[i].TenKH, new { @class = "form-control" })
+                        </td>
+
+                        <td>
+                            <strong>Email</strong><br />
+                            @Html.TextBox("KhachHangs[" + i + "].Email", Model[i].Email, new { @class = "form-control" })
+                        </td>
+                        <td>
+                            <strong>SDT</strong><br />
+                            @Html.TextBox("KhachHangs[" + i + "].SDT", Model[i].SDT, new { @class = "form-control" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Liên hệ</strong><br />
+                            @Html.TextBox("KhachHangs[" + i + "].LienHe", Model[i].LienHe, new { @class = "form-control" })
+                        </td>
+                        <td>
+                            <strong>Ngành</strong><br />
+                            @Html.TextBox("KhachHangs[" + i + "].NhomNganh", Model[i].NhomNganh, new { @class = "form-control" })
+                        </td>
+                        <td>
+                            <strong>Tên tập đoàn</strong>
+                            @Html.DropDownList("KhachHangs[" + i + "].Id_TapDoan", new SelectList(ViewBag.TapDoan, "Value", "Text", Model[i].Id_TapDoan), "Chọn tập đoàn...", new { @class = "form-control idDropdown" })
+                        </td>
+                        <td>
+                            <strong>Tên khu vực</strong>
+                            @Html.DropDownList("KhachHangs[" + i + "].Id_KhuVuc", new SelectList(ViewBag.KhuVuc, "Value", "Text", Model[i].Id_KhuVuc), "Chọn khu vực...", new { @class = "form-control idDropdownB" })
+                        </td>
+                    </tr> 
+                    <tr>
+                        <td colspan="2">
+                            <strong>Địa chỉ</strong><br />
+                            @Html.TextBox("KhachHangs[" + i + "].DiaChi", Model[i].DiaChi, new { @class = "form-control" })
+                        </td>
+                        <td colspan="2">
+                            <strong>Ghi chú</strong><br />
+                            @Html.TextBox("KhachHangs[" + i + "].Ghichu", Model[i].Ghichu, new { @class = "form-control" })
+                        </td>
+                    </tr>
+                }
+            </table>
+            <div class="row">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div>
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                    <a href="@Url.Action("Index","KhachHang")"><img src="~/Public/Img/close.png" width="40" /></a>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+<script>
+    $(document).ready(function () {
+        $('.idDropdown').select2({
+            width: '100%'
+        });
+        $('.idDropdownB').select2({
+            width: '100%'
+        });
+    });
+</script>
+

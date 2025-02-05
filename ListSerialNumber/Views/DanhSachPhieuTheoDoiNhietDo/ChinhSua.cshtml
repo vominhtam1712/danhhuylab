@@ -1,0 +1,80 @@
+﻿@model List<ListClass.Model.DanhSachPhieuTheoDoiNhietDo>
+<script src="~/Public/Js/DropDownSelect.js"></script>
+@using (Html.BeginForm("ChinhSua", "DanhSachPhieuTheoDoiNhietDo", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:blue"><strong>CHỈNH SỬA NHIỆT ĐỘ PHÒNG LAB</strong></h3>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>Ngày</th>
+                    <th>Nhiệt độ lúc: 7giờ 30(&#176;C)</th>
+                    <th>Độ ẩm lúc:7 giờ 30(&#37;)</th>
+                    <th>Nhiệt độ lúc: 17giờ 30(&#176;C)</th>
+                    <th>Độ ẩm lúc:7 giờ 30(&#37;)</th>
+                    <th width="130px">Kết luận</th>
+                    <th width="190px">Người kiểm tra</th>
+                </tr>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    var item = Model.ElementAt(i);
+                    <tr>
+                        <td width="90px">
+                            @Html.TextBox("DanhSachPhieuTheoDoiNhietDos[" + i + "].Ngay_theo_doi", Model[i].Ngay_theo_doi, new { @class = "form-control", type = "number" })
+                            @Html.Hidden("DanhSachPhieuTheoDoiNhietDos[" + i + "].ID", Model[i].ID, new { @readonly = "readonly", @class = "form-control" })
+                            @Html.Hidden("DanhSachPhieuTheoDoiNhietDos[" + i + "].ID_PhieuTheoDoiNhietDo", Model[i].ID_PhieuTheoDoiNhietDo, new { @readonly = "readonly", @class = "form-control" })
+                        </td>
+                        <td width="250px">
+                            @Html.TextBox("DanhSachPhieuTheoDoiNhietDos[" + i + "].NhietDo_Sang", Model[i].NhietDo_Sang, new { @class = "form-control", type = "number" })
+                        </td>
+                        <td width="250px">
+                            @Html.TextBox("DanhSachPhieuTheoDoiNhietDos[" + i + "].DoAm_Sang", Model[i].DoAm_Sang, new { @class = "form-control", type = "number" })
+                        </td>
+                        <td width="250px">
+                            @Html.TextBox("DanhSachPhieuTheoDoiNhietDos[" + i + "].NhietDo_Chieu", Model[i].NhietDo_Chieu, new { @class = "form-control", type = "number" })
+                        </td>
+                        <td width="250px">
+                            @Html.TextBox("DanhSachPhieuTheoDoiNhietDos[" + i + "].DoAm_Chieu", Model[i].DoAm_Chieu, new { @class = "form-control", type = "number" })
+                        </td>
+                        <td width="110px">
+                            @Html.DropDownList(
+                                "DanhSachPhieuTheoDoiNhietDos[" + i + "].KetLuan",
+                                new SelectList(
+                                    new[] {
+                                        new SelectListItem { Text = "Chưa đạt", Value = "Chưa đạt" },
+                                        new SelectListItem { Text = "Đạt", Value = "Đạt" }
+                                    },
+                                    "Value",
+                                    "Text",
+                                    Model[i].KetLuan
+                                ),
+                                new { @class = "form-control" }
+                            )
+                        </td>
+                        <td width="110px">
+                            @Html.DropDownList("DanhSachPhieuTheoDoiNhietDos[" + i + "].NguoiKiemTra", new SelectList(ViewBag.Nhanvien, "Value", "Text", Model[i].NguoiKiemTra), "Người kiểm tra...", new { @class = "form-control idDropdown", id = "idDropdown", required = "required" })
+                        </td>
+                    </tr>
+                }
+            </table>
+            <div class="row">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div> 
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                    <a style="text-decoration:none;" href="#" onclick="closeEditModal()"><img src="~/Public/Img/close.png" width="40" /></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+}
+

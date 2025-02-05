@@ -1,0 +1,51 @@
+﻿@model List<ListClass.Model.User>
+@using (Html.BeginForm("Edit", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:blue"><strong>CHỈNH SỬA THÔNG TIN</strong></h3>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped">
+                @for (int i = 0; i < Model.Count; i++)
+                { 
+                    <tr>
+                        <td>
+                            @Html.Hidden("ids[" + i + "].Id", Model[i].Id, new { @readonly = "readonly", @class = "form-control" })
+                            <strong>Tên thiết bị</strong>
+                            @Html.TextBox("ids[" + i + "].Name", Model[i].Name, new { @class = "form-control",required = "required" })
+                        </td> 
+                        <td>
+                            <strong>UserName</strong>
+                            @Html.TextBox("ids[" + i + "].UserName", Model[i].UserName, new { @class = "form-control", required = "required" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Email</strong>
+                            @Html.TextBox("ids[" + i + "].Email", Model[i].Email, new { @class = "form-control"})
+                        </td>
+                        <td>
+                            <strong>Phone</strong>
+                            @Html.TextBox("listnumbers[" + i + "].Phone", Model[i].Phone, new { @class = "form-control" })
+                        </td>  
+                    </tr>  
+                }
+            </table> 
+            <div class="row">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div>
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;width:150px;top:0">
+                    <a class="form-control form-a-control-delete" style="text-decoration:none;" href="#" onclick="closeEditModal()"><span class="fas">(X) Cancel</span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+

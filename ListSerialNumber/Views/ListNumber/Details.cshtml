@@ -1,0 +1,313 @@
+﻿@model  ListClass.Model.ListNumber
+<script src="~/Public/Js/DropDownSelect.js"></script>
+@{
+    var newestDate = Model.PhieuNhanThietBis.OrderByDescending(m => m.Ngaytao).FirstOrDefault()?.Ngaytao;
+}
+<link href="~/Public/Css/details-listnumber.css" rel="stylesheet" />
+<section class="content py-2">
+    <div class="container"> 
+        <div class="row" style="margin-top: 10px; overflow-x: auto;">
+            <div class="col-md-4 hinhanh" style="margin-top:10px;text-align:center">
+                @if (@Model.Image != null)
+                {
+                    <img id="profileImage" src="~/Public/Products/@Model.Image" onclick="triggerFileInput(@Model.Id)" />
+                }
+                else
+                {
+                    <img id="profileImage" src="~/Public/Img/logo.png" onclick="triggerFileInput(@Model.Id)" />
+                }
+                <input type="file" id="fileInput" style="display:none" onchange="previewImage(event)" />
+            </div>
+            <div class="col-md-8 col-12">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td> <strong>Tên thiết bị : </strong> @Model.Tenthietbi </td>
+                        <td> <strong>Hãng : </strong> @Model.Hang</td>
+                    </tr>
+                    <tr>
+                        <td> <strong>Ngày tạo : </strong> @Model.NgaytaoSanPham.ToString("dd/MM/yyyy") </td>
+                        <td> <strong>Model : </strong> @Model.Model </td>
+                    </tr>
+                    <tr>
+                        <td> <strong>Serial Number : </strong> @Model.SerialNumber </td>
+                        <td> <strong>Tên khách hàng : </strong> @Model.KhachHang.TenKH </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"> <strong>Địa chỉ : </strong> @Model.KhachHang.DiaChi </td>  
+                    </tr>
+                    <tr>
+                        <td colspan="2"> <strong>Ghi chú : </strong>@Model.KhachHang.Ghichu</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Cal. Date:</strong>
+                            @if (Model.PhieuNhanThietBis != null && Model.PhieuNhanThietBis.Any())
+                            {
+                                var today = DateTime.Today;
+                                var latestDueDay = Model.PhieuNhanThietBis
+                                                                    .SelectMany(pntb => pntb.Phieuyeucauhieuchuans)
+                                                                    .SelectMany(pychc => pychc.PhanCongs)
+                                                                    .SelectMany(pc => pc.BienBanHieuChuans)
+                                                                    .SelectMany(pc => pc.Giaychungnhans)
+                                                                    .Where(bbhc => bbhc.NgayHieuChuan != null)
+                                                                    .OrderByDescending(bbhc => bbhc.NgayTao)
+                                                                    .FirstOrDefault();
+
+                                if (latestDueDay != null)
+                                {
+                                    @latestDueDay.NgayHieuChuan.ToString("dd/MM/yyyy")
+                                }
+                                else
+                                {
+                                    <span>No Cal Date</span>
+                                }
+                            }
+                            else
+                            {
+                                <span>No Cal Date</span>
+                            }
+                        </td>
+                        <td>
+                            <strong>Due Date:</strong>
+                            @if (Model.PhieuNhanThietBis != null && Model.PhieuNhanThietBis.Any())
+                            {
+                                var today = DateTime.Today;
+                                var latestDueDay = Model.PhieuNhanThietBis
+                                                                    .SelectMany(pntb => pntb.Phieuyeucauhieuchuans)
+                                                                    .SelectMany(pychc => pychc.PhanCongs)
+                                                                    .SelectMany(pc => pc.BienBanHieuChuans)
+                                                                    .SelectMany(bbhc => bbhc.Giaychungnhans)
+                                                                    .Where(gcn => gcn.NgayHieuChuanLai != null)
+                                                                    .OrderByDescending(bbhc => bbhc.NgayTao)
+                                                                    .FirstOrDefault();
+
+                                if (latestDueDay != null)
+                                {
+                                    @latestDueDay.NgayHieuChuanLai.ToString("dd/MM/yyyy")
+                                }
+                                else
+                                {
+                                    <span>No Due Date</span>
+                                }
+                            }
+                            else
+                            {
+                                <span>No Due Date</span>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Còn hạn: </strong>
+                            @if (Model.PhieuNhanThietBis != null && Model.PhieuNhanThietBis.Any())
+                            {
+                                var today = DateTime.Today;
+                                var expiredDueDays = Model.PhieuNhanThietBis
+                                                                    .SelectMany(pntb => pntb.Phieuyeucauhieuchuans)
+                                                                    .SelectMany(pychc => pychc.PhanCongs)
+                                                                    .SelectMany(pc => pc.BienBanHieuChuans)
+                                                                    .SelectMany(bbhc => bbhc.Giaychungnhans)
+                                                                    .Where(gcn => gcn.NgayHieuChuanLai != DateTime.MinValue)
+                                                                    .OrderByDescending(bbhc => bbhc.NgayTao)
+                                                                    .FirstOrDefault();
+
+                                if (expiredDueDays != null && expiredDueDays.NgayHieuChuanLai != DateTime.MinValue)
+                                {
+                                    var currentDate = DateTime.Today;
+
+                                    var expiredDays = (expiredDueDays.NgayHieuChuanLai - today).Days;
+
+                                    if (expiredDays > 0)
+                                    {
+                                        <strong style="color: green">@expiredDays Ngày</strong>
+                                    }
+                                    else
+                                    {
+                                        <strong style="color: red">Đã hết hạn</strong>
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                <strong style="color: blue">Overdue</strong>
+                            }
+                        </td>
+                        <td>
+                            <strong>Quá hạn: </strong>
+                            @if (Model.PhieuNhanThietBis != null && Model.PhieuNhanThietBis.Any())
+                            {
+                                var today = DateTime.Today;
+                                var expiredDueDays = Model.PhieuNhanThietBis
+                                                                    .SelectMany(pntb => pntb.Phieuyeucauhieuchuans)
+                                                                    .SelectMany(pychc => pychc.PhanCongs)
+                                                                    .SelectMany(pc => pc.BienBanHieuChuans)
+                                                                    .SelectMany(pc => pc.Giaychungnhans)
+                                                                    .Where(bbhc => bbhc.NgayHieuChuanLai != DateTime.MinValue)
+                                                                    .OrderByDescending(bbhc => bbhc.NgayTao)
+                                                                    .FirstOrDefault();
+
+                                if (expiredDueDays != null && expiredDueDays.NgayHieuChuanLai != DateTime.MinValue)
+                                {
+                                    var currentDate = DateTime.Today;
+
+                                    var expiredDays = (today - expiredDueDays.NgayHieuChuanLai).Days;
+
+                                    if (expiredDays > 0)
+                                    {
+                                        <strong style="color:red">@expiredDays Ngày</strong>
+                                    }
+                                    else
+                                    {
+                                        <strong style="color:green">Chưa quá hạn</strong>
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                <strong style="color: blue">Overdue</strong>
+                            }
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row" style="overflow-y: scroll;height:250px;">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Loại</th>
+                        <th>Mã phiếu</th>
+                        <th>Người tạo &#10144; người thực hiện</th>
+                        <th>Ngày tạo</th>
+                    </tr>
+                </thead>
+                <tbody class="dataRows">
+                    @foreach (var pntb in Model.PhieuNhanThietBis.OrderByDescending(m => m.Ngaytao))
+                    {
+                        var isNewest = pntb.Ngaytao == newestDate;
+                        var rowClass = isNewest ? "data-row-newest" : "data-row-old";
+                        <tr class="@rowClass">
+                            <td>Phiếu nhận / Số nhận dạng</td>
+                            <td>
+                                <a href="@Url.Action("chitiet", "PhieuNhanThietBi", new { id = pntb.Id })" target="_blank">@pntb.SoYeuCau / @pntb.SoNhanDang</a>
+                            </td>
+                            <td>@pntb.Nguoitao</td>
+                            <td>@pntb.Ngaytao.ToString("dd/MM/yyyy")</td>
+                        </tr>
+
+                        foreach (var pcm in pntb.PhieuChuyenMauHieuChuans.OrderByDescending(m => m.NgayTaoPhieu))
+                        {
+                            <tr class="@rowClass">
+                                <td>Phiếu chuyển</td>
+                                <td><a href="@Url.Action("chitiet","PhieuChuyenMauHieuChuan",new {id = pcm.Id})" target="_blank">@pcm.MaSoMau</a></td>
+                                <td>@pcm.NguoiTao</td>
+                                <td>@pcm.NgayTaoPhieu.ToString("dd/MM/yyyy")</td>
+                            </tr>
+                        }
+                        foreach (var pychc in pntb.Phieuyeucauhieuchuans.OrderByDescending(m => m.NgayTao))
+                        {
+                            <tr class="@rowClass">
+                                <td>Phiếu yêu cầu hiệu chuẩn</td>
+                                <td><a href="@Url.Action("chitiet","Phieuyeucauhieuchuan",new {id = pychc.Id})" target="_blank">@pychc.MaPhieu</a></td>
+                                <td>@pychc.Createby</td>
+                                <td>@pychc.NgayTao.ToString("dd/MM/yyyy")</td>
+                            </tr>
+                            foreach (var pc in pychc.PhanCongs.OrderByDescending(m => m.NgayTao))
+                            {
+
+                                foreach (var bbhc in pc.BienBanHieuChuans.OrderByDescending(m => m.NgayTao))
+                                {
+                                    if (pc.Status == 2)
+                                    {
+                                        <tr class="@rowClass">
+                                            <td>Phân công / Biên bản hiệu chuẩn</td>
+                                            <td><a href="@Url.Action("Details","LuuInHoSo",new {id = pc.Id})" target="_blank">@pc.MaPC / @bbhc.MaBienBan</a></td>
+
+                                            <td>@pc.NguoiTao &#10144; @pc.Company.Name</td>
+                                            <td>@pc.NgayTao.ToString("dd/MM/yyyy")</td>
+                                        </tr>
+                                    } 
+                                    foreach (var gcn in bbhc.Giaychungnhans.OrderByDescending(m => m.NgayTao))
+                                    {
+                                        <tr class="@rowClass">
+                                            <td>Giấy chứng nhận</td>
+                                            <td><a href="@Url.Action("chitiet","Giaychungnhan",new {id = gcn.Id})" target="_blank">@gcn.MaGCN</a></td>
+                                            <td>@gcn.NguoiTao</td>
+                                            <td>@gcn.NgayTao.ToString("dd/MM/yyyy")</td>
+                                        </tr>
+                                        foreach (var pt in gcn.Phieutrathietbis.OrderByDescending(m => m.NgayTao))
+                                        {
+                                            <tr class="@rowClass">
+                                                <td>Phiếu trả</td>
+                                                <td><a href="@Url.Action("chitiet","Phieutrathietbi",new {id = pt.Id})" target="_blank">@pt.MaPT</a></td>
+                                                <td>@gcn.NguoiTao</td>
+                                                <td>@gcn.NgayTao.ToString("dd/MM/yyyy")</td>
+                                            </tr>
+                                        }
+                                        foreach (var bcsc in gcn.BaoCaoSuaChuas.OrderByDescending(m => m.NgayTao))
+                                        {
+                                            <tr class="@rowClass">
+                                                <td>Báo cáo/sửa chữa </td>
+                                                <td><a href="@Url.Action("chitiet","BaoCaoSuaChua",new {ids = bcsc.Id})" target="_blank">@bcsc.MaBaoCao</a></td>
+                                                <td>@bcsc.NguoiTao</td>
+                                                <td>@bcsc.NgayTao.ToString("dd/MM/yyyy")</td>
+                                            </tr>
+
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<script>
+
+    function triggerFileInput(listnumberId) {
+        document.getElementById('fileInput').setAttribute("data-company-id", listnumberId);
+            document.getElementById('fileInput').click();
+        }
+
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function () {
+                document.getElementById('profileImage').src = reader.result;
+                uploadImage(file);
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+        function uploadImage(file) {
+            const listnumberId = document.getElementById('fileInput').getAttribute("data-company-id");
+
+            var formData = new FormData();
+            formData.append("imgFile", file);
+            formData.append("listnumberId", listnumberId);
+
+            $.ajax({
+                url: '@Url.Action("UploadImage", "ListNumber")',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.success) {
+                        alert("Cập nhật ảnh thành công!");
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function () {
+                    alert("Có lỗi xảy ra khi tải ảnh lên.");
+                }
+            });
+        }
+</script> 

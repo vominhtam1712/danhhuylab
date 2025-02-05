@@ -1,0 +1,129 @@
+﻿@model ListClass.Model.Phieuyeucauhieuchuan
+<script src="~/Public/Js/DropDownSelect.js"></script>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:blue"><strong>TẠO PHIẾU YÊU CẦU HIỆU CHUẨN</strong></h3>
+                </div>
+            </div> 
+            <div class="row" style="overflow-x:auto">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <strong>Tên công ty (<i style="color:red">Thông tin xuất hóa đơn</i>)</strong>
+                        <div class="col-md-12">
+                            @Html.TextAreaFor(model => model.Tencognty, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Tencognty, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <strong>Địa chỉ (<i style="color:red">Thông tin xuất hóa đơn</i>)</strong>
+                        <div class="col-md-12">
+                            @Html.TextAreaFor(model => model.Diachicongty, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Diachicongty, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <strong>Mã số thuế</strong>
+                        <div class="col-md-12">
+                            @Html.TextAreaFor(model => model.Masothue, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Masothue, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <strong>Số nhận dạng</strong>
+                        <div class="col-md-12">
+                            @Html.DropDownList("Id_phieunhanthietbi", (SelectList)ViewBag.SoYeuCauList, "Chọn số nhận dạng...", new { @class = "form-control", id = "idDropdown", @Required = "Required" })
+                            @Html.ValidationMessageFor(model => model.Id_phieunhanthietbi, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <strong>Số lượng</strong>
+                        <div class="col-md-12">
+                            @Html.TextBoxFor(model => model.Soluong, new { @class = "form-control", @type = "number" })
+                            @Html.ValidationMessageFor(model => model.Soluong, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <strong>Địa chỉ hiệu chuẩn</strong>
+                        <div class="col-md-12">
+                            @Html.TextAreaFor(model => model.Diachihieuchuan, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Diachihieuchuan, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <strong>Dịch vụ yêu cầu</strong>
+                        <div class="col-md-12">
+                            @Html.TextAreaFor(model => model.Dichvuyeucau, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Dichvuyeucau, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <strong>Nơi thực hiện</strong>
+                        <div class="col-md-12">
+                            @Html.TextAreaFor(model => model.Danhhuy, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Danhhuy, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="customerInfo" style="display:none; margin-top:20px">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>Số SN</th>
+                        <th>Tên TB</th>
+                        <th>Hãng</th>
+                        <th>Model</th>
+                    </tr>
+                    <tr>
+                        <td> <span style="color:blue" id="customerSerialNumber"></span></td>
+                        <td><span style="color:blue" id="customerTenthietbi"></span></td>
+                        <td><span style="color:blue" id="customerHang"></span></td>
+                        <td> <span style="color:blue" id="customerModel"></span></td>
+                    </tr>
+                    <tr>
+                        <th>Mã KH</th>
+                        <th>Tên KH</th>
+                        <th>Địa chỉ</th>
+                        <th>Email</th>
+                    </tr>
+                    <tr>
+                        <td><span style="color:blue" id="customerCode"></span></td>
+                        <td><span style="color:blue" id="customerName"></span></td>
+                        <td><span style="color:blue" id="customerAddress"></span></td>
+                        <td> <span style="color:blue" id="customerEmail"></span></td>
+                    </tr>
+                    <tr>
+                        <th>Số ĐT</th>
+                        <th>Liên hệ</th>
+                        <th>Nhóm ngành</th>
+                        <th>Ghi chú</th>
+                    </tr>
+                    <tr>
+                        <td><span style="color:blue" id="customerPhone"></span></td>
+                        <td><span style="color:blue" id="customerContact"></span></td>
+                        <td><span style="color:blue" id="customerGroup"></span></td>
+                        <td> <span style="color:blue" id="customerNote"></span></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div>
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                    <a href="@Url.Action("Index","Phieuyeucauhieuchuan")"><img src="~/Public/Img/close.png" width="40" /></a>
+                </div>
+            </div>
+        </div>
+    </section> 
+}

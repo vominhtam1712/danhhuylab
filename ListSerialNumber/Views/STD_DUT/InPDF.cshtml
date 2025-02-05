@@ -1,0 +1,320 @@
+﻿@model IEnumerable<ListClass.Model.Join_SDT_DUT_BBHC_PC_PYCHC_PNTB_LISTNUMBER>
+@{
+    var distinctItems = Model
+        .GroupBy(x => x.Id_BienBanHieuChuan)
+        .Select(g => g.FirstOrDefault())
+        .ToList();
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inpdf</title>
+    <style>
+        .header {
+            width: 100%;
+            border-top: 1px solid #000;
+            border-left: 1px solid #000;
+            border-bottom: 1px solid #000;
+            display: flex;
+            justify-content: space-between;
+            height: 140px
+        }
+
+        .header-content {
+            border-right: 1px solid #000
+        }
+
+            .header-content:nth-child(1) img {
+                width: 220px;  
+            }
+
+            .header-content:nth-child(1) {
+                width: 25%;
+                display: flex; 
+                justify-content: center;
+                align-items: center; 
+            }
+
+            .header-content:nth-child(2) {
+                width: 50%;
+                display:flex;
+                justify-content:center;
+                align-items:center;
+            }
+
+            .header-content:nth-child(3) {
+                width: 25%
+            }
+
+        .text-header-content-1 {
+            font-size: 35px; 
+        }
+
+        .text-header-content-2 {
+            font-size: 23px;
+        }
+
+            .text-header-content-2:nth-child(1) {
+                padding: 10px 0 10px 5px
+            }
+
+            .text-header-content-2:nth-child(2) {
+                border-top: 1px solid #000;
+                border-bottom: 1px solid #000;
+                padding: 10px 0 10px 5px
+            }
+
+            .text-header-content-2:nth-child(3) {
+                padding: 10px 0 10px 5px
+            }
+
+        .row {
+            display: flex;
+            padding: 5px 5px 5px 5px
+        }
+
+        .col-md-1 {
+            width: 10%;
+        }
+
+        .col-md-2 {
+            width: 20%;
+        }
+
+        .col-md-3 {
+            width: 30%;
+        }
+
+        .col-md-4 {
+            width: 40%;
+        }
+
+        .col-md-5 {
+            width: 50%;
+        }
+
+        .col-md-6 {
+            width: 60%;
+        }
+
+        .col-md-7 {
+            width: 70%;
+        }
+
+        .col-md-8 {
+            width: 80%;
+        }
+
+        .col-md-9 {
+            width: 90%;
+        }
+
+        .col-md-10 {
+            width: 100%;
+        }
+
+        .text {
+            font-size: 25px
+        }
+        .table{
+            font-size:25px; 
+        }
+        .table-header {
+            width: 100%;
+            display: flex;
+            border: 1px solid #000;
+            justify-content: space-between;
+            text-align: center
+        }  
+        .table-header-content:nth-child(1)  {
+            width: 20%; 
+        } 
+        .table-header-content:nth-child(2) {
+            width: 20%;
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+        }  
+        .table-header-content:nth-child(3) {
+            width: 60%
+        }
+        .table-header-content-row:nth-child(2) {
+            display: flex;
+            border-top: 1px solid #000;
+            justify-content:space-between;
+        }
+        .table-header-content-col {
+            border-right: 1px solid #000;
+            width: 12%;
+            padding:5px 30px
+        }
+        .table-header-content-col:nth-child(5) {
+            border-right:none
+        }
+        .table-header-content-row-1{
+            display:flex;
+            justify-content:space-between
+        }
+        .table-header-content-a{
+            padding:25px
+        }
+        .table-header-content-b {
+            padding: 5px 0 5px
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <img src="https://danhhuylab.vn/Public/Img/logo.png" />
+        </div>
+        <div class="header-content">
+            <div class="text-header-content-1"><strong>BIÊN BẢN HIỆU CHUẨN</strong></div>
+        </div>
+        <div class="header-content">
+            <div class="text-header-content-2">
+                Mã số: DH­QT14/BM01
+            </div>
+            <div class="text-header-content-2">
+                Số soát xét: 02
+            </div>
+            <div class="text-header-content-2">
+                Ngày hiệu lực: 27/03/2024
+            </div>
+        </div>
+    </div>
+    @foreach (var item in distinctItems)
+    {
+        <div class="body" style="margin-top:1%">
+            <div class="row">
+                <div class="col-md-4"><div class="text">1.Phương tiện đo <i>(Object)</i>:</div></div>
+                <div class="col-md-6"><div class="text"><strong>@item.Tenthietbi</strong></div></div>
+            </div>
+            <div class="row">
+                <div class="col-md-4"><div class="text">2.Kiểu<i>(Type)</i>:</div></div>
+                <div class="col-md-6"><div class="text"><strong>@item.Model</strong></div></div>
+            </div>
+            <div class="row">
+                <div class="col-md-4"><div class="text">3.Số Serial Number<i>(Serial No)</i>:</div></div>
+                <div class="col-md-6"><div class="text"><strong>@item.SerialNumber</strong></div></div>
+            </div>
+            <div class="row">
+                <div class="col-md-4"><div class="text">4.Nơi sản xuất<i>(Manufacturer)</i>:</div></div>
+                <div class="col-md-6"><div class="text"><strong>@item.Hang</strong></div></div>
+            </div>
+            <div class="row">
+                <div class="col-md-10"><div class="text">5. Đặc trưng kỹ thuật đo lường<i>(Specification)</i>:</div></div>
+            </div>
+            <div class="row" style="margin-left:10%">
+                <div class="col-md-4"><div class="text">5.1 Chức năng đo<i>(Measurement)</i>:</div></div>
+                <div class="col-md-6"><div class="text">Bức xạ cường độ UV</div></div>
+            </div>
+            <div class="row" style="margin-left:10%">
+                <div class="col-md-4"><div class="text">5.2 Phạm vi đo<i>(Range)</i>:</div></div>
+                <div class="col-md-6"><div class="text">0­-10 W/cm²</div></div>
+            </div>
+            <div class="row" style="margin-left:10%">
+                <div class="col-md-4"><div class="text">5.3 Độ phân giải <i>(Resolution)</i>:</div></div>
+                <div class="col-md-6"><div class="text">  0.001 mW/cm²</div></div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"><div class="text">6. Khách hàng <i>(Customer)</i>:</div></div>
+                <div class="col-md-4"><div class="text"><strong>@item.KhachHang</strong></div></div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"><div class="text">7. Phương pháp hiệu chuẩn<i>(Calibration method)</i>:</div></div>
+                <div class="col-md-2"><div class="text">DH/HC/01/2023</div></div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"><div class="text">8. Môi trường hiệu chuẩn<i>(Calibration Environment)</i>:</div></div>
+                <div class="col-md-2"><div class="text"><strong>@item.NhietDo ℃</strong></div></div>
+                <div class="col-md-2"><div class="text"><strong>@item.NhietDo %RH</strong></div></div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"><div class="text">9. Chuẩn được sử dụng<i>(Standards used)</i>:</div></div>
+                <div class="col-md-2"><div class="text"><strong>@item.TenHieuChuan</strong></div></div>
+                <div class="col-md-2"><div class="text"><strong>SN: @item.SN</strong></div></div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"><div class="text">10. Ngày thực hiện :</div></div>
+                <div class="col-md-4"><div class="text"><strong>@item.NgayThucHien.ToString("dd/MM/yyyy")</strong></div></div>
+            </div>
+        </div>
+    } 
+    <div class="row" style="text-align:center;margin-top:-1%">
+        <div class="col-md-10">
+            <h2>BẢNG KẾT QUẢ THÍ NGHIỆM</h2> 
+        </div>
+    </div>
+    <div class="table"  style="margin-top:-1%">
+        <div class="table-header">
+            <div class="table-header-content"><div class="table-header-content-a">Mức kiểm tra</div></div>
+            <div class="table-header-content"><div class="table-header-content-a">Đơn vị</div></div>
+            <div class="table-header-content">
+                <div class="table-header-content-row"><div class="table-header-content-b">Giá trị đo STD</div></div>
+                <div class="table-header-content-row">
+                    <div class="table-header-content-col">Lần 1</div>
+                    <div class="table-header-content-col">Lần 2</div>
+                    <div class="table-header-content-col">Lần 3</div>
+                    <div class="table-header-content-col">Lần 4</div>
+                    <div class="table-header-content-col">Lần 5</div>
+                </div>
+            </div>
+        </div>
+        @foreach (var item in Model)
+        {
+            <div class="table-header">
+                <div class="table-header-content">@item.MucKiemTra_STD</div>
+                <div class="table-header-content">mW/cm²</div>
+                <div class="table-header-content">
+                    <div class="table-header-content-row-1">
+                        <div class="table-header-content-col">@item.Lan1_STD</div>
+                        <div class="table-header-content-col">@item.Lan2_STD</div>
+                        <div class="table-header-content-col">@item.Lan3_STD</div>
+                        <div class="table-header-content-col">@item.Lan4_STD</div>
+                        <div class="table-header-content-col">@item.Lan5_STD</div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="table">
+        <div class="table-header">
+            <div class="table-header-content"><div class="table-header-content-a">Mức kiểm tra</div></div>
+            <div class="table-header-content"><div class="table-header-content-a">Đơn vị</div></div>
+            <div class="table-header-content">
+                <div class="table-header-content-row"><div class="table-header-content-b">Giá trị đo DUT</div></div>
+                <div class="table-header-content-row">
+                    <div class="table-header-content-col">Lần 1</div>
+                    <div class="table-header-content-col">Lần 2</div>
+                    <div class="table-header-content-col">Lần 3</div>
+                    <div class="table-header-content-col">Lần 4</div>
+                    <div class="table-header-content-col">Lần 5</div>
+                </div>
+            </div>
+        </div>
+        @foreach (var item in Model)
+        {
+            <div class="table-header">
+                <div class="table-header-content">@item.MucKiemTra_DUT</div>
+                <div class="table-header-content">mW/cm²</div>
+                <div class="table-header-content">
+                    <div class="table-header-content-row-1">
+                        <div class="table-header-content-col">@item.Lan1_DUT</div>
+                        <div class="table-header-content-col">@item.Lan2_DUT</div>
+                        <div class="table-header-content-col">@item.Lan3_DUT</div>
+                        <div class="table-header-content-col">@item.Lan4_DUT</div>
+                        <div class="table-header-content-col">@item.Lan5_DUT</div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="row" style="text-align:center">
+        <div class="col-md-5"><h2>NGƯỜI LẬP BIỂU</h2></div>
+        <div class="col-md-5"><h2>NGƯỜI PHÊ DUYỆT</h2></div>
+    </div>
+</body>
+</html>

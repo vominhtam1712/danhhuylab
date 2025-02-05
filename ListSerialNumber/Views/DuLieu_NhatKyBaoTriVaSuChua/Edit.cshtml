@@ -1,0 +1,88 @@
+﻿@model List<ListClass.Model.DuLieu_NhatKyBaoTriVaSuChua>
+<script src="~/Public/Js/DropDownSelect.js"></script>
+@using (Html.BeginForm("Edit", "DuLieu_NhatKyBaoTriVaSuChua", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<section class="content py-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" style="text-align:center">
+                <h3 style="color:blue"><strong>SỬA QUÁ TRÌNH BẢO TRÌ,SỬA CHỮA</strong></h3>
+            </div>
+        </div>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <div class="form-horizontal">
+                <div class="row py-1">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.Hidden("ids[" + i + "].Id", Model[i].Id, new { @readonly = "readonly", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @Html.Hidden("ids[" + i + "].Id_NhatKyBaoTriVaSuChua", Model[i].Id_NhatKyBaoTriVaSuChua, new { @readonly = "readonly", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <strong class="control-label col-md-3">Ngày</strong>
+                            <div class="col-md-12">
+                                @Html.TextBox("ids[" + i + "].Ngay", Model[i].Ngay.ToString("yyyy-MM-ddTHH:mm"), new { @class = "form-control", type = "datetime-local", @Required = "Required" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+
+                        <div class="form-group">
+                            <strong class="control-label col-md-3">Mô tả sự cố</strong>
+                            <div class="col-md-12">
+                                @Html.TextArea("ids[" + i + "].MoTaSuCo", Model[i].MoTaSuCo, new { @class = "form-control", @style = "height:160px", @Required = "Required" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <strong class="control-label col-md-3">Hành động khắc phục</strong>
+                            <div class="col-md-12">
+                                @Html.TextArea("ids[" + i + "].HanhDongKhacPhuc", Model[i].HanhDongKhacPhuc, new { @class = "form-control", @Required = "Required", @style = "height:70px" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <strong class="control-label col-md-3">Kết quả</strong>
+                            <div class="col-md-12">
+                                @Html.TextArea("ids[" + i + "].KetQua", Model[i].KetQua, new { @class = "form-control", @Required = "Required", @style = "height:65px" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <strong class="control-label col-md-3">Người sửa chữa</strong>
+                            <div class="col-md-12">
+                                @Html.TextArea("ids[" + i + "].NguoiSuaChua", Model[i].NguoiSuaChua, new { @class = "form-control", @required = "required", @style = "height:70px" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <strong class="control-label col-md-3">Người kiểm tra</strong>
+                            <div class="col-md-12">
+                                @Html.TextArea("ids[" + i + "].NguoiKiemTra", Model[i].NguoiKiemTra, new { @class = "form-control", @Required = "Required", @style = "height:65px" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="row">
+        <div class="col-md-2" style="width: auto;">
+            <button class="form-control form-a-control" type="submit" value="Edit">
+                <span class="fas fa-edit"> OK</span>
+            </button>
+        </div> 
+        <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+            <a style="text-decoration:none;" href="#" onclick="closeEditModal()"><img src="~/Public/Img/close.png" width="40" /></a>
+        </div>
+    </div>
+</section>
+}

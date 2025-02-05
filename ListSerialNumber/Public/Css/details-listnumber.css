@@ -1,0 +1,40 @@
+﻿.hinhanh img {
+    width: 330px;
+    height: 330px;
+    border-radius: 50%
+}
+
+#profileImage {
+    cursor: pointer;
+} 
+.data-row-newest a {
+    text-decoration: none;
+    animation: colorfull 1s linear infinite;
+}
+
+    .data-row-newest a:hover {
+        text-decoration: underline; 
+       
+    } 
+@keyframes colorfull {
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+.data-row-old {
+    font-weight: revert;
+}
+
+    .data-row-old a {
+        color: #c0c0c0;
+        text-decoration: none;
+    }
+
+        .data-row-old a:hover {
+            color: blue;
+            text-decoration: underline;
+        }
+
+    .data-row-old td {
+        color: #c0c0c0
+    }

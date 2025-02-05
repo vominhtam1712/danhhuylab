@@ -1,0 +1,115 @@
+﻿@model List<ListClass.Model.Join_Baocaodanhgia_thietbi>
+<script src="~/Public/Js/DropDownSelect.js"></script>
+<section class="content py-2">
+    <div class="container">
+        <div class="row" style="margin-left:10%"> 
+            @foreach (var item in Model) { 
+                <div class="col-md-2" style="width:auto">
+                    @using (Html.BeginForm("ExportPdf", "BaoCaoDanhGia", FormMethod.Post, new { id = "exportForm_" + item.Id_Baocaodanhgia }))
+                    {
+                        @Html.Hidden("id", item.Id_Baocaodanhgia)
+                        <a href="#" class="form-control form-a-control downloadLink" data-id="@item.Id_Baocaodanhgia" style="text-decoration:none">
+                            <span class="fas fa-file-export">ExportPdf</span>
+                        </a>
+                    }
+                </div>
+            }
+            <div class="col-md-2" style="margin-top:10px;width:auto">
+                @Html.Partial("Message")
+            </div>
+        </div>
+        <table class="table table-bordered table-striped" style="margin-top:10px">
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                var item = Model.ElementAt(i);
+                <tr>
+                    <td>
+                        <strong>STT</strong><br />
+                        @(i + 1)
+                    </td>
+                    <td class="text-center">
+                        <strong>Hình SP</strong><br />
+                        @if (item.Img == null)
+                        {
+                            <img src="~/Public/Img//logo.png" alt="Image" style="width: 100px; height: 100px;" />
+                        }
+                        else
+                        {
+                            <img src="~/Public/Products/@item.Img" alt="Image" style="width: 100px; height: 100px;" />
+                        }
+                    </td>
+                    <td>
+                        <strong>Tên thiết bị</strong><br />
+                        @Html.DisplayFor(modelItem => item.TenThietBi)
+
+                    </td>
+                    <td>
+                        <strong>Mã thiết bị</strong><br />
+                        @Html.DisplayFor(modelItem => item.MaThietBi)
+                    </td>
+                    <td>
+                        <strong>Thiết bị/ hoá chất HC</strong><br />
+                        @Html.DisplayFor(modelItem => item.ThietBi_HoaChatHieuChuan)
+                    </td>
+                </tr>
+                <tr>
+                    <td width="150px">
+                        <strong>Ngày HC</strong><br />
+                        @item.NgayHieuChuan.ToString("dd/MM/yyyy")
+                    </td>
+                    <td width="150px">
+                        <strong>Ngày HC kế tiếp</strong><br />
+                        @item.NgayHieuChuanKeTiep.ToString("dd/MM/yyyy")
+                    </td>
+                    <td>
+                        <strong>Kết quả hiệu chuẩn</strong><br />
+                        @Html.DisplayFor(modelItem => item.KetQuaHC)
+                    </td>
+                    <td>
+                        <strong>Kết luận</strong><br />
+                        @Html.DisplayFor(modelItem => item.KetLuan)
+                    </td>
+                    <td>
+                        <strong>Ngày tạo</strong><br />
+                        @item.NgayTao.ToString("dd/MM/yyyy")
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</section>
+<script>
+    $(document).ready(function () {
+        $(".downloadLink").click(function (e) {
+            e.preventDefault();
+
+            var form = $(this).closest('form');
+            var formData = form.serialize();
+
+            $("#loading").show();
+
+            $.ajax({
+                url: form.attr("action"),
+                type: 'POST',
+                data: formData,
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function (data) {
+                    var blob = new Blob([data], { type: 'application/pdf' });
+                    var link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = 'BaoCaoDanhGiaThietBi.pdf';
+                    link.click();
+
+                    $("#loading").hide();
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi tải PDF.');
+                    $("#loading").hide();
+                }
+            });
+        });
+    });
+
+</script>

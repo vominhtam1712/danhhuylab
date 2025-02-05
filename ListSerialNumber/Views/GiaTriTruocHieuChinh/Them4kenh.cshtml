@@ -1,0 +1,58 @@
+﻿@model List<ListClass.Model.PhanCong>
+<script src="~/Public/Js/DropDownSelect.js"></script>
+@using (Html.BeginForm("Them4kenh", "GiaTriTruocHieuChinh", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:blue"><strong>GIÁ TRỊ TRƯỚC HIỆU CHỈNH (4 KÊNH)</strong></h3>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    for (int j = 0; j < 4; j++)
+                    { 
+                        <tr>
+                            <td rowspan="2" style="vertical-align:middle;text-align:center">
+                                <strong>UV-@(new[] {"A", "B", "C", "V"}[j])</strong>
+                            </td>
+                            <td>
+                                <strong>Reference (<i style="color:blue">Irradiance</i>)</strong><br />
+                                @Html.TextBox($"ids[{i * 4 + j}].Reference_1", "", new { @type = "number", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                                @Html.Hidden($"ids[{i * 4 + j}].Id_PhanCong", Model[i].Id, new { @class = "form-control" })
+                            </td>
+                            <td>
+                                <strong>Instrument (<i style="color:blue">Irradiance</i>)</strong><br />
+                                @Html.TextBox($"ids[{i * 4 + j}].Instrument_1", "", new { @type = "number", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Reference (<i style="color:blue">Energy Density</i>)</strong><br />
+                                @Html.TextBox($"ids[{i * 4 + j}].Reference_2", "", new { @type = "number", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                            </td>
+                            <td>
+                                <strong>Instrument (<i style="color:blue">Energy Density</i>)</strong><br />
+                                @Html.TextBox($"ids[{i * 4 + j}].Instrument_2", "", new { @type = "number", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+            <div class="row">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div>
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                    <a style="text-decoration:none;" href="#" onclick="closeModal()"><img src="~/Public/Img/close.png" width="40" /></a>
+                </div>
+            </div>
+        </div>
+    </section>
+}

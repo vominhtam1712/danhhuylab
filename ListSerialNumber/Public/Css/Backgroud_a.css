@@ -1,0 +1,44 @@
+﻿@keyframes colorfull {
+    25% {
+        background-color: #00ffff
+    }
+    50% {
+        background-color:#08c9f5
+    }
+    75% {
+        background-color: #0286c0
+    }
+    100% {
+        background-color: #163ded
+    }
+}
+@keyframes colorChange {
+    25% {
+        background-color: #00ffff
+    }
+
+    50% {
+        background-color: #08c9f5
+    }
+
+    75% {
+        background-color: #0286c0
+    }
+
+    100% {
+        background-color: #163ded
+    }
+}
+.full-width-link {
+    display: block; 
+    width: 100%;  
+    text-align: center; 
+    padding: 10px 0; 
+    box-sizing: border-box; 
+    color: white; 
+    animation: colorfull 2s linear infinite; 
+    border-radius:20px;
+}
+.dang-thuc-hien {
+    animation: colorChange 2s linear infinite;
+}

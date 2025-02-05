@@ -1,0 +1,43 @@
+﻿@model ListClass.Model.QuyTrinhISO
+<script src="~/Public/Js/DropDownSelect.js"></script>
+@using (Html.BeginForm("Edit", "QuyTrinhISO", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:blue"><strong>CHỈNH SỬA QUY TRÌNH ISO 17025</strong></h3>
+                </div>
+            </div>
+            <div class="form-horizontal">
+                <div class="row py-1">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <!-- Hidden Field for ID -->
+                            @Html.HiddenFor(model => model.id, new { @class = "form-control", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.id, "", new { @class = "text-danger" })
+                            <strong class="control-label col-md-3">Tên quy trình</strong>
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(model => model.TenQuyTrinh, new { @class = "form-control", @required = "required", style = "height:120px" })
+                                @Html.ValidationMessageFor(model => model.TenQuyTrinh, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div> 
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                    <a style="text-decoration:none;" href="#" onclick="closeEditModal()"><img src="~/Public/Img/close.png" width="40" /></a>
+                </div>
+            </div>
+        </div>
+    </section>
+}

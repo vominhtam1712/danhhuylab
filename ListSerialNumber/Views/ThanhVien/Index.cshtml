@@ -1,0 +1,676 @@
+﻿@model List<ListClass.Model.Join_company_ngaynghi>
+@{
+    ViewBag.Title = "Thông tin thành viên";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+    var numberOfTimes = Model.Where(m => m.Ngaybatdau.Value.Year == DateTime.Now.Year && m.Status_ngaynghi == 1 && m.Ngayketthuc.Value.Year == DateTime.Now.Year).Sum(item => item.TongNgay ?? 0);
+
+    var listThanhVien = ViewBag.ListThanhVien as List<ListClass.Model.Join_company_ngaynghi>;
+
+    var listRoles = ViewBag.ListRoles as List<ListClass.Model.CompanyRoles>;
+
+    var demyeucaunghi = listThanhVien.Count(m => m.Status_ngaynghi == 2);
+
+    var nghiquahan = numberOfTimes - 12;
+    var phepconlai = 12 - numberOfTimes;
+
+    var nghiquahan1 = numberOfTimes - 13; 
+    var phepconlai1 = 13 - numberOfTimes;
+
+    var nam = DateTime.Now.Year;
+
+    var Ngaybatdau = listThanhVien.Where(m => m.Ngaybatdau.HasValue && m.Ngaybatdau.Value.Year == nam).ToList();
+
+    DateTime? ngavaolamtruoc = Model.FirstOrDefault()?.NgayVaoLam ?? null;
+
+    DateTime namhientai = DateTime.Now;
+    int SoNgayDaLam = 0;
+    if (ngavaolamtruoc.HasValue)
+    {
+        SoNgayDaLam = (namhientai - ngavaolamtruoc.Value).Days;
+    }
+    var distinctItems = Model
+    .GroupBy(x => x.Id_company)
+    .Select(g => g.FirstOrDefault())
+    .ToList();
+}
+<style>
+    .circle-img img {
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding-top: 100px;
+        left: 0;
+        top: 10px;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .modal-content {
+        background-color: #fff;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%;
+        max-width: 1024px;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    button {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    .horizontal-line {
+        width: 100%;
+        height: 1px;
+        background-color: black;
+        margin: 10px 0;
+    }
+
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+        text-align: center;
+    }
+
+    .row {
+        overflow-x: auto;
+    }
+</style>
+<div class="content-wrapper">
+    <div class="container py-2">
+        <div class="card">
+            <div class="card-body" style="height:auto;">
+                <div class="row" style="overflow-x:auto;">
+
+                    @foreach (var item in distinctItems)
+                    {
+                        <div class="row">
+                            <div class="col-md-4" style="text-align:center">
+                                @if (item.Img != null)
+                                {
+                                    <div class="circle-img">
+                                        <img id="profileImage" src="~/Public/Img/@item.Img" alt="img" onclick="triggerFileInput(@item.Id_company)" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="circle-img">
+                                        <img id="profileImage" src="~/Public/Img/logo-danhhuy.png" alt="img" onclick="triggerFileInput(@item.Id_company)" />
+                                    </div>
+                                }
+                                <input type="file" id="fileInput" style="display:none" onchange="previewImage(event)" />
+                                <div>Họ tên: @item.Name</div>
+                                <div>Đã vào làm: @SoNgayDaLam ngày</div>
+                            </div>
+                            <div class="col-md-8" style="text-align:center">
+                                <h3>THÔNG TIN THÀNH VIÊN ( @item.Name ) <i style="font-size:15px">@Html.Partial("Message")</i></h3>
+                                <div class="horizontal-line"></div>
+                                <div class="row" style="text-align:center">
+                                    <div class="col-md-4">
+                                        <a class="form-control form-a-control" style="cursor: pointer; text-align: center; text-decoration: none; width: 170px;" href="#" onclick="openPassWordModal('@item.Id_company')">Đổi mật khẩu</a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a class="form-control form-a-control" style="cursor: pointer; text-align: center; text-decoration: none; width: 170px;" href="#" onclick="openNewModal('@item.Id_company')">Xin nghỉ phép</a>
+                                    </div>
+                                    @if (listRoles != null && listRoles.Any(role => role.MaQuyen == "XemYeuCauNghi"))
+                                    {
+                                        <div class="col-md-4">
+                                            <a class="form-control form-a-control" style="cursor: pointer; text-align: center; text-decoration: none; width: 170px;" href="#" onclick="openDuyetModal()">Yêu cầu nghỉ (@demyeucaunghi)</a>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="horizontal-line"></div>
+                                <div class="row" style="text-align:left">
+                                    <div class="col-md-6">
+                                        @if (item.Status == 1)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-3"><p>Trạng thái:</p></div>
+                                                <div class="col-md-9" style="color:blue"><p>đang làm việc</p></div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-3"><p>Trạng thái:</p></div>
+                                                <div class="col-md-9" style="color:red"><p>đã nghĩ việc</p></div>
+                                            </div>
+                                        }
+                                        @if (item.Email != null)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-3"><p>Email:</p></div>
+                                                <div class="col-md-9"><p>@item.Email</p></div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-3"><p>Email:</p></div>
+                                            </div>
+                                        }
+                                        @if (item.Phone != null)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-3"><p>SDT:</p></div>
+                                                <div class="col-md-9"><p>@item.Phone</p></div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-3"><p>SDT:</p></div>
+                                            </div>
+                                        }
+                                        @if (item.QueQuan != null)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-3"><p>Quê quán:</p></div>
+                                                <div class="col-md-9"><p>@item.QueQuan</p></div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-3"><p>Quê quán:</p></div>
+                                            </div>
+                                        }
+                                        @if (item.NamSinh != null)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-3"><p>Năm sinh:</p></div>
+                                                <div class="col-md-9"><p>@item.NamSinh.Value.ToString("dd/MM/yyyy")</p></div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-3"><p>Năm sinh:</p></div>
+                                            </div>
+                                        }
+                                        @if (item.GioiTinh != null)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-3"><p>Giới tính:</p></div>
+                                                <div class="col-md-9"><p>@item.GioiTinh</p></div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-3"><p>Giới tính:</p></div>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="col-md-6">
+                                        @if (item.SoCCCD != null)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-5"><p>Số CCCD:</p></div>
+                                                <div class="col-md-7"><p>@item.SoCCCD</p></div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-5"><p>Số CCCD:</p></div>
+                                            </div>
+                                        }
+                                        @if (item.NgayVaoLam != null)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-5"><p>Ngày vào làm:</p></div>
+                                                <div class="col-md-7"><p>@item.NgayVaoLam.Value.ToString("dd/MM/yyyy")</p></div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-5"><p>Ngày vào làm:</p></div>
+                                            </div>
+                                        }
+                                        @if (item.BacDaoTao != null)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-5"><p>Trình độ:</p></div>
+                                                <div class="col-md-7"><p>@item.BacDaoTao</p></div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-5"><p>Trình độ:</p></div>
+                                            </div>
+                                        }
+                                        @if (item.ChuyenNganh != null)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-5"><p>Chuyên ngành:</p></div>
+                                                <div class="col-md-7"><p>@item.ChuyenNganh</p></div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-5"><p>Chuyên ngành:</p></div>
+                                            </div>
+                                        }
+                                        @if (item.ChucVu != null)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-5"><p>Chức vụ:</p></div>
+                                                <div class="col-md-7"><p>@item.ChucVu</p></div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-5"><p>Chức vụ:</p></div>
+                                            </div>
+                                        }
+                                        @if (SoNgayDaLam >= 1826 && Ngaybatdau.Any())
+                                        {
+                                            if (numberOfTimes > 13)
+                                            {
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <a style="cursor: pointer;" href="#" onclick="openDetailsModal()">Số lần nghỉ:</a>
+                                                    </div>
+                                                    <div class="col-md-8"><p>@numberOfTimes/13 (Quá:<strong style="color:red"> @nghiquahan1 lần</strong> - Năm: <strong style="color:blue">@nam)</strong></p></div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <a style="cursor: pointer;" href="#" onclick="openDetailsModal()">Số lần nghỉ:</a>
+                                                    </div>
+                                                    <div class="col-md-8"><p>@numberOfTimes/13 (Phép còn:<strong style="color:blue">@phepconlai1 lần</strong> - Năm: <strong style="color:blue">@nam)</strong></p></div>
+                                                </div>
+                                            }
+                                        }
+                                        else if (SoNgayDaLam < 1826 && Ngaybatdau.Any())
+                                        {
+                                            if (numberOfTimes > 12)
+                                            {
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <a style="cursor: pointer;" href="#" onclick="openDetailsModal()">Số lần nghỉ:</a>
+                                                    </div>
+                                                    <div class="col-md-8"><p>@numberOfTimes/12 (Quá:<strong style="color:red"> @nghiquahan lần</strong> - Năm: <strong style="color:blue">@nam)</strong></p></div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <a style="cursor: pointer;" href="#" onclick="openDetailsModal()">Số lần nghỉ:</a>
+                                                    </div>
+                                                    <div class="col-md-8"><p>@numberOfTimes/12 (Phép còn:<strong style="color:blue">@phepconlai lần</strong> - Năm: <strong style="color:blue">@nam)</strong></p></div>
+                                                </div>
+                                            }
+                                        }
+                                        else if (SoNgayDaLam >= 1826)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <a style="cursor: pointer;" href="#" onclick="openDetailsModal()">Số lần nghỉ:</a>
+                                                </div>
+                                                <div class="col-md-8"><p>0/13 (Phép còn:<strong style="color:blue">13 lần</strong> - Năm: <strong style="color:blue">@nam)</strong></p></div>
+                                            </div>
+                                        }
+                                        else if (SoNgayDaLam < 1826)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <a style="cursor: pointer;" href="#" onclick="openDetailsModal()">Số lần nghỉ:</a>
+                                                </div>
+                                                <div class="col-md-8"><p>0/12 (Phép còn:<strong style="color:blue">12 lần</strong> - Năm: <strong style="color:blue">@nam)</strong></p></div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div id="myNewModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <h4 style="text-align:center">Xin nghỉ phép</h4>
+                    <form id="newInfoForm">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="ngaybatdauInput">Ngày bắt đầu:</label>
+                                <input class="form-control" type="date" id="ngaybatdauInput" name="ngaybatdau" required />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="ngayketthucInput">Ngày kết thúc:</label>
+                                <input class="form-control" type="date" id="ngayketthucInput" name="ngayketthuc" required />
+                            </div>
+                            <div class="col-md-4">
+                                <label for="lydoxinphepInput">Lý do xin phép:</label>
+                                <input class="form-control" type="text" id="lydoxinphepInput" name="lydoxinphep" /><br />
+                            </div>
+                        </div>
+                        <input type="hidden" id="newCompanyIdInput" name="companyId" />
+                        <button type="submit" class="btn btn-primary">Gửi</button>
+                        <button type="button" class="btn btn-secondary" onclick="closeDayModal()">Đóng</button>
+                    </form>
+                    <div id="loadingSpinner" style="display: none; text-align: center; margin-top: 20px;">
+                        <img src="https://i.gifer.com/ZZ5H.gif" alt="Loading..." /> 
+                        <p>Đang gửi yêu cầu, vui lòng đợi...</p>
+                    </div>
+                </div>
+            </div>
+            <div id="myDetailsModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <h4 style="text-align:center">SỐ LẦN NGHỈ</h4>
+                    <div class="row" style="overflow-y:auto;height:400px;">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Họ tên</th>
+                                    <th colspan="2">Nghỉ từ ngày</th>
+                                    <th width="100px">Số ngày</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Where(m => m.Status_ngaynghi == 1).OrderByDescending(m => m.Id_ngaynghi))
+                                {
+                                    <tr class="data-row">
+                                        <td>@item.Name</td>
+                                        <td>@item.Ngaybatdau.Value.ToString("dd/MM/yyyy")</td>
+                                        <td>@item.Ngayketthuc.Value.ToString("dd/MM/yyyy")</td>
+                                        <td>@item.TongNgay</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div> 
+                </div>
+            </div>
+            <div id="myDuyetModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <h4 style="text-align:center">ĐƠN XIN NGHỈ PHÉP</h4>
+                    <div class="row">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Họ tên</th>
+                                    <th colspan="2">Nghỉ từ ngày</th>
+                                    <th width="100px">Số ngày</th>
+                                    <th>Lý do xin phép</th>
+                                    <th colspan="2">Duyệt / Hủy</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (listThanhVien != null && listThanhVien.Any())
+                                {
+                                    foreach (var item in listThanhVien.Where(m => m.Status_ngaynghi == 2))
+                                    {
+                                        <tr class="data-row">
+                                            <td>@item.Name</td>
+                                            <td>@item.Ngaybatdau.Value.ToString("dd/MM/yyyy")</td>
+                                            <td>@item.Ngayketthuc.Value.ToString("dd/MM/yyyy")</td>
+                                            <td>@item.TongNgay</td>
+                                            <td>@item.LyDoXinPhep</td>
+                                            <td>
+                                                @using (Html.BeginForm("Duyet", "ThanhVien", FormMethod.Post))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    @Html.Hidden("Id", item.Id_ngaynghi) 
+                                                    <input type="submit" value="Duyệt" class="form-control form-a-control" onclick="return confirm('Duyệt ngày nghỉ này?');" />
+                                                }
+                                            </td>
+                                            <td>
+                                                @using (Html.BeginForm("Huy", "ThanhVien", FormMethod.Post))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    @Html.Hidden("Id", item.Id_ngaynghi) 
+                                                    <input type="submit" value="Hủy" class="form-control form-a-control-delete" onclick="return confirm('Hủy ngày nghỉ này?');" />
+                                                }
+                                            </td> 
+                                        </tr> 
+                                    }
+                                }
+                            </tbody>
+                        </table> 
+                    </div>
+                </div>
+            </div>
+            <div id="myPasswordModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <h4 style="text-align:center">Đổi Mật Khẩu</h4>
+                    <form id="changePasswordForm">
+                        <label for="oldPassword">Mật khẩu cũ:</label>
+                        <input type="password" id="oldPassword" name="oldPassword" class="form-control" required />
+
+                        <label for="newPassword">Mật khẩu mới:</label>
+                        <input type="password" id="newPassword" name="newPassword" class="form-control" required />
+
+                        <label for="confirmPassword">Xác nhận mật khẩu:</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required /><br />
+
+                        <input type="hidden" id="companyIdInput" name="companyId" value="" />
+
+                        <button type="submit" class="btn btn-primary">Lưu</button>
+                        <button type="button" class="btn btn-secondary" onclick="closePassWordModal()">Đóng</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+        function triggerFileInput(companyId) {
+            document.getElementById('fileInput').setAttribute("data-company-id", companyId);
+            document.getElementById('fileInput').click();
+        }
+
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function () {
+                document.getElementById('profileImage').src = reader.result;
+                uploadImage(file);
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+        function uploadImage(file) {
+            const companyId = document.getElementById('fileInput').getAttribute("data-company-id");
+
+            var formData = new FormData();
+            formData.append("imgFile", file);
+            formData.append("companyId", companyId);
+
+            $.ajax({
+                url: '@Url.Action("UploadProfileImage", "ThanhVien")',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.success) {
+                        alert("Cập nhật ảnh thành công!");
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function () {
+                    alert("Có lỗi xảy ra khi tải ảnh lên.");
+                }
+            });
+        }
+</script>
+<script>
+    function openPassWordModal(companyId) {
+        var modal = document.getElementById("myPasswordModal");
+        modal.style.display = "block";
+
+        document.getElementById("companyIdInput").value = companyId;
+    }
+
+    document.getElementById("changePasswordForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    var oldPassword = document.getElementById("oldPassword").value;
+    var newPassword = document.getElementById("newPassword").value;
+    var confirmPassword = document.getElementById("confirmPassword").value;
+    var companyId = document.getElementById("companyIdInput").value;
+
+    if (newPassword !== confirmPassword) {
+        alert("Mật khẩu xác nhận không khớp!");
+        return;
+    }
+
+    $.ajax({
+        url: '@Url.Action("ChangePassword", "ThanhVien")',
+        type: 'POST',
+        data: {
+            companyId: companyId,
+            oldPassword: oldPassword,
+            newPassword: newPassword
+        },
+        success: function(response) {
+            if (response.success) {
+                alert("Đổi mật khẩu thành công!");
+                closePassWordModal();
+            } else {
+                alert("Có lỗi xảy ra: " + response.message);
+            }
+        },
+        error: function() {
+            alert('Lỗi trong khi gửi dữ liệu.');
+        }
+    });
+});
+</script>
+<script>
+    function closePassWordModal() {
+        var modal = document.getElementById("myPasswordModal");
+        modal.style.display = "none";
+    }
+</script>
+<script>
+    window.onclick = function (event) {
+        var myDetailsModal = document.getElementById("myDetailsModal");
+        var myDuyetModal = document.getElementById("myDuyetModal");
+        var myNewModal = document.getElementById("myNewModal");
+        var myModal = document.getElementById("myModal");
+        if (event.target == myModal) {
+            myModal.style.display = "none";
+        }
+        if (event.target == myNewModal) {
+            myNewModal.style.display = "none";
+        }
+        if (event.target == myDetailsModal) {
+            myDetailsModal.style.display = "none";
+        }
+        if (event.target == myDuyetModal) {
+            myDuyetModal.style.display = "none";
+        }
+    }
+</script> 
+<script>
+    function openNewModal(companyId) {
+        document.getElementById("newCompanyIdInput").value = companyId;
+        document.getElementById("myNewModal").style.display = "block";
+    }
+    function closeDayModal() {
+        document.getElementById("myNewModal").style.display = "none";
+    }
+   document.getElementById("newInfoForm").addEventListener("submit", function (event) {
+    event.preventDefault();  
+
+    var ngaybatdau = document.getElementById("ngaybatdauInput").value;
+    var ngayketthuc = document.getElementById("ngayketthucInput").value;
+    var lydoxinphep = document.getElementById("lydoxinphepInput").value;
+    var companyId = document.getElementById("newCompanyIdInput").value;
+     
+    if (ngayketthuc < ngaybatdau) {
+        alert("Ngày kết thúc phải lớn hơn hoặc bằng ngày bắt đầu!");
+        return;
+    }
+     
+    document.getElementById("loadingSpinner").style.display = "block";
+
+    $.ajax({
+        url: '@Url.Action("XinNghiPhep", "ThanhVien")',
+        type: 'POST',
+        data: {
+            companyId: companyId,
+            ngaybatdau: ngaybatdau,
+            ngayketthuc: ngayketthuc,
+            lydoxinphep: lydoxinphep,
+        },
+        success: function (response) { 
+            document.getElementById("loadingSpinner").style.display = "none";
+
+            if (response.success) {
+                alert("Đã gửi đơn xin nghỉ, đợi xác nhận!");
+                closeDayModal();
+                location.reload(); 
+            } else {
+                alert("Có lỗi xảy ra: " + response.message);
+            }
+        },
+        error: function () { 
+            document.getElementById("loadingSpinner").style.display = "none";
+            alert('Lỗi trong khi gửi dữ liệu.');
+        }
+    });
+});
+</script>
+<script>
+    function openDuyetModal() {
+        var modal = document.getElementById("myDuyetModal");
+        modal.style.display = "block";
+        showInitialData();
+    }
+</script>
+<script>
+    function openDetailsModal() {
+        var modal = document.getElementById("myDetailsModal");
+        modal.style.display = "block";
+        showInitialData();
+    }
+</script>

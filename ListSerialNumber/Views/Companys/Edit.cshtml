@@ -1,0 +1,686 @@
+﻿@model ListClass.Model.AssignRolesViewModel  
+<script src="~/Public/Js/DropDownSelect.js"></script>
+<style>
+    .col-md-3 input{
+        width:20px;
+        height:20px;
+    } 
+</style>
+@using (Html.BeginForm("Edit", "Companys", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:blue"><strong>PHÂN QUYỀN TÀI KHOẢN</strong></h3>
+                </div>
+            </div>
+            <input type="hidden" name="id" value="@Model.CompanyId" />
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="dropdown-on-off-2">
+                        <div class="form-control"><span class="fas fa-list-ul title-phancong"> Hàng hóa</span></div>
+                        <div class="dropdown-content-btn-2">
+                            @foreach (var role in Model.Roles.Where(m => m.Nhom == 1).OrderBy(m => m.Nhom))
+                            {
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="roles"
+                                               value="@role.Id"
+                                               @(role.IsSelected ? "checked" : "") />
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label class="form-check-label">
+                                            @role.NameRoles
+                                        </label>
+                                        <label hidden class="form-check-label">
+                                            @role.MaQuyen
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dropdown-on-off-2">
+                        <div class="form-control"><span class="fas fa-list-ul title-phancong"> Khách hàng</span></div>
+                        <div class="dropdown-content-btn-2">
+                            @foreach (var role in Model.Roles.Where(m => m.Nhom == 2).OrderBy(m => m.Nhom))
+                            {
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="roles"
+                                               value="@role.Id"
+                                               @(role.IsSelected ? "checked" : "") />
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label class="form-check-label">
+                                            @role.NameRoles
+                                        </label>
+                                        <label hidden class="form-check-label">
+                                            @role.MaQuyen
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dropdown-on-off-2">
+                        <div class="form-control"><span class="fas fa-list-ul title-phancong"> Tập đoàn</span></div>
+                        <div class="dropdown-content-btn-2">
+                            @foreach (var role in Model.Roles.Where(m => m.Nhom == 3).OrderBy(m => m.Nhom))
+                            {
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="roles"
+                                               value="@role.Id"
+                                               @(role.IsSelected ? "checked" : "") />
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label class="form-check-label">
+                                            @role.NameRoles
+                                        </label>
+                                        <label hidden class="form-check-label">
+                                            @role.MaQuyen
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dropdown-on-off-2">
+                        <div class="form-control"><span class="fas fa-list-ul title-phancong"> Khu vực</span></div>
+                        <div class="dropdown-content-btn-2">
+                            @foreach (var role in Model.Roles.Where(m => m.Nhom == 4).OrderBy(m => m.Nhom))
+                            {
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="roles"
+                                               value="@role.Id"
+                                               @(role.IsSelected ? "checked" : "") />
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label class="form-check-label">
+                                            @role.NameRoles
+                                        </label>
+                                        <label hidden class="form-check-label">
+                                            @role.MaQuyen
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dropdown-on-off-2">
+                        <div class="form-control"><span class="fas fa-list-ul title-phancong"> Nhập thiết bị</span></div>
+                        <div class="dropdown-content-btn-2">
+                            @foreach (var role in Model.Roles.Where(m => m.Nhom == 5).OrderBy(m => m.Nhom))
+                            {
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="roles"
+                                               value="@role.Id"
+                                               @(role.IsSelected ? "checked" : "") />
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label class="form-check-label">
+                                            @role.NameRoles
+                                        </label>
+                                        <label hidden class="form-check-label">
+                                            @role.MaQuyen
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dropdown-on-off-2">
+                        <div class="form-control"><span class="fas fa-list-ul title-phancong"> Yêu cầu hiệu chuẩn</span></div>
+                        <div class="dropdown-content-btn-2">
+                            @foreach (var role in Model.Roles.Where(m => m.Nhom == 6).OrderBy(m => m.Nhom))
+                            {
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="roles"
+                                               value="@role.Id"
+                                               @(role.IsSelected ? "checked" : "") />
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label class="form-check-label">
+                                            @role.NameRoles
+                                        </label>
+                                        <label hidden class="form-check-label">
+                                            @role.MaQuyen
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dropdown-on-off-2">
+                        <div class="form-control"><span class="fas fa-list-ul title-phancong"> Chuyển thiết bị</span></div>
+                        <div class="dropdown-content-btn-2">
+                            @foreach (var role in Model.Roles.Where(m => m.Nhom == 7).OrderBy(m => m.Nhom))
+                            {
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="roles"
+                                               value="@role.Id"
+                                               @(role.IsSelected ? "checked" : "") />
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label class="form-check-label">
+                                            @role.NameRoles
+                                        </label>
+                                        <label hidden class="form-check-label">
+                                            @role.MaQuyen
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dropdown-on-off-2">
+                        <div class="form-control"><span class="fas fa-list-ul title-phancong"> Trả thiết bị</span></div>
+                        <div class="dropdown-content-btn-2">
+                            @foreach (var role in Model.Roles.Where(m => m.Nhom == 8).OrderBy(m => m.Nhom))
+                            {
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="roles"
+                                               value="@role.Id"
+                                               @(role.IsSelected ? "checked" : "") />
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label class="form-check-label">
+                                            @role.NameRoles
+                                        </label>
+                                        <label hidden class="form-check-label">
+                                            @role.MaQuyen
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dropdown-on-off-2">
+                        <div class="form-control"><span class="fas fa-list-ul title-phancong"> Lưu in hồ sơ</span></div>
+                        <div class="dropdown-content-btn-2">
+                            @foreach (var role in Model.Roles.Where(m => m.Nhom == 9).OrderBy(m => m.Nhom))
+                            {
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="roles"
+                                               value="@role.Id"
+                                               @(role.IsSelected ? "checked" : "") />
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label class="form-check-label">
+                                            @role.NameRoles
+                                        </label>
+                                        <label hidden class="form-check-label">
+                                            @role.MaQuyen
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dropdown-on-off-2">
+                        <div class="form-control"><span class="fas fa-list-ul title-phancong"> Tiếp nhận , phân công</span></div>
+                        <div class="dropdown-content-btn-2">
+                            @foreach (var role in Model.Roles.Where(m => m.Nhom == 10).OrderBy(m => m.Nhom))
+                            {
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="roles"
+                                               value="@role.Id"
+                                               @(role.IsSelected ? "checked" : "") />
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label class="form-check-label">
+                                            @role.NameRoles
+                                        </label>
+                                        <label hidden class="form-check-label">
+                                            @role.MaQuyen
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dropdown-on-off-2">
+                        <div class="form-control"><span class="fas fa-list-ul title-phancong">Thực hiện</span></div>
+                        <div class="dropdown-content-btn-2">
+                            @foreach (var role in Model.Roles.Where(m => m.Nhom == 11).OrderBy(m => m.Nhom))
+                            {
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="roles"
+                                               value="@role.Id"
+                                               @(role.IsSelected ? "checked" : "") />
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label class="form-check-label">
+                                            @role.NameRoles
+                                        </label>
+                                        <label hidden class="form-check-label">
+                                            @role.MaQuyen
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dropdown-on-off-2">
+                        <div class="form-control"><span class="fas fa-list-ul title-phancong"> Giấy chứng nhận</span></div>
+                        <div class="dropdown-content-btn-2">
+                            @foreach (var role in Model.Roles.Where(m => m.Nhom == 12).OrderBy(m => m.Nhom))
+                            {
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="roles"
+                                               value="@role.Id"
+                                               @(role.IsSelected ? "checked" : "") />
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label class="form-check-label">
+                                            @role.NameRoles
+                                        </label>
+                                        <label hidden class="form-check-label">
+                                            @role.MaQuyen
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dropdown-on-off-2">
+                        <div class="form-control"><span class="fas fa-list-ul title-phancong"> Báo cáo sửa chữa</span></div>
+                        <div class="dropdown-content-btn-2">
+                            @foreach (var role in Model.Roles.Where(m => m.Nhom == 13).OrderBy(m => m.Nhom))
+                            {
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="roles"
+                                               value="@role.Id"
+                                               @(role.IsSelected ? "checked" : "") />
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label class="form-check-label">
+                                            @role.NameRoles
+                                        </label>
+                                        <label hidden class="form-check-label">
+                                            @role.MaQuyen
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dropdown-on-off-2">
+                        <div class="form-control"><span class="fas fa-list-ul title-phancong"> Danh sách thiết bị</span></div>
+                        <div class="dropdown-content-btn-2">
+                            @foreach (var role in Model.Roles.Where(m => m.Nhom == 14).OrderBy(m => m.Nhom))
+                            {
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="roles"
+                                               value="@role.Id"
+                                               @(role.IsSelected ? "checked" : "") />
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label class="form-check-label">
+                                            @role.NameRoles
+                                        </label>
+                                        <label hidden class="form-check-label">
+                                            @role.MaQuyen
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dropdown-on-off-2">
+                        <div class="form-control"><span class="fas fa-list-ul title-phancong"> Kế hoạch hiệu chuẩn</span></div>
+                        <div class="dropdown-content-btn-2">
+                            @foreach (var role in Model.Roles.Where(m => m.Nhom == 15).OrderBy(m => m.Nhom))
+                            {
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="roles"
+                                               value="@role.Id"
+                                               @(role.IsSelected ? "checked" : "") />
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label class="form-check-label">
+                                            @role.NameRoles
+                                        </label>
+                                        <label hidden class="form-check-label">
+                                            @role.MaQuyen
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dropdown-on-off-2">
+                        <div class="form-control"><span class="fas fa-list-ul title-phancong"> Báo cáo đánh giá</span></div>
+                        <div class="dropdown-content-btn-2">
+                            @foreach (var role in Model.Roles.Where(m => m.Nhom == 16).OrderBy(m => m.Nhom))
+                            {
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="roles"
+                                               value="@role.Id"
+                                               @(role.IsSelected ? "checked" : "") />
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label class="form-check-label">
+                                            @role.NameRoles
+                                        </label>
+                                        <label hidden class="form-check-label">
+                                            @role.MaQuyen
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dropdown-on-off-2">
+                        <div class="form-control"><span class="fas fa-list-ul title-phancong"> Bảo trì, sửa chữa</span></div>
+                        <div class="dropdown-content-btn-2">
+                            @foreach (var role in Model.Roles.Where(m => m.Nhom == 17).OrderBy(m => m.Nhom))
+                            {
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="roles"
+                                               value="@role.Id"
+                                               @(role.IsSelected ? "checked" : "") />
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label class="form-check-label">
+                                            @role.NameRoles
+                                        </label>
+                                        <label hidden class="form-check-label">
+                                            @role.MaQuyen
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dropdown-on-off-2">
+                        <div class="form-control"><span class="fas fa-list-ul title-phancong"> Quy trình ISO</span></div>
+                        <div class="dropdown-content-btn-2">
+                            @foreach (var role in Model.Roles.Where(m => m.Nhom == 18).OrderBy(m => m.Nhom))
+                            {
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="roles"
+                                               value="@role.Id"
+                                               @(role.IsSelected ? "checked" : "") />
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label class="form-check-label">
+                                            @role.NameRoles
+                                        </label>
+                                        <label hidden class="form-check-label">
+                                            @role.MaQuyen
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dropdown-on-off-2">
+                        <div class="form-control"><span class="fas fa-list-ul title-phancong"> Nhiệt độ  phòng lab</span></div>
+                        <div class="dropdown-content-btn-2">
+                            @foreach (var role in Model.Roles.Where(m => m.Nhom == 19).OrderBy(m => m.Nhom))
+                            {
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="roles"
+                                               value="@role.Id"
+                                               @(role.IsSelected ? "checked" : "") />
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label class="form-check-label">
+                                            @role.NameRoles
+                                        </label>
+                                        <label hidden class="form-check-label">
+                                            @role.MaQuyen
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dropdown-on-off-2">
+                        <div class="form-control"><span class="fas fa-list-ul title-phancong"> Tài khoản</span></div>
+                        <div class="dropdown-content-btn-2">
+                            @foreach (var role in Model.Roles.Where(m => m.Nhom == 20).OrderBy(m => m.Nhom))
+                            {
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="roles"
+                                               value="@role.Id"
+                                               @(role.IsSelected ? "checked" : "") />
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label class="form-check-label">
+                                            @role.NameRoles
+                                        </label>
+                                        <label hidden class="form-check-label">
+                                            @role.MaQuyen
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dropdown-on-off-2">
+                        <div class="form-control"><span class="fas fa-list-ul title-phancong"> Thành viên</span></div>
+                        <div class="dropdown-content-btn-2">
+                            @foreach (var role in Model.Roles.Where(m => m.Nhom == 21).OrderBy(m => m.Nhom))
+                            {
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="roles"
+                                               value="@role.Id"
+                                               @(role.IsSelected ? "checked" : "") />
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label class="form-check-label">
+                                            @role.NameRoles
+                                        </label>
+                                        <label hidden class="form-check-label">
+                                            @role.MaQuyen
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dropdown-on-off-2">
+                        <div class="form-control"><span class="fas fa-list-ul title-phancong"> Yêu cầu xin nghỉ</span></div>
+                        <div class="dropdown-content-btn-2">
+                            @foreach (var role in Model.Roles.Where(m => m.Nhom == 22).OrderBy(m => m.Nhom))
+                            {
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="roles"
+                                               value="@role.Id"
+                                               @(role.IsSelected ? "checked" : "") />
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label class="form-check-label">
+                                            @role.NameRoles
+                                        </label>
+                                        <label hidden class="form-check-label">
+                                            @role.MaQuyen
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dropdown-on-off-2">
+                        <div class="form-control"><span class="fas fa-list-ul title-phancong"> Lamp Systems</span></div>
+                        <div class="dropdown-content-btn-2">
+                            @foreach (var role in Model.Roles.Where(m => m.Nhom == 23).OrderBy(m => m.Nhom))
+                            {
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="roles"
+                                               value="@role.Id"
+                                               @(role.IsSelected ? "checked" : "") />
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label class="form-check-label">
+                                            @role.NameRoles
+                                        </label>
+                                        <label hidden class="form-check-label">
+                                            @role.MaQuyen
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dropdown-on-off-2">
+                        <div class="form-control"><span class="fas fa-list-ul title-phancong"> Bulb Spectrum</span></div>
+                        <div class="dropdown-content-btn-2">
+                            @foreach (var role in Model.Roles.Where(m => m.Nhom == 24).OrderBy(m => m.Nhom))
+                            {
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="roles"
+                                               value="@role.Id"
+                                               @(role.IsSelected ? "checked" : "") />
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label class="form-check-label">
+                                            @role.NameRoles
+                                        </label>
+                                        <label hidden class="form-check-label">
+                                            @role.MaQuyen
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="dropdown-on-off-2">
+                        <div class="form-control"><span class="fas fa-list-ul title-phancong"> GCN EIT</span></div>
+                        <div class="dropdown-content-btn-2">
+                            @foreach (var role in Model.Roles.Where(m => m.Nhom == 25).OrderBy(m => m.Nhom))
+                            {
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input class="form-check-input" type="checkbox"
+                                               name="roles"
+                                               value="@role.Id"
+                                               @(role.IsSelected ? "checked" : "") />
+                                    </div>
+                                    <div class="col-md-10">
+                                        <label class="form-check-label">
+                                            @role.NameRoles
+                                        </label>
+                                        <label hidden class="form-check-label">
+                                            @role.MaQuyen
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top:5%">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div>
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                    <a class="form-control form-a-control-delete" style="text-decoration:none;" href="#" onclick="closeEditModal()"><span class="fas">(X) Cancel</span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+}

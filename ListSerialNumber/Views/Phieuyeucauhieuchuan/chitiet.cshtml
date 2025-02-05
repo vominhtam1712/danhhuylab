@@ -1,0 +1,175 @@
+﻿@model IEnumerable<ListClass.Model.Join_PYCHCBAK_LNUMBAK_PNTB_BBBGNTBBAK>
+@{
+    ViewBag.Title = "Phiếu yêu cầu hiệu chuẩn";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+<style>
+    .col-md-4 img {
+        width: 300px;
+        height: 300px;
+        border-radius: 50%
+    }
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 85%;
+    }
+</style>
+<div class="content-wrapper">
+    <section>
+        <div class="container" style="margin-top:20px;text-align:center">
+            <h3><strong style="color:blue">PHIẾU YÊU CẦU HIỆU CHUẨN</strong></h3>
+        </div>
+    </section>
+    @foreach (var item in Model)
+    {
+        <section class="content py-2">
+            <div class="container">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="form-group form-inline">
+                            <div class="row">
+                                <div class="col-md-2" style="width:auto">
+                                    @using (Html.BeginForm("ExportPdf", "Phieuyeucauhieuchuan", FormMethod.Post, new { id = "exportForm_" + item.Id_PhieuHieuChuan }))
+                                    {
+                                        @Html.Hidden("id", item.Id_PhieuHieuChuan)
+                                        <a href="#" class="form-control form-a-control downloadLink" data-id="@item.Id_PhieuHieuChuan" style="text-decoration:none">
+                                            <span class="fas fa-file-export">ExportPdf</span>
+                                        </a>
+                                    }
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-horizontal">
+                            <div class="row">
+                                <div class="col-md-4 col-12">
+                                    <p style="text-align:center"><img src="~/Public/Products/@item.Img" /></p>
+                                </div>
+                                <div class="col-md-4 col-12">
+                                    <div class="form-group">
+                                        <p><strong>Số nhận dạng : </strong> @item.SoNhanDang</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p><strong>Ngày thực hiện : </strong> @item.NgayThucHien.ToString("dd/MM/yyyy")</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p><strong>Tên đơn vị yêu cầu : </strong> @item.KhachHang</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p><strong>Địa chỉ : </strong> @item.DiaChi</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p><strong>Địa chỉ hiệu chuẩn : </strong> @item.Diachihieuchuan</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p>
+                                            <strong>Người  liên hệ : </strong> @item.LienHe
+                                        </p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p> <strong>Mã số thuế : </strong> @item.Masothue</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 col-12">
+                                    <div class="form-group">
+                                        <p><strong>Tên công ty (<i style="color:red">Xuất hóa đơn</i>) : </strong> @item.Tencognty</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p> <strong>Địa chỉ công ty (<i style="color:red">Xuất hóa đơn</i>) : </strong> @item.Diachicongty</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p><strong>Kiểu /Model : </strong> @item.Model</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p> <strong>Số SN : </strong> @item.SerialNumber</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p> <strong>Số lượng : </strong> @item.Soluong</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p> <strong>Dịch vụ yêu cầu : </strong> @item.Dichvuyeucau</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p> <strong>Nơi thực hiện : </strong> @item.Danhhuy</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+    <div class="modal" id="editModal">
+        <div class="modal-content">
+            <div id="editmodalContent"></div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("openEditModalBtn").addEventListener('click', function () {
+            var id = $(this).data("id");
+            $.ajax({
+               url: '@Url.Action("EditNhieu", "Phieuyeucauhieuchuan", new { ids = "__ID__" })'.replace("__ID__", id),
+                type: 'GET',
+                success: function (reponse) {
+                    document.getElementById("editmodalContent").innerHTML = reponse;
+                    document.getElementById("editModal").style.display = "block";
+                },
+            error: function () {
+                alert('Có lỗi xảy ra khi tải dữ liệu!');
+            }
+        });
+    });
+    function closeEditModal() {
+        document.getElementById("editModal").style.display = "none";
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        $(".downloadLink").click(function (e) {
+            e.preventDefault();
+
+            var form = $(this).closest('form');
+            var formData = form.serialize();
+
+            $("#loading").show();
+
+            $.ajax({
+                url: form.attr("action"),
+                type: 'POST',
+                data: formData,
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function (data) {
+                    var blob = new Blob([data], { type: 'application/pdf' });
+                    var link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = 'PhieuYeuCauHieuChuan.pdf';
+                    link.click();
+
+                    $("#loading").hide();
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi tải PDF.');
+                    $("#loading").hide();
+                }
+            });
+        });
+    });
+
+</script>

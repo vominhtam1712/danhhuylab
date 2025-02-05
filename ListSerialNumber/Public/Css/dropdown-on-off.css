@@ -1,0 +1,44 @@
+﻿.dropdown-on-off {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-on-off-2 {
+    position: relative;
+    display: inline-block;
+} 
+.dropdown-content-btn {
+    opacity: 0;
+    max-height: 0;
+    margin-left:-14px;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 140px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border-radius: 8px;
+    padding: 2px 20px 0 20px;
+    transition: opacity 1s ease, max-height .5s ease;
+    z-index: 1;
+    overflow: hidden;
+}
+.dropdown-content-btn-2 { 
+    font-size: 15px;
+    padding: 2px 20px 0 0;
+    transition: opacity 1s ease, max-height .5s ease;
+    z-index: 1;
+    overflow: hidden;
+} 
+.input-checkbox-on-off {
+    margin-top: 10px;
+}
+.p-checkbox-on-off {
+    margin-left:20px;
+    margin-top:-25px;
+}
+.dropdown-on-off:hover .dropdown-content-btn {
+    opacity: 1;
+    max-height: 300px;
+}
+.dropdown-on-off-2:hover .dropdown-content-btn-2 {
+    opacity: 99;
+    max-height: 300px;
+} 

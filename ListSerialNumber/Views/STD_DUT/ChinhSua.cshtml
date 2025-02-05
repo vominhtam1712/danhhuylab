@@ -1,0 +1,110 @@
+﻿@model List<ListClass.Model.STD_DUT>
+@using (Html.BeginForm("ChinhSua", "STD_DUT", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:blue"><strong>CHỈNH SỬA GIÁ TRỊ STD - DUT</strong></h3>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <td colspan="7" style="background:#808080">
+                        </td>
+                    </tr>
+                    <tr class="center">
+                    </tr>
+                    <tr class="center">
+                        <th colspan="7">
+                            Dữ liệu STD (<i> Master </i>)<br>
+
+                        </th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Lần 1</strong><br />
+                            @Html.TextBox("STD_DUTs[" + i + "].Lan1_STD", Model[i].Lan1_STD, new { @class = "form-control", type = "number", step = "0.001" })
+                        </td>
+                        <td>
+                            <strong>Lần 2</strong><br />
+                            @Html.TextBox("STD_DUTs[" + i + "].Lan2_STD", Model[i].Lan2_STD, new { @class = "form-control", type = "number", step = "0.001" })
+                        </td>
+                        <td>
+                            <strong>Lần 3</strong><br />
+                            @Html.TextBox("STD_DUTs[" + i + "].Lan3_STD", Model[i].Lan3_STD, new { @class = "form-control", type = "number", step = "0.001" })
+                        </td>
+                        <td>
+                            <strong>Lần 4</strong><br />
+                            @Html.TextBox("STD_DUTs[" + i + "].Lan4_STD", Model[i].Lan4_STD, new { @class = "form-control", type = "number", step = "0.001" })
+                        </td>
+                        <td>
+                            <strong>Lần 5</strong><br />
+                            @Html.TextBox("STD_DUTs[" + i + "].Lan5_STD", Model[i].Lan5_STD, new { @class = "form-control", type = "number", step = "0.001" })
+                        </td>
+                        <td>
+                            <strong>STD_Cer</strong><br />
+                            @Html.TextBox("STD_DUTs[" + i + "].STD_Cer_STD", Model[i].STD_Cer_STD, new { @class = "form-control", type = "number", step = "0.001" })
+                        </td>
+                        <td>
+                            <strong>STD_Spec</strong><br />
+                            @Html.TextBox("STD_DUTs[" + i + "].STD_Spec_STD", Model[i].STD_Spec_STD, new { @class = "form-control", type = "number", step = "0.001" })
+                        </td>
+                    </tr>
+                    <tr class="center">
+                        <th colspan="9">Dữ liệu DUT ( <i style="color:red">User</i> )</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Lần 1</strong><br />
+                            @Html.TextBox("STD_DUTs[" + i + "].Lan1_DUT", Model[i].Lan1_DUT, new { @class = "form-control", type = "number", step = "0.001" })
+                        </td>
+                        <td>
+                            <strong>Lần 2</strong><br />
+                            @Html.TextBox("STD_DUTs[" + i + "].Lan2_DUT", Model[i].Lan2_DUT, new { @class = "form-control", type = "number", step = "0.001" })
+                        </td>
+                        <td>
+                            <strong>Lần 3</strong><br />
+                            @Html.TextBox("STD_DUTs[" + i + "].Lan3_DUT", Model[i].Lan3_DUT, new { @class = "form-control", type = "number", step = "0.001" })
+                        </td>
+                        <td>
+                            <strong>Lần 4</strong><br />
+                            @Html.TextBox("STD_DUTs[" + i + "].Lan4_DUT", Model[i].Lan4_DUT, new { @class = "form-control", type = "number", step = "0.001" })
+                        </td>
+                        <td>
+                            <strong>Lần 5</strong><br />
+                            @Html.TextBox("STD_DUTs[" + i + "].Lan5_DUT", Model[i].Lan5_DUT, new { @class = "form-control", type = "number", step = "0.001" })
+                        </td>
+                        <td>
+                            <strong>Độ phân giải</strong><br />
+                            @Html.TextBox("STD_DUTs[" + i + "].DoPhanGiai_DUT", Model[i].DoPhanGiai_DUT, new { @class = "form-control", type = "number", step = "0.001" })
+                        </td>
+                        <td>
+                            <strong> Mức kiểm tra</strong><br />
+                            @Html.Hidden("STD_DUTs[" + i + "].ID", Model[i].ID, new { @readonly = "readonly", @class = "form-control" })
+                            @Html.TextBox("STD_DUTs[" + i + "].MucKiemTra_STD", Model[i].MucKiemTra_STD, new { @class = "form-control", type = "number", step = "0.001", @required = "required", data_val_required = "Trường này là bắt buộc" })
+
+                            @Html.Hidden("STD_DUTs[" + i + "].Id_BienBanHieuChuan", Model[i].Id_BienBanHieuChuan, new { @readonly = "readonly", @class = "form-control" })
+                        </td>
+                    </tr>
+
+                }
+            </table>
+            <div class="row">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div>
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                    <a style="text-decoration:none;" href="#" onclick="closeModal()"><img src="~/Public/Img/close.png" width="40" /></a>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+

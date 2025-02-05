@@ -1,0 +1,105 @@
+﻿@model IEnumerable<ListClass.Model.Join_BaoCaoSuaChua>
+@{
+    ViewBag.Title = "Báo cáo sửa chữa thiết bị";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+<div class="content-wrapper">
+    <section>
+        <div class="container" style="margin-top:20px;text-align:center">
+            <h3><strong style="color:blue">BÁO CÁO SỬA CHỮA THIẾT BỊ</strong></h3>
+        </div>
+    </section> 
+        <section class="content py-2">
+            <div class="container">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="form-group form-inline">
+                            <div class="row"> 
+                                <div class="col-md-2 col-12" style="width:auto">
+                                    @using (Html.BeginForm("ExportPdf", "BaoCaoSuaChua", FormMethod.Post, new { ids = "exportForm_" + Model.FirstOrDefault()?.Id_baocaosuachua }))
+                                    {
+                                        @Html.Hidden("ids", Model.FirstOrDefault()?.Id_baocaosuachua)
+                                        <a href="#" class="form-control form-a-control downloadLink" style="text-decoration:none">
+                                            <span class="fas fa-file-export">Inpdf</span>
+                                        </a>
+                                    }
+                                </div>
+                                <div class="col-md-2" style="margin-top:10px;width:auto">
+                                    @Html.Partial("Message")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row" style="overflow-x:auto">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th width="120px">Mã báo cáo</th>
+                                        <th width="150px">Số nhận dạng</th>
+                                        <th>Sửa chữa</th>
+                                        <th width="150px" class="Tenthietbi-column-BaoCaoSuaChua">Tên thiết bị</th>
+                                        <th width="80px" class="SN-column-BaoCaoSuaChua">Số SN</th>
+                                        <th class="Hang-column-BaoCaoSuaChua">Hãng</th>
+                                        <th class="Model-column-BaoCaoSuaChua">Model</th>
+                                        <th class="TenKH-column-BaoCaoSuaChua">Ten KH</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.MaBaoCao</td>
+                                            <td>@item.SoNhanDang</td>
+                                            <td>@item.CacHangSuDung</td>
+                                            <td class="Tenthietbi-column-BaoCaoSuaChua">@item.Tenthietbi</td>
+                                            <td class="SN-column-BaoCaoSuaChua">@item.SN</td>
+                                            <td class="Hang-column-BaoCaoSuaChua">@item.Hang</td>
+                                            <td class="Model-column-BaoCaoSuaChua">@item.Model</td>
+                                            <td class="TenKH-column-BaoCaoSuaChua">@item.TenKH</td>
+                                        </tr>
+
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+</div>
+<script>
+    $(document).ready(function () {
+        $(".downloadLink").click(function (e) {
+            e.preventDefault();
+
+            var form = $(this).closest('form');
+            var formData = form.serialize();
+
+            $("#loading").show();
+
+            $.ajax({
+                url: form.attr("action"),
+                type: 'POST',
+                data: formData,
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function (data) {
+                    var blob = new Blob([data], { type: 'application/pdf' });
+                    var link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = 'BaoCaoSuaChua.pdf';
+                    link.click();
+
+                    $("#loading").hide();
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi tải PDF.');
+                    $("#loading").hide();
+                }
+            });
+        });
+    });
+
+</script>

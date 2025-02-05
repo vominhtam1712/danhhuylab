@@ -1,0 +1,69 @@
+﻿@model List<ListClass.Model.PhieuChuyenMauHieuChuan>
+@using (Html.BeginForm("XoaNhieu", "PhieuChuyenMauHieuChuan", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:red"><strong>BẠN CÓ CHẮC MUỐN XÓA KHÔNG?</strong></h3>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped">
+                <tr class="center">
+                    <th>Mã số mẫu</th>
+                    <th>Người nhận</th>
+                    <th>Người được phân công</th>
+                    <th>Phương pháp hiệu chuẩn</th>
+                    <th>Thông số hiệu chuẩn</th>
+                    <th>Ngày nhận</th>
+                    <th>Ngày trả</th>
+                    <th>Ngày tạo phiếu</th>
+                </tr>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    var item = Model.ElementAt(i); 
+                    <tr>
+                        <td>
+                            @item.MaSoMau
+                        </td>
+                        <td>
+                            @item.NguoiNhan
+                            @Html.Hidden("ids[" + i + "].Id", Model[i].Id, new { @readonly = "readonly", @class = "form-control" })
+                        </td>
+                        <td>
+                            @item.NguoiDuocPhanCong
+                        </td>
+                        <td>
+                            @item.PhuongPhamHieuChuan
+                        </td>
+                        <td>
+                            @item.ThongSoHieuChuan
+                        </td>
+                        <td>
+                            @item.NgayNhan.ToString("dd/MM/yyyy")
+                        </td>
+                        <td>
+                            @item.NgayTraBaoCao.Value.ToString("dd/MM/yyyy")
+                        </td>
+                        <td style="text-align:center">
+                            @item.NgayTaoPhieu.ToString("dd/MM/yyyy")
+                        </td>
+                    </tr>
+                }
+            </table>
+            <div class="row">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div>
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                    <a href="@Url.Action("Index","PhieuChuyenMauHieuChuan")"><img src="~/Public/Img/close.png" width="40" /></a>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+

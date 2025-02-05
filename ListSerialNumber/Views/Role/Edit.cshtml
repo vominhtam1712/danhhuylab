@@ -1,0 +1,64 @@
+﻿﻿@model ListClass.Model.Role
+<script src="~/Public/Js/DropDownSelect.js"></script>
+@using (Html.BeginForm("Edit", "Role", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content py-2">
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <div class="form-group form-inline">
+                        <div class="row">
+                            <div class="col-md-2" style="width:auto">
+                                <a class="form-control form-a-control-delete" style="text-decoration:none;" href="@Url.Action("Index","Role")"><span class="fas"> Cancel</span></a>
+                            </div>
+                            <div class="col-md-2" style="width: auto;">
+                                <button class="form-control form-a-control" type="submit" value="Edit">
+                                    <span class="fas"> OK</span>
+                                </button>
+                            </div>
+                            <div class="col-md-2" style="margin-top:10px">
+                                @Html.Partial("Message")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="form-horizontal">
+                        <div class="row py-1"> 
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <strong class="control-label">Mã quyền</strong>
+                                    <div class="col-md-12">
+                                        @Html.HiddenFor(model => model.Id, new { @class = "form-control", @readonly = "readonly" }) 
+                                        @Html.TextAreaFor(model => model.MaQuyen, new { @class = "form-control"})
+                                        @Html.ValidationMessageFor(model => model.MaQuyen, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <strong class="control-label">Tên quyền</strong>
+                                    <div class="col-md-12">
+                                        @Html.TextAreaFor(model => model.NameRoles, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.NameRoles, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <strong class="control-label">Nhóm</strong>
+                                    <div class="col-md-12">
+                                        @Html.TextAreaFor(model => model.Nhom, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Nhom, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

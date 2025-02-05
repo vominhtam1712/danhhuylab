@@ -1,0 +1,351 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<ListClass.Model.PhieuTheoDoiNhietDo>
+@{
+    ViewBag.Title = "Phiếu theo dõi nhiệt độ";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+<style> 
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 85%;
+    }
+    th,td{
+        text-align:center;
+    }
+</style>
+<div class="content-wrapper">
+    <section>
+        <div class="container" style="margin-top:20px;text-align:center">
+            <h3><strong style="color:blue">PHIẾU THEO DÕI NHIỆT ĐỘ</strong></h3>
+        </div>
+        <div class="container" style="margin-top:20px">
+            @using (Html.BeginForm("Details", "PhieuTheoDoiNhietDo", FormMethod.Post))
+            {
+                <div class="row">
+                    <div class="search-product col-md-2 col-12">
+                        @Html.TextBox("Name", Request.QueryString["Name"], new { @class = "form-control", @placeholder = "nhập mã phiếu..." })
+                    </div>
+                    <div class="col-md-2 col-12">
+                        <select id="thang" name="thang" class="form-control">
+                            <option value="">--Chọn tháng--</option>
+                            @foreach (var thang in ViewBag.thang as List<int>)
+                            {
+                                <option value="@thang" @(thang.ToString() == Request.QueryString["thang"] ? "selected" : "")>@thang</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="col-md-2 col-12">
+                        <select id="nam" name="nam" class="form-control">
+                            <option value="">--Chọn năm--</option>
+                            @foreach (var nam in ViewBag.nam as List<int>)
+                            {
+                                <option value="@nam" @(nam.ToString() == Request.QueryString["nam"] ? "selected" : "")>@nam</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="submit-search-product col-md-3 col-12" style="width:auto">
+                        <input type="submit" value="Tìm kiếm" class="form-control" />
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+    <div id="create-form-container"></div> 
+        <section class="content py-2">
+            <div class="container">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="form-group form-inline">
+                            <div class="row">
+                                <div class="col-md-2" style="width:auto">
+                                    <a class="form-control form-a-control" style="text-decoration: none" href="#" id="openAddModalBtn">
+                                        <span class="fas fa-plus"> Tạo phiếu</span>
+                                    </a>
+                                </div>
+                                <div class="col-md-2" style="width:auto;">
+                                    <div class="dropdown-select">
+                                        <div class="form-control"><span class="fas fa-list-ul"> Tùy chọn</span></div>
+                                        <div class="dropdown-content-select">
+                                            <button type="submit" class="editButton" name="action" value="Edit">
+                                                <span class="fas fa-edit"> Sửa</span>
+                                            </button>
+                                            <button type="submit" class="deleteButton" name="action" value="Delete">
+                                                <span class="fas fa-trash"> Xóa</span>
+                                            </button>
+                                            <button type="submit" class="copyButton" name="action" value="Copy">
+                                                <span class="fas fa-copy"> Copy</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-12" style="width:auto">
+                                    <div class="dropdown-on-off">
+                                        <div class="form-control"><span class="fas fa-list-ul"> Ẩn / Hiện</span></div>
+                                        <div class="dropdown-content-btn">
+                                            <input class="input-checkbox-on-off" type="checkbox" id="togglePhongPhieuTheoDoiNhietDo" checked />
+                                            <p class="p-checkbox-on-off" for="togglePhongPhieuTheoDoiNhietDo"><span class="fas"> Phòng</span></p>
+
+                                            <input class="input-checkbox-on-off" type="checkbox" id="toggleThangPhieuTheoDoiNhietDo" checked />
+                                            <p class="p-checkbox-on-off" for="toggleThangPhieuTheoDoiNhietDo"><span class="fas"> Tháng</span></p>
+
+                                            <input class="input-checkbox-on-off" type="checkbox" id="toggleNamPhieuTheoDoiNhietDo" checked />
+                                            <p class="p-checkbox-on-off" for="toggleNamPhieuTheoDoiNhietDo"><span class="fas"> Năm</span></p>
+
+                                            <input class="input-checkbox-on-off" type="checkbox" id="toggleNhietDoPhieuTheoDoiNhietDo" checked />
+                                            <p class="p-checkbox-on-off" for="toggleNhietDoPhieuTheoDoiNhietDo"><span class="fas"> Nhiệt độ</span></p>
+
+                                            <input class="input-checkbox-on-off" type="checkbox" id="toggleDoAmPhieuTheoDoiNhietDo" checked />
+                                            <p class="p-checkbox-on-off" for="toggleDoAmPhieuTheoDoiNhietDo"><span class="fas"> Độ ẩm</span></p>
+
+                                            <input class="input-checkbox-on-off" type="checkbox" id="toggleNgayTaoPhieuTheoDoiNhietDo" checked />
+                                            <p class="p-checkbox-on-off" for="toggleNgayTaoPhieuTheoDoiNhietDo"><span class="fas"> Ngày tạo</span></p>
+
+                                            <input class="input-checkbox-on-off" type="checkbox" id="toggleNguoiTaoPhieuTheoDoiNhietDo" checked />
+                                            <p class="p-checkbox-on-off" for="toggleNguoiTaoPhieuTheoDoiNhietDo"><span class="fas"> Người tạo</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2" style="margin-top:10px;width:auto">
+                                    @Html.Partial("Message")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row" style="overflow-x:auto">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th width="30px">
+                                            <input type="checkbox" class="selectAll" id="selectAll" />
+                                        </th>
+                                        <th class="text-center" width="100px">
+                                            <span class="fa">Chi tiết</span>
+                                        </th>
+                                        <th>
+                                            Mã phiếu
+                                        </th>
+                                        <th>
+                                            Mã số nhiệt kế
+                                        </th>
+                                        <th class="Phong-column-PhieuTheoDoiNhietDo">
+                                            Phòng
+                                        </th>
+                                        <th class="Thang-column-PhieuTheoDoiNhietDo">
+                                            Tháng
+                                        </th>
+                                        <th class="Nam-column-PhieuTheoDoiNhietDo">
+                                            Năm
+                                        </th>
+                                        <th class="NhietDo-column-PhieuTheoDoiNhietDo">
+                                            Nhiệt độ (&#176;C)
+                                        </th>
+                                        <th class="DoAm-column-PhieuTheoDoiNhietDo">
+                                            Độ ẩm (&#37;)
+                                        </th>
+                                        <th class="NgayTao-column-PhieuTheoDoiNhietDo">
+                                            Ngày tạo
+                                        </th>
+                                        <th class="NguoiTao-column-PhieuTheoDoiNhietDo">
+                                            Người tạo
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (int i = 0; i < Model.Count(); i++)
+                                    {
+                                        var item = Model.ElementAt(i);
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <input type="checkbox" class="selectAll" name="selectedIds" value="@item.Id" />
+                                                </td>
+                                                <th width="100px" class="text-center">
+                                                    <a class="form-control form-a-control" href="@Url.Action("Index", "DanhSachPhieuTheoDoiNhietDo", new { @id = item.Id })"><span class="fa"> Xem</span></a>
+                                                </th>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.MaPhieuTheoDoiNhietDo)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.MSNhietKe_Model_No)
+                                                </td>
+                                                <td class="Phong-column-PhieuTheoDoiNhietDo">
+                                                    @Html.DisplayFor(modelItem => item.Phong)
+                                                </td>
+                                                <td class="Thang-column-PhieuTheoDoiNhietDo">
+                                                    @item.Thang_Nam.ToString("MM")
+                                                </td>
+                                                <td class="Nam-column-PhieuTheoDoiNhietDo">
+                                                    @item.Thang_Nam.ToString("yyyy")
+                                                </td>
+                                                <td class="NhietDo-column-PhieuTheoDoiNhietDo">
+                                                    @Html.DisplayFor(modelItem => item.NhietDo_Dau)&#176;C -
+                                                    @Html.DisplayFor(modelItem => item.NhietDo_Sau)&#176;C
+                                                </td>
+                                                <td class="DoAm-column-PhieuTheoDoiNhietDo">
+                                                    < @Html.DisplayFor(modelItem => item.DoAm)&#37;
+                                                </td>
+                                                <td class="NgayTao-column-PhieuTheoDoiNhietDo">
+                                                    @Html.DisplayFor(modelItem => item.NgayTao)
+                                                </td>
+                                                <td class="NguoiTao-column-PhieuTheoDoiNhietDo">
+                                                    @Html.DisplayFor(modelItem => item.NguoiTao)
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="pagination">
+                                    @Html.PagedListPager(Model, page => Url.Action("Details", "PhieuTheoDoiNhietDo", new { thang = Request.QueryString["thang"], nam = Request.QueryString["nam"], Page = page }))
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    <div class="modal deleteModal">
+        <div class="modal-content">
+            <div class="deletemodalContent"></div>
+        </div>
+    </div>
+    <div class="modal editModal">
+        <div class="modal-content">
+            <div class="editmodalContent"></div>
+        </div>
+    </div>
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <div id="modalContent"></div>
+        </div>
+    </div>
+</div>
+<script src="~/Public/Js/Details-PhieuTheoDoiNhietDo.js"></script>
+<script>
+        document.querySelector('.deleteButton').addEventListener("click", function (event) {
+        event.preventDefault();
+
+        var selectedIds = [];
+        document.querySelectorAll('input[name="selectedIds"]:checked').forEach(function (checkbox) {
+            selectedIds.push(checkbox.value);
+        });
+
+        if (selectedIds.length === 0) {
+            alert("Vui lòng chọn ít nhất một mục để xóa.");
+            return;
+        }
+        var url = '@Url.Action("Xoa", "PhieuTheoDoiNhietDo", new { ids = "__ID__" })';
+        url = url.replace("__ID__", selectedIds.join(','));
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function (response) {
+                $(".deletemodalContent").html(response);
+                $(".deleteModal").css("display", "block");
+            },
+            error: function () {
+                alert('Có lỗi xảy ra khi tải dữ liệu!');
+            }
+        });
+    });
+    function closeDeleteModal() {
+        $(".deleteModal").css("display", "none");
+    }
+        document.querySelector('.editButton').addEventListener("click", function (event) {
+        event.preventDefault();
+
+        var selectedIds = [];
+        document.querySelectorAll('input[name="selectedIds"]:checked').forEach(function (checkbox) {
+            selectedIds.push(checkbox.value);
+        });
+
+        if (selectedIds.length === 0) {
+            alert("Vui lòng chọn ít nhất một mục để sửa.");
+            return;
+        }
+        var url = '@Url.Action("ChinhSua", "PhieuTheoDoiNhietDo", new { ids = "__ID__" })';
+        url = url.replace("__ID__", selectedIds.join(','));
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function (response) {
+                $(".editmodalContent").html(response);
+                $(".editModal").css("display", "block");
+            },
+            error: function () {
+                alert('Có lỗi xảy ra khi tải dữ liệu!');
+            }
+        });
+    });
+    function closeEditModal() {
+        $(".editModal").css("display", "none");
+    }
+    document.getElementById("openAddModalBtn").addEventListener('click', function () {
+        $.ajax({
+            url: '@Url.Action("TaoPhieuTheoDoiNhietDo", "PhieuTheoDoiNhietDo")',
+            type: 'GET',
+            success: function (reponse) {
+                document.getElementById("modalContent").innerHTML = reponse;
+                document.getElementById("addModal").style.display = "block";
+            },
+            error: function () {
+                alert('Có lỗi xảy ra khi tải dữ liệu!');
+            }
+        });
+    });
+    function closeAddModal() {
+        document.getElementById("addModal").style.display = "none";
+    }
+
+    document.querySelector('.copyButton').addEventListener("click", function (event) {
+     event.preventDefault();
+
+     var selectedIds = [];
+     document.querySelectorAll('input[name="selectedIds"]:checked').forEach(function (checkbox) {
+         selectedIds.push(checkbox.value);
+     });
+
+     if (selectedIds.length === 0) {
+         alert("Vui lòng chọn ít nhất một mục để copy.");
+         return;
+     }
+     var url = '@Url.Action("Copy", "PhieuTheoDoiNhietDo", new { ids = "__ID__" })';
+     url = url.replace("__ID__", selectedIds.join(','));
+
+     $.ajax({
+         url: url,
+         type: 'POST',
+         success: function (response) {
+             if (response.success) {
+                 alert("Copy thành công!");
+                 location.reload();
+             } else {
+                 alert(response.message);
+             }
+         },
+         error: function () {
+             alert('Có lỗi xảy ra khi tải dữ liệu!');
+         }
+     });
+     });
+</script> 

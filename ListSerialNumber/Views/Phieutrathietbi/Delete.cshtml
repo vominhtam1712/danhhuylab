@@ -1,0 +1,65 @@
+﻿@model List<ListClass.Model.Phieutrathietbi>
+@using (Html.BeginForm("Delete", "Phieutrathietbi", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:red"><strong>BẠN CÓ CHẮC MUỐN XÓA KHÔNG?</strong></h3>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th width="40px">STT</th>
+                    <th>Phương thức giao trả</th>
+                    <th>Trạng thái thiết bị</th>
+                    <th>Ngày thực hiện</th>
+                    <th>Ngày tạo</th>
+                    <th>Người tạo</th>
+                    <th>Ghi chú</th>
+                </tr>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    var item = Model.ElementAt(i);
+                    <tr>
+                        <td>
+                            @(i+1)
+                            @Html.Hidden("ids[" + i + "].Id", Model[i].Id, new { @readonly = "readonly", @class = "form-control" })
+                        </td>
+                        <td>
+                            @item.PhuongThucGiaoTra
+                        </td>
+                        <td>
+                            @item.TrangThaiThietbi
+                        </td>
+                        <td>
+                            @item.NgayThucHien.ToString("dd/MM/yyyy")
+                        </td>
+                        <td>
+                            @item.NgayTao.ToString("dd/MM/yyyy")
+                        </td>
+                        <td>
+                            @item.NguoiTao
+                        </td>
+                        <td>
+                            @item.Ghichu
+                        </td>
+                    </tr>
+                }
+            </table>
+            <div class="row">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div>
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                    <a href="@Url.Action("Index","Phieutrathietbi")"><img src="~/Public/Img/close.png" width="40" /></a>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+

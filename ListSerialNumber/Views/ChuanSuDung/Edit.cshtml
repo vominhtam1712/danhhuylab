@@ -1,0 +1,64 @@
+﻿@model List<ListClass.Model.ChuanSuDung>
+@using (Html.BeginForm("Edit", "ChuanSuDung", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:blue"><strong>CHỈNH SỬA CHUẨN SỬ DỤNG</strong></h3>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr class="center">
+                        <th colspan="8">#</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Model</strong><br />
+                            @Html.TextBox("ids[" + i + "].Model", Model[i].Model, new { @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                        </td>
+                        <td>
+                            <strong>Description</strong><br />
+                            @Html.TextBox("ids[" + i + "].Description", Model[i].Description, new { @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                        </td>
+                        <td>
+                            <strong>Serial No.</strong><br />
+                            @Html.TextBox("ids[" + i + "].Serial", Model[i].Serial, new { @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong>Cetificate No.</strong><br />
+                            @Html.TextBox("ids[" + i + "].Cetificate", Model[i].Cetificate, new { @class = "form-control", type = "number", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                            @Html.Hidden("ids[" + i + "].Id_PhanCong", Model[i].Id_PhanCong, new { @readonly = "readonly", @class = "form-control" })
+                            @Html.Hidden("ids[" + i + "].Id", Model[i].Id, new { @readonly = "readonly", @class = "form-control" })
+                        </td>
+                        <td>
+                            <strong>Cal. Date</strong><br />
+                            @Html.TextBox("ids[" + i + "].Cal_Date", Model[i].Cal_Date.ToString("yyyy-MM-ddTHH:mm"), new { @type = "datetime-local", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                        </td>
+                        <td>
+                            <strong>Cal. Due</strong><br />
+                            @Html.TextBox("ids[" + i + "].Cal_Due", Model[i].Cal_Due.ToString("yyyy-MM-ddTHH:mm"), new { @type = "datetime-local", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                        </td>
+                    </tr>
+                }
+            </table>
+            <div class="row">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div>
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                    <a style="text-decoration:none;" href="#" onclick="closeModal()"><img src="~/Public/Img/close.png" width="40" /></a>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+

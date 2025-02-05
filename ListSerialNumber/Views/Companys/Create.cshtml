@@ -1,0 +1,67 @@
+﻿@model ListClass.Model.Company 
+<script src="~/Public/Js/DropDownSelect.js"></script>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:blue"><strong>TẠO TÀI KHOẢN</strong></h3>
+                </div>
+            </div>
+            <div class="form-horizontal" style="margin-bottom:10px">
+                <div class="row">
+                    <div class="col-md-4 col-12">
+                        <div class="form-group">
+                            <label class="control-label"><strong>Tên thành viên</strong></label>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-4 col-12">
+                        <div class="form-group">
+                            <label class="control-label"><strong>Tên đăng nhập</strong></label>
+                            <div class="col-md-12">
+                                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @required = "required", @pattern = @"^\S+$", @title = "Tên đăng nhập không được chứa khoảng trắng." })
+                                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12">
+                        <div class="form-group">
+                            <label class="control-label"><strong>Mật khẩu</strong></label>
+                            <div class="col-md-12">
+                                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", type = "password", placeholder = "********", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div> 
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                    <a style="text-decoration:none;" href="#" onclick="closeAddModal()"><img src="~/Public/Img/close.png" width="40" /></a>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+<script>
+    document.getElementById("yourFormId").onsubmit = function () {
+        var userName = document.getElementById("UserName").value;
+        if (userName.includes(" ")) {
+            alert("Tên đăng nhập không được chứa khoảng trắng.");
+            return false;
+        }
+    }
+</script>

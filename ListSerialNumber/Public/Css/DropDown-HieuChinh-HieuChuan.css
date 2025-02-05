@@ -1,0 +1,29 @@
+﻿.card-body {
+    transition: opacity 1s ease, max-height 0.5s ease;
+    overflow: hidden;
+    opacity: 1;
+}
+
+.icon-one {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 54px;
+    height: 54px;
+    background: #000000;
+    font-size: 2em;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
+    align-items: center;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.card-body.hidden {
+    max-height: 0; 
+    margin-top:-30px;
+    opacity: 0;
+    z-index:-1;
+}

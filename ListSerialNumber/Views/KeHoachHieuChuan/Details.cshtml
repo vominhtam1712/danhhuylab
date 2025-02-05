@@ -1,0 +1,303 @@
+﻿@model IEnumerable<ListClass.Model.Join_KeHoachHieuChuanKiemTra_ThietBi>
+<script src="~/Public/Js/DropDownSelect.js"></script>
+<link href="~/Public/Css/ColorFull.css" rel="stylesheet" />
+<style>
+    .circle-img img {
+        width: 250px;
+        height: 250px;
+        border-radius: 50%; 
+    } 
+</style>
+<section class="content py-2">
+    <div class="container">
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            var item = Model.ElementAt(i);
+            <div class="form-horizontal" style="margin-top:5%">
+                <div class="row py-1">
+                    <div class="col-md-4" style="text-align:center">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                @if (item.Img != null)
+                                {
+                                    <div class="circle-img">
+                                        <img src="~/Public/Products/@item.Img" alt="img" />
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="circle-img">
+                                        <img src="~/Public/Img/logo-danhhuy.png" alt="img" />
+                                    </div>
+                                } 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+
+                        <div class="form-group">
+                            <strong class="control-label col-md-3">Tên thiết bị: </strong> <br />
+                            @item.TenThietBi
+                        </div>
+                        <div class="form-group">
+                            <strong class="control-label col-md-3">Hãng sản xuất: </strong> <br />
+                            @item.HangSX
+                        </div>
+
+                        <div class="form-group">
+                            <strong class="control-label col-md-3">Số SN: </strong><br />
+                            @item.Serial
+                        </div>
+                    </div>
+                    <div class="col-md-3" style="margin-left:0%">
+                        <div class="form-group">
+                            <p><strong style="color:red">Ghi chú :<br />   CEx :</strong><i>  ­ Hiệu chuẩn bên ngoài</i><br /><strong style="color:red">Intrv : </strong> <i>­Kiểm tra giữa kỳ</i><br /> <strong style="color:red">Cin :</strong><i> Hiệu chuẩn nội bộ</i><br /><strong style="color:red">Main : </strong><i>Bảo trì bảo dưỡng</i></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-2" style="overflow-x:auto">
+                    <table class="table table-bordered table-striped">
+                        <tr style="text-align:center">
+                            <th colspan="2" style="text-align:center;">
+                                Jan
+                            </th>
+                            <th colspan="2" style="text-align:center;">
+                                Feb
+                            </th>
+                            <th colspan="2" style="text-align:center;">
+                                March
+                            </th>
+                            <th colspan="2" style="text-align:center;">
+                                April
+                            </th>
+                            <th colspan="2" style="text-align:center;">
+                                May
+                            </th>
+                            <th colspan="2" style="text-align:center;">
+                                June
+                            </th>
+                        </tr>
+                        <tr>
+                            <td width="100px" style="text-align:center;">
+                                <strong>Plan</strong>
+                            </td>
+                            <td width="100px" style="text-align: center;">
+                                <strong>Act</strong>
+                            </td>
+                            <td width="100px" style="text-align: center;">
+                                <strong>Plan</strong>
+                            </td>
+                            <td width="100px" style="text-align: center;">
+                                <strong>Act</strong>
+                            </td>
+                            <td width="100px" style="text-align: center;">
+                                <strong>Plan</strong>
+                            </td>
+                            <td width="100px" style="text-align: center; ">
+                                <strong>Act</strong>
+                            </td>
+                            <td width="100px" style="text-align: center; ">
+                                <strong>Plan</strong>
+                            </td>
+                            <td width="100px" style="text-align: center; ">
+                                <strong>Act</strong>
+                            </td>
+                            <td width="100px" style="text-align: center; ">
+                                <strong>Plan</strong>
+                            </td>
+                            <td width="100px" style="text-align: center; ">
+                                <strong>Act</strong>
+                            </td>
+                            <td width="100px" style="text-align: center; ">
+                                <strong>Plan</strong>
+                            </td>
+                            <td width="100px" style="text-align: center; ">
+                                <strong>Act</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ColorFull" width="100px" style="text-align: center; color: blue">
+                                @item.Jan_Plan
+                            </td>
+                            <td class="ColorFull" width="100px" style="text-align: center; color: blue">
+                                @item.Jan_Act
+                            </td>
+                            <td class="ColorFull" width="100px" style="text-align: center; color: blue">
+                                @item.Feb_Plan
+                            </td>
+                            <td class="ColorFull" width="100px" style="text-align: center; color: blue">
+                                @item.Feb_Act
+                            </td>
+                            <td class="ColorFull" width="100px" style="text-align: center; color: blue">
+                                @item.March_Plan
+                            </td>
+                            <td class="ColorFull" width="100px" style="text-align: center; color: blue">
+                                @item.March_Act
+                            </td>
+                            <td class="ColorFull" width="100px" style="text-align: center; color: blue">
+                                @item.April_Plan
+                            </td>
+                            <td class="ColorFull" width="100px" style="text-align: center; color: blue">
+                                @item.April_Act
+                            </td>
+                            <td class="ColorFull" width="100px" style="text-align: center; color: blue">
+                                @item.May_Plan
+                            </td>
+                            <td class="ColorFull" width="100px" style="text-align: center; color: blue">
+                                @item.May_Act
+                            </td>
+                            <td class="ColorFull" width="100px" style="text-align: center; color: blue">
+                                @item.June_Plan
+                            </td>
+                            <td class="ColorFull" width="100px" style="text-align: center; color: blue">
+                                @item.June_Act
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="table table-bordered table-striped">
+                        <tr style="text-align:center">
+                            <th colspan="2" style="text-align:center;">
+                                July
+                            </th>
+                            <th colspan="2" style="text-align:center;">
+                                Aug
+                            </th>
+                            <th colspan="2" style="text-align:center;">
+                                Sep
+                            </th>
+                            <th colspan="2" style="text-align:center;">
+                                Oct
+                            </th>
+                            <th colspan="2" style="text-align:center;">
+                                Nov
+                            </th>
+                            <th colspan="2" style="text-align:center;">
+                                Dec
+                            </th>
+                        </tr>
+                        <tr>
+                            <td width="100px" style="text-align: center; ">
+                                <strong>Plan</strong>
+                            </td>
+                            <td width="100px" style="text-align: center; ">
+                                <strong>Act</strong>
+                            </td>
+                            <td width="100px" style="text-align: center; ">
+                                <strong>Plan</strong>
+                            </td>
+                            <td width="100px" style="text-align: center; ">
+                                <strong>Act</strong>
+                            </td>
+                            <td width="100px" style="text-align: center; ">
+                                <strong>Plan</strong>
+                            </td>
+                            <td width="100px" style="text-align: center; ">
+                                <strong>Act</strong>
+                            <td width="100px" style="text-align: center; ">
+                                <strong>Plan</strong>
+                            </td>
+                            <td width="100px" style="text-align: center; ">
+                                <strong>Act</strong>
+                            </td>
+                            <td width="100px" style="text-align: center; ">
+                                <strong>Plan</strong>
+                            </td>
+                            <td width="100px" style="text-align: center; ">
+                                <strong>Act</strong>
+                            </td>
+                            <td width="100px" style="text-align: center; ">
+                                <strong>Plan</strong>
+                            </td>
+                            <td width="100px" style="text-align: center; ">
+                                <strong>Act</strong>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="ColorFull" width="100px" style="text-align: center; color: blue">
+                                @item.July_Plan
+                            </td>
+                            <td class="ColorFull" width="100px" style="text-align: center; color: blue">
+                                @item.June_Act
+                            </td>
+                            <td class="ColorFull" width="100px" style="text-align: center; color: blue">
+                                @item.Aug_Plan
+                            </td>
+                            <td class="ColorFull" width="100px" style="text-align: center; color: blue">
+                                @item.Aug_Act
+                            </td>
+                            <td class="ColorFull" width="100px" style="text-align: center; color: blue">
+                                @item.Sep_Plan
+                            </td>
+                            <td class="ColorFull" width="100px" style="text-align: center; color: blue">
+                                @item.Sep_Act
+                            </td>
+                            <td class="ColorFull" width="100px" style="text-align: center; color: blue">
+                                @item.Oct_Plan
+                            </td>
+                            <td class="ColorFull" width="100px" style="text-align: center; color: blue">
+                                @item.Oct_Act
+                            </td>
+                            <td class="ColorFull" width="100px" style="text-align: center; color: blue">
+                                @item.Nov_Plan
+                            </td>
+                            <td class="ColorFull" width="100px" style="text-align: center; color: blue">
+                                @item.Nov_Act
+                            </td>
+                            <td class="ColorFull" width="100px" style="text-align: center; color: blue">
+                                @item.Dec_Plan
+                            </td>
+                            <td class="ColorFull" width="100px" style="text-align: center; color: blue">
+                                @item.Dec_Act
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+<script>
+    function triggerFileInput(companyId) {
+        document.getElementById('fileInput').setAttribute("data-company-id", companyId);
+        document.getElementById('fileInput').click();
+    }
+
+    function previewImage(event) {
+        const file = event.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload = function () {
+            document.getElementById('profileImage').src = reader.result;
+            uploadImage(file);
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+    function uploadImage(file) {
+    const companyId = document.getElementById('fileInput').getAttribute("data-company-id");
+
+    var formData = new FormData();
+    formData.append("imgFile", file);
+    formData.append("companyId", companyId);
+
+    $.ajax({
+        url: '@Url.Action("UploadProfileImage", "DanhMucThietBi")',
+        type: 'POST',
+        data: formData,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            if (response.success) {
+                alert("Cập nhật ảnh thành công!");
+            } else {
+                alert(response.message);
+            }
+        },
+        error: function () {
+            alert("Có lỗi xảy ra khi tải ảnh lên.");
+        }
+    });
+}
+</script>

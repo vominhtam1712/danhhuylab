@@ -1,0 +1,1357 @@
+﻿@model ListClass.Model.PhanCong_HieuChinh_HieuChuan
+@{
+    ViewBag.Title = "Chi tiết biên bản hiệu chuẩn";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+<style>
+    .selectAll1 {
+        height: 20px;
+        width: 20px;
+    }
+</style>
+<div class="content-wrapper">
+    <section>
+        <div class="container" style="margin-top:20px;text-align:center">
+            <h3><strong style="color:blue">THÔNG TIN KHÁCH HÀNG</strong></h3>
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th style="vertical-align:middle">Tên KH</th>
+                    <th style="vertical-align:middle">Ngành</th>
+                    <th style="vertical-align:middle">Tên thiết bị</th>
+                    <th style="vertical-align:middle">Model</th>
+                    <th style="text-align: center; vertical-align: middle" width="100px">Số SN</th>
+                    <th style="text-align: center; vertical-align: middle" width="100px">Hãng</th>
+                </tr>
+                <tr>
+                    @if (Model.KhachHangs != null && Model.KhachHangs.Any())
+                    {
+                        foreach (var item in Model.KhachHangs)
+                        {
+                            <td style="vertical-align:middle">@item.TenKH</td>
+                            <td style="vertical-align:middle">@item.NhomNganh</td>
+                        }
+                    }
+                    @if (Model.ListNumbers != null && Model.ListNumbers.Any())
+                    {
+                        foreach (var item in Model.ListNumbers)
+                        {
+                            <td style="vertical-align:middle">@item.Tenthietbi</td>
+                            <td style="vertical-align:middle">@item.Model</td>
+                            <td style="text-align:center;vertical-align:middle">@item.SerialNumber</td>
+                            <td style="text-align: center; vertical-align:middle">@item.Hang</td>
+
+                        }
+                    }
+                </tr>
+            </table>
+        </div>
+    </section>
+    <section>
+        <div class="container" style="margin-top:20px">
+            <div class="row">
+                <div class="col-md-4" style="text-align:center">
+                    <a style="width:100px" class="form-control form-a-control" href="@Url.Action("Index","LuuInHoSo")"><span class="fas fa-backward"> Trở về</span></a>
+                </div>
+                <div class="title-header col-md-4" style="text-align:center">
+                    <h3><strong style="color:blue">BIÊN BẢN HIỆU CHỈNH</strong></h3>
+                </div>
+                <div class="col-md-4" style="text-align:center;margin-top:10px">
+                    @Html.Partial("Message")
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content py-2">
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <div class="form-group form-inline">
+                        <div class="row">
+                            <div class="col-md-2" style="width:auto">
+                                <button class="form-control" style="width: 260px" disabled>
+                                    <span style="color:red" class="fas">CHUẨN ĐƯỢC SỬ DỤNG</span>
+                                </button>
+                            </div>
+                            <div class="col-md-2" style="width:auto">
+                                <span class="icon-one" onclick="toggleCardBody(1)">
+                                    <ion-icon id="toggle-icon-1" name="arrow-down-outline"></ion-icon>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body hidden" id="card-body-1">
+                    <div class="row" style="overflow-x:auto">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th width="30px">No.</th>
+                                    <th>Model</th>
+                                    <th>Description</th>
+                                    <th>Serial No.</th>
+                                    <th>Cetificate No.</th>
+                                    <th>Cal. Date</th>
+                                    <th>Cal. Due</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.ChuanSuDungs != null && Model.ChuanSuDungs.Any())
+                                {
+                                    foreach (var item in Model.ChuanSuDungs)
+                                    {
+                                        <tr>
+                                            <td>1</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Model)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Serial)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Cetificate)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Cal_Date)</td>
+                                            <td>@Html.DisplayFor(modelItem => item.Cal_Due)</td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="10" class="text-center">Không có dữ liệu.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content py-2">
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <div class="form-group form-inline">
+                        <div class="row">
+                            <div class="col-md-2" style="width:auto">
+                                <button class="form-control" style="width:260px" disabled><span style="color:red" class="fas">GIÁ TRỊ TRƯỚC HIỆU CHỈNH</span></button>
+                            </div>
+                            <div class="col-md-2" style="width:auto">
+                                <span class="icon-one" onclick="toggleCardBody(2)">
+                                    <ion-icon id="toggle-icon-2" name="arrow-down-outline"></ion-icon>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body hidden" id="card-body-2">
+                    <div class="row" style="overflow-x:auto">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th width="30px">
+                                        No.
+                                    </th>
+                                    <th>
+                                        Ngày (Date:)
+                                    </th>
+                                    <th>
+                                        Technicial
+                                    </th>
+                                    <th>
+                                        Lamp System
+                                    </th>
+                                    <th>
+                                        Bulb / Spectrum
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.NgayTaoTechnicialBuldTruocHieuChinhs != null && Model.NgayTaoTechnicialBuldTruocHieuChinhs.Any())
+                                {
+                                    int count = 1;
+                                    foreach (var item in Model.NgayTaoTechnicialBuldTruocHieuChinhs)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @count
+                                            </td>
+                                            <td>
+                                                @item.NgayTao.ToString("dd/MM/yyyy")
+                                            </td>
+                                            <td>
+                                                @item.Technicial
+                                            </td>
+                                            <td>
+                                                @item.LampSystem.Lamp_Systems
+                                            </td>
+                                            <td>
+                                                @item.BulbSpectrum.Bulb_Spectrum
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="10" class="text-center">Không có dữ liệu.</td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                        @if (Model.GiaTriTruocHieuChinhs != null && Model.GiaTriTruocHieuChinhs.Any())
+                        {
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th width="30px">
+                                            No.
+                                        </th>
+                                        <th width="140px">
+                                            Bước sóng
+                                        </th>
+                                        <th width="200px">
+                                            Measurand
+                                        </th>
+                                        <th width="200px">
+                                            Units
+                                        </th>
+                                        <th width="200px">
+                                            Reference
+                                        </th>
+                                        <th width="200px">
+                                            Instrument
+                                        </th>
+                                        <th>
+                                            Deviation
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.GiaTriTruocHieuChinhs)
+                                    {
+                                        if (item.BuocSong == "UV-A")
+                                        {
+                                            <tr>
+                                                <td rowspan="2" width="30px">
+                                                    1
+                                                </td>
+                                                <td rowspan="2" width="140px">
+                                                    @Html.DisplayFor(modelItem => item.BuocSong)
+                                                </td>
+                                                <td width="200px">
+                                                    @Html.DisplayFor(modelItem => item.Measurand_1)
+                                                </td>
+                                                <td width="200px">
+                                                    mW/cm&#178;
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Reference_1.ToString("F2")
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Instrument_1.ToString("F2")
+                                                </td>
+                                                <td>
+                                                    @item.Deviation_1.ToString("F2")
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="200px">
+                                                    @Html.DisplayFor(modelItem => item.Measurand_2)
+                                                </td>
+                                                <td width="200px">
+                                                    mJ/cm&#178;
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Reference_2.ToString("F2")
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Instrument_2.ToString("F2")
+                                                </td>
+                                                <td>
+                                                    @item.Deviation_2.ToString("F2")
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                            <table class="table table-bordered table-striped">
+                                <tbody>
+                                    @foreach (var item in Model.GiaTriTruocHieuChinhs)
+                                    {
+                                        if (item.BuocSong == "UV-B")
+                                        {
+                                            <tr>
+                                                <td rowspan="2" width="43px">
+                                                    1
+                                                </td>
+                                                <td rowspan="2" width="140px">
+                                                    @Html.DisplayFor(modelItem => item.BuocSong)
+                                                </td>
+                                                <td width="200px">
+                                                    @Html.DisplayFor(modelItem => item.Measurand_1)
+                                                </td>
+                                                <td width="200px">
+                                                    mW/cm&#178;
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Reference_1.ToString("F2")
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Instrument_1.ToString("F2")
+                                                </td>
+                                                <td>
+                                                    @item.Deviation_1.ToString("F2")
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="200px">
+                                                    @Html.DisplayFor(modelItem => item.Measurand_2)
+                                                </td>
+                                                <td width="200px">
+                                                    mJ/cm&#178;
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Reference_2.ToString("F2")
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Instrument_2.ToString("F2")
+                                                </td>
+                                                <td>
+                                                    @item.Deviation_2.ToString("F2")
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                            <table class="table table-bordered table-striped">
+                                <tbody>
+                                    @foreach (var item in Model.GiaTriTruocHieuChinhs)
+                                    {
+                                        if (item.BuocSong == "UV-C")
+                                        {
+                                            <tr>
+                                                <td rowspan="2" width="43px">
+                                                    1
+                                                </td>
+                                                <td rowspan="2" width="140px">
+                                                    @Html.DisplayFor(modelItem => item.BuocSong)
+                                                </td>
+                                                <td width="200px">
+                                                    @Html.DisplayFor(modelItem => item.Measurand_1)
+                                                </td>
+                                                <td width="200px">
+                                                    mW/cm&#178;
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Reference_1.ToString("F2")
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Instrument_1.ToString("F2")
+                                                </td>
+                                                <td>
+                                                    @item.Deviation_1.ToString("F2")
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="200px">
+                                                    @Html.DisplayFor(modelItem => item.Measurand_2)
+                                                </td>
+                                                <td width="200px">
+                                                    mJ/cm&#178;
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Reference_2.ToString("F2")
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Instrument_2.ToString("F2")
+                                                </td>
+                                                <td>
+                                                    @item.Deviation_2.ToString("F2")
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                            <table class="table table-bordered table-striped">
+                                <tbody>
+                                    @foreach (var item in Model.GiaTriTruocHieuChinhs)
+                                    {
+                                        if (item.BuocSong == "UV-V")
+                                        {
+                                            <tr>
+                                                <td rowspan="2" width="43px">
+                                                    1
+                                                </td>
+                                                <td rowspan="2" width="140px">
+                                                    @Html.DisplayFor(modelItem => item.BuocSong)
+                                                </td>
+                                                <td width="200px">
+                                                    @Html.DisplayFor(modelItem => item.Measurand_1)
+                                                </td>
+                                                <td width="200px">
+                                                    mW/cm&#178;
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Reference_1.ToString("F2")
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Instrument_1.ToString("F2")
+                                                </td>
+                                                <td>
+                                                    @item.Deviation_1.ToString("F2")
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="200px">
+                                                    @Html.DisplayFor(modelItem => item.Measurand_2)
+                                                </td>
+                                                <td width="200px">
+                                                    mJ/cm&#178;
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Reference_2.ToString("F2")
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Instrument_2.ToString("F2")
+                                                </td>
+                                                <td>
+                                                    @item.Deviation_2.ToString("F2")
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content py-2">
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <div class="form-group form-inline">
+                        <div class="row">
+                            <div class="col-md-2" style="width:auto">
+                                <button class="form-control" style="width: 260px" disabled><span style="color:red" class="fas">KẾT QUẢ HIỆU CHỈNH</span></button>
+                            </div>
+                            <div class="col-md-2" style="width:auto">
+                                <span class="icon-one" onclick="toggleCardBody(3)">
+                                    <ion-icon id="toggle-icon-3" name="arrow-down-outline"></ion-icon>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body hidden" id="card-body-3">
+                    <div class="row" style="overflow-x:auto">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th width="30px">
+                                        No.
+                                    </th>
+                                    <th>
+                                        Ngày (Date:)
+                                    </th>
+                                    <th>
+                                        Technicial
+                                    </th>
+                                    <th>
+                                        Lamp System
+                                    </th>
+                                    <th>
+                                        Bulb / Spectrum
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.NgayTaoTechnicialBuldKetQuaHieuChinhs != null && Model.NgayTaoTechnicialBuldKetQuaHieuChinhs.Any())
+                                {
+                                    int count = 1;
+                                    foreach (var item in Model.NgayTaoTechnicialBuldKetQuaHieuChinhs)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @count
+                                            </td>
+                                            <td>
+                                                @item.NgayTao.ToString("dd/MM/yyyy")
+                                            </td>
+                                            <td>
+                                                @item.Technicial
+                                            </td>
+                                            <td>
+                                                @item.LampSystem.Lamp_Systems
+                                            </td>
+                                            <td>
+                                                @item.BulbSpectrum.Bulb_Spectrum
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="10" class="text-center">Không có dữ liệu.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        @if (Model.KetQuaHieuChinhs != null && Model.KetQuaHieuChinhs.Any())
+                        {
+                            int count1 = 1;
+                            int count2 = 1;
+                            int count3 = 1;
+                            int count4 = 1;
+                            int count5 = 1;
+                            int count6 = 1;
+                            int count7 = 1;
+                            int count8 = 1;
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th width="30px">
+                                            No.
+                                        </th>
+                                        <th width="140px">
+                                            Bước sóng
+                                        </th>
+                                        <th width="200px">
+                                            Measurand
+                                        </th>
+                                        <th width="200px">
+                                            Units
+                                        </th>
+                                        <th width="200px">
+                                            Reference
+                                        </th>
+                                        <th width="200px">
+                                            Instrument
+                                        </th>
+                                        <th>
+                                            Deviation
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.KetQuaHieuChinhs)
+                                    {
+                                        if (item.BuocSong == "UV-A")
+                                        {
+                                            <tr>
+                                                <td rowspan="2" width="30px">
+                                                    @(count1++)
+                                                </td>
+                                                <td rowspan="2" width="140px">
+                                                    @Html.DisplayFor(modelItem => item.BuocSong)
+                                                </td>
+                                                <td width="200px">
+                                                    @Html.DisplayFor(modelItem => item.Measurand_1)
+                                                </td>
+                                                <td width="200px">
+                                                    mW/cm&#178;
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Reference_1.ToString("F2")
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Instrument_1.ToString("F2")
+                                                </td>
+                                                <td>
+                                                    @item.Deviation_1.ToString("F2")
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="200px">
+                                                    @Html.DisplayFor(modelItem => item.Measurand_2)
+                                                </td>
+                                                <td width="200px">
+                                                    mJ/cm&#178;
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Reference_2.ToString("F2")
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Instrument_2.ToString("F2")
+                                                </td>
+                                                <td>
+                                                    @item.Deviation_2.ToString("F2")
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                            <table class="table table-bordered table-striped">
+                                <tbody>
+                                    @foreach (var item in Model.KetQuaHieuChinhs)
+                                    {
+                                        if (item.BuocSong == "UV-B")
+                                        {
+                                            <tr>
+                                                <td rowspan="2" width="43px">
+                                                    @(count3++)
+                                                </td>
+                                                <td rowspan="2" width="140px">
+                                                    @Html.DisplayFor(modelItem => item.BuocSong)
+                                                </td>
+                                                <td width="200px">
+                                                    @Html.DisplayFor(modelItem => item.Measurand_1)
+                                                </td>
+                                                <td width="200px">
+                                                    mW/cm&#178;
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Reference_1.ToString("F2")
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Instrument_1.ToString("F2")
+                                                </td>
+                                                <td>
+                                                    @item.Deviation_1.ToString("F2")
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="200px">
+                                                    @Html.DisplayFor(modelItem => item.Measurand_2)
+                                                </td>
+                                                <td width="200px">
+                                                    mJ/cm&#178;
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Reference_2.ToString("F2")
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Instrument_2.ToString("F2")
+                                                </td>
+                                                <td>
+                                                    @item.Deviation_2.ToString("F2")
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                            <table class="table table-bordered table-striped">
+                                <tbody>
+                                    @foreach (var item in Model.KetQuaHieuChinhs)
+                                    {
+                                        if (item.BuocSong == "UV-C")
+                                        {
+                                            <tr>
+                                                <td rowspan="2" width="43px">
+                                                    @(count5++)
+                                                </td>
+                                                <td rowspan="2" width="140px">
+                                                    @Html.DisplayFor(modelItem => item.BuocSong)
+                                                </td>
+                                                <td width="200px">
+                                                    @Html.DisplayFor(modelItem => item.Measurand_1)
+                                                </td>
+                                                <td width="200px">
+                                                    mW/cm&#178;
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Reference_1.ToString("F2")
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Instrument_1.ToString("F2")
+                                                </td>
+                                                <td>
+                                                    @item.Deviation_1.ToString("F2")
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="200px">
+                                                    @Html.DisplayFor(modelItem => item.Measurand_2)
+                                                </td>
+                                                <td width="200px">
+                                                    mJ/cm&#178;
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Reference_2.ToString("F2")
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Instrument_2.ToString("F2")
+                                                </td>
+                                                <td>
+                                                    @item.Deviation_2.ToString("F2")
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                            <table class="table table-bordered table-striped">
+                                <tbody>
+                                    @foreach (var item in Model.KetQuaHieuChinhs)
+                                    {
+                                        if (item.BuocSong == "UV-V")
+                                        {
+                                            <tr>
+                                                <td rowspan="2" width="43px">
+                                                    @(count7++)
+                                                </td>
+                                                <td rowspan="2" width="140px">
+                                                    @Html.DisplayFor(modelItem => item.BuocSong)
+                                                </td>
+                                                <td width="200px">
+                                                    @Html.DisplayFor(modelItem => item.Measurand_1)
+                                                </td>
+                                                <td width="200px">
+                                                    mW/cm&#178;
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Reference_1.ToString("F2")
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Instrument_1.ToString("F2")
+                                                </td>
+                                                <td>
+                                                    @item.Deviation_1.ToString("F2")
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td width="200px">
+                                                    @Html.DisplayFor(modelItem => item.Measurand_2)
+                                                </td>
+                                                <td width="200px">
+                                                    mJ/cm&#178;
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Reference_2.ToString("F2")
+                                                </td>
+                                                <td width="200px">
+                                                    @item.Instrument_2.ToString("F2")
+                                                </td>
+                                                <td>
+                                                    @item.Deviation_2.ToString("F2")
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container" style="margin-top:20px">
+            <div class="row">
+                <div class="title-header col-md-12" style="text-align:center">
+                    <h3><strong style="color:blue">BIÊN BẢN HIỆU CHUẨN</strong></h3>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content py-2">
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <div class="form-group form-inline">
+                        <div class="row">
+                            <div class="col-md-2" style="width:auto">
+                                <button class="form-control" style="width: 260px" disabled><span style="color:red" class="fas">BIÊN BẢN HIỆU CHUẨN</span></button>
+                            </div>
+                            @foreach (var item in Model.BienBanHieuChuans)
+                            {
+                                <div class="col-md-2" style="width:auto">
+                                    @using (Html.BeginForm("ExportPdf", "STD_DUT", FormMethod.Post, new { ids = "exportForm_" + item.Id }))
+                                    {
+                                        @Html.Hidden("ids", item.Id)
+                                        <a href="#" class="form-control form-a-control downloadLink" style="text-decoration:none">
+                                            <span class="fas fa-file-export">InPdf (Biên bản HC)</span>
+                                        </a>
+                                    }
+                                </div>
+                            }
+                            <div class="col-md-2" style="width:auto">
+                                <span class="icon-one" onclick="toggleCardBody(4)">
+                                    <ion-icon id="toggle-icon-4" name="arrow-down-outline"></ion-icon>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body hidden" id="card-body-4">
+                    <div class="row" style="overflow-x:auto">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Mã biên bản
+                                    </th>
+                                    <th>
+                                        Nhiệt độ
+                                    </th>
+                                    <th>
+                                        Độ ẩm
+                                    </th>
+                                    <th>
+                                        Tên TB hiệu chuẩn
+                                    </th>
+                                    <th>
+                                        Số SN
+                                    </th>
+                                    <th>
+                                        Ngày hiệu chuẩn
+                                    </th>
+                                    <th>
+                                        Ngày hết hạn
+                                    </th>
+                                    <th>
+                                        Ngày thực hiện
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.BienBanHieuChuans != null && Model.BienBanHieuChuans.Any())
+                                {
+                                    foreach (var item in Model.BienBanHieuChuans)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.MaBienBan)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.NhietDo)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.DoAm)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TenHieuChuan)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.SN)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Cal_Date)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Due_Day)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.NgayThucHien)
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="10" class="text-center">Không có dữ liệu.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content py-2">
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <div class="form-group form-inline">
+                        <div class="row">
+                            <div class="col-md-2" style="width:auto">
+                                <button class="form-control" style="width: 260px" disabled><span style="color:red" class="fas">ĐỘ ỔN ĐỊNH</span></button>
+                            </div>
+                            @foreach (var item in Model.BienBanHieuChuans)
+                            {
+                                <div class="col-md-2" style="width:auto">
+                                    @using (Html.BeginForm("ExportPdf_DoOnDinh", "STD_DUT", FormMethod.Post, new { ids = "exportForm_" + item.Id }))
+                                    {
+                                        @Html.Hidden("ids", item.Id)
+                                        <a href="#" class="form-control form-a-control downloadLink1" style="text-decoration:none">
+                                            <span class="fas fa-file-export">InPDF (Độ ổn định)</span>
+                                        </a>
+                                    }
+                                </div>
+                            }
+                            <div class="col-md-2" style="width:auto">
+                                <span class="icon-one" onclick="toggleCardBody(5)">
+                                    <ion-icon id="toggle-icon-5" name="arrow-down-outline"></ion-icon>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body hidden" id="card-body-5">
+                    <div class="row" style="overflow-x:auto">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Mức kiểm tra
+                                    </th>
+                                    <th>
+                                        Lần 1
+                                    </th>
+                                    <th>
+                                        Lần 2
+                                    </th>
+                                    <th>
+                                        Lần 3
+                                    </th>
+                                    <th>
+                                        Lần 4
+                                    </th>
+                                    <th>
+                                        Lần 5
+                                    </th>
+                                    <th>
+                                        Min
+                                    </th>
+                                    <th>
+                                        Max
+                                    </th>
+                                    <th>
+                                        Độ ổn định
+                                    </th>
+                                    <th>
+                                        TB STD
+                                    </th>
+                                    <th>
+                                        U<sub>od</sub>(%)
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.STD_DUTs != null && Model.STD_DUTs.Any())
+                                {
+                                    foreach (var item in Model.STD_DUTs)
+                                    {
+
+                                        <tr>
+                                            <td>
+                                                @item.MucKiemTra_STD
+                                            </td>
+                                            <td>
+                                                @item.Lan1_STD
+                                            </td>
+                                            <td>
+                                                @item.Lan2_STD
+                                            </td>
+                                            <td>
+                                                @item.Lan3_STD
+                                            </td>
+                                            <td>
+                                                @item.Lan4_STD
+                                            </td>
+                                            <td>
+                                                @item.Lan5_STD
+                                            </td>
+                                            <td>
+                                                @item.Min_STD
+                                            </td>
+                                            <td>
+                                                @item.Max_STD
+                                            </td>
+                                            <td>
+                                                @item.DoOnDinh_STD.Value.ToString("F3")
+                                            </td>
+                                            <td>
+                                                @item.TrungBinh_STD.Value.ToString("F3")
+                                            </td>
+                                            <td>
+                                                @item.U_STD.Value.ToString("F2")
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content py-2">
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <div class="form-group form-inline">
+                        <div class="row">
+                            <div class="col-md-2" style="width:auto">
+                                <button class="form-control" style="width: 260px" disabled><span style="color:red" class="fas">ĐỘ ĐỒNG ĐỀU</span></button>
+                            </div>
+                            @foreach (var item in Model.BienBanHieuChuans)
+                            {
+                                <div class="col-md-2" style="width:auto">
+                                    @using (Html.BeginForm("ExportPdf_DoDongDeu", "STD_DUT", FormMethod.Post, new { ids = "exportForm_" + item.Id }))
+                                    {
+                                        @Html.Hidden("ids", item.Id)
+                                        <a href="#" class="form-control form-a-control downloadLink2" style="text-decoration:none">
+                                            <span class="fas fa-file-export">InPDF (Độ đồng đều)</span>
+                                        </a>
+                                    }
+                                </div>
+                            }
+                            <div class="col-md-2" style="width:auto">
+                                <span class="icon-one" onclick="toggleCardBody(6)">
+                                    <ion-icon id="toggle-icon-6" name="arrow-down-outline"></ion-icon>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body hidden" id="card-body-6">
+                    <div class="row" style="overflow-x:auto">
+                        <div class="col-md-6">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th colspan="9">
+                                            Giá trị đo STD
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            Mức kiểm tra
+                                        </th>
+                                        <th>
+                                            Lần 1
+                                        </th>
+                                        <th>
+                                            Lần 2
+                                        </th>
+                                        <th>
+                                            Lần 3
+                                        </th>
+                                        <th>
+                                            Lần 4
+                                        </th>
+                                        <th>
+                                            Lần 5
+                                        </th>
+                                        <th>
+                                            Trung bình
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.STD_DUTs != null && Model.STD_DUTs.Any())
+                                    {
+                                        foreach (var item in Model.STD_DUTs)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @item.MucKiemTra_STD
+                                                </td>
+                                                <td>
+                                                    @item.Lan1_STD
+                                                </td>
+                                                <td>
+                                                    @item.Lan2_STD
+                                                </td>
+                                                <td>
+                                                    @item.Lan3_STD
+                                                </td>
+                                                <td>
+                                                    @item.Lan4_STD
+                                                </td>
+                                                <td>
+                                                    @item.Lan5_STD
+                                                </td>
+                                                <td>
+                                                    @item.TrungBinh_STD.Value.ToString("F3")
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th colspan="9">
+                                            Giá trị đo DUT
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            Mức kiểm tra
+                                        </th>
+                                        <th>
+                                            Lần 1
+                                        </th>
+                                        <th>
+                                            Lần 2
+                                        </th>
+                                        <th>
+                                            Lần 3
+                                        </th>
+                                        <th>
+                                            Lần 4
+                                        </th>
+                                        <th>
+                                            Lần 5
+                                        </th>
+                                        <th>
+                                            Trung bình
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.STD_DUTs != null && Model.STD_DUTs.Any())
+                                    {
+                                        foreach (var item in Model.STD_DUTs)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @item.MucKiemTra_DUT
+                                                </td>
+                                                <td>
+                                                    @item.Lan1_DUT
+                                                </td>
+                                                <td>
+                                                    @item.Lan2_DUT
+                                                </td>
+                                                <td>
+                                                    @item.Lan3_DUT
+                                                </td>
+                                                <td>
+                                                    @item.Lan4_DUT
+                                                </td>
+                                                <td>
+                                                    @item.Lan5_DUT
+                                                </td>
+                                                <td>
+                                                    @item.TrungBinh_DUT.Value.ToString("F3")
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-6" style="overflow-x:auto;">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Chuẩn sử dụng
+                                        </th>
+                                        <th>
+                                            Nguồn UV
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            a = @ViewBag.Slope<br />
+                                            b = @ViewBag.Intercept
+                                        </td>
+                                        <td>
+                                            Độ đồng đều =  @ViewBag.DoDongDeu
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content py-2">
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <div class="form-group form-inline">
+                        <div class="row">
+                            <div class="col-md-2" style="width:auto">
+                                <button class="form-control" style="width: 260px" disabled><span style="color:red" class="fas">ĐỘ KHÔNG ĐẢM BẢO ĐO</span></button>
+                            </div>
+                            @foreach (var item in Model.BienBanHieuChuans)
+                            {
+                                <div class="col-md-2" style="width:auto">
+                                    @using (Html.BeginForm("ExportPdf", "BanTinhDKDBD", FormMethod.Post, new { ids = "exportForm_" + item.Id }))
+                                    {
+                                        @Html.Hidden("ids", item.Id)
+                                        <a href="#" class="form-control form-a-control downloadLink3" style="text-decoration:none">
+                                            <span class="fas fa-file-export">InPdf (ĐKĐBĐ)</span>
+                                        </a>
+                                    }
+                                </div>
+                            }
+                            <div class="col-md-2" style="width:auto">
+                                <span class="icon-one" onclick="toggleCardBody(7)">
+                                    <ion-icon id="toggle-icon-7" name="arrow-down-outline"></ion-icon>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body hidden" id="card-body-7">
+                    <div class="row" style="overflow-x:auto">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        STT
+                                    </th>
+                                    <th>
+                                        Mức kiểm tra
+                                    </th>
+                                    <th>
+                                        U<sub>a</sub>(%)
+                                    </th>
+                                    <th>
+                                        U<sub>d</sub>(%)
+                                    </th>
+                                    <th>
+                                        U<sub>cer</sub>(%)
+                                    </th>
+                                    <th>
+                                        U<sub>od_std</sub>(%)
+                                    </th>
+                                    <th>
+                                        U<sub>od</sub>(%)
+                                    </th>
+                                    <th>
+                                        U<sub>dd</sub>(%)
+                                    </th>
+                                    <th>
+                                        U<sub>c</sub>(%)
+                                    </th>
+                                    <th>
+                                        K
+                                    </th>
+                                    <th>
+                                        U. mở rộng(%)
+                                    </th>
+                                    <th>
+                                        Sai số
+                                    </th>
+                                    <th>
+                                        Độ KĐBĐ
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.BanTinhDKDBDs != null && Model.BanTinhDKDBDs.Any())
+                                {
+                                    var dem10 = 1;
+                                    foreach (var item in Model.BanTinhDKDBDs)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @(dem10++)
+                                            </td>
+                                            <td>
+                                                @item.MucKiemTra
+                                            </td>
+                                            <td>
+                                                @item.U_a.Value.ToString("F2")
+                                            </td>
+                                            <td>
+                                                @item.U_d.Value.ToString("F2")
+                                            </td>
+                                            <td>
+                                                @item.U_cer.Value.ToString("F2")
+                                            </td>
+                                            <td>
+                                                @item.U_od_std.Value.ToString("F2")
+                                            </td>
+                                            <td>
+                                                @item.U_od.Value.ToString("F2")
+                                            </td>
+                                            <td>
+                                                @item.U_dd.Value.ToString("F2")
+                                            </td>
+                                            <td>
+                                                @item.U_c.Value.ToString("F2")
+                                            </td>
+                                            <td>
+                                                @item.K.Value.ToString("F0")
+                                            </td>
+                                            <td>
+                                                @item.U_morong.Value.ToString("F0")
+                                            </td>
+                                            <td>
+                                                @item.Saiso.Value.ToString("F2")
+                                            </td>
+                                            <td>
+                                                @item.DoDKDB.Value.ToString("F1")
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="14" class="text-center">Không có dữ liệu.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<link href="~/Public/Css/DropDown-HieuChinh-HieuChuan.css" rel="stylesheet" />
+<script src="~/Public/Js/DropDown-HieuChinh-HieuChuan.js"></script>
+<script>
+    $(document).ready(function () {
+        // General download function
+        function handleDownloadClick(downloadLinkClass, fileName) {
+            $(downloadLinkClass).click(function (e) {
+                e.preventDefault();
+
+                var form = $(this).closest('form');
+                var formData = form.serialize();
+
+                $("#loading").show();
+
+                $.ajax({
+                    url: form.attr("action"),
+                    type: 'POST',
+                    data: formData,
+                    xhrFields: {
+                        responseType: 'blob'
+                    },
+                    success: function (data) {
+                        var blob = new Blob([data], { type: 'application/pdf' });
+                        var link = document.createElement('a');
+                        link.href = URL.createObjectURL(blob);
+                        link.download = fileName;
+                        link.click();
+
+                        $("#loading").hide();
+                    },
+                    error: function () {
+                        alert('Có lỗi xảy ra khi tải PDF.');
+                        $("#loading").hide();
+                    }
+                });
+            });
+        }
+
+        // Attach download function to each link with specific filenames
+        handleDownloadClick(".downloadLink3", 'DoKhongDamBaoDo.pdf');
+        handleDownloadClick(".downloadLink2", 'DoDongDeu.pdf');
+        handleDownloadClick(".downloadLink1", 'DoOnDinh.pdf');
+        handleDownloadClick(".downloadLink", 'BienBanHieuChuan.pdf');
+    });
+</script>

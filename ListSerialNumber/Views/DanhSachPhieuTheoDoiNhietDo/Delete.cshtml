@@ -1,0 +1,81 @@
+﻿@model List<ListClass.Model.DanhSachPhieuTheoDoiNhietDo>
+@using (Html.BeginForm("Delete", "DanhSachPhieuTheoDoiNhietDo", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:red"><strong>BẠN CÓ CHẮC MUỐN XÓA KHÔNG?</strong></h3>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th width="90px">
+                        Ngày
+                    </th>
+                    <th>
+                        Nhiệt độ lúc:7 giờ 30(&#176;C)
+                    </th>
+                    <th>
+                        Độ ẩm lúc:7 giờ 30(&#37;)
+                    </th>
+                    <th>
+                        Nhiệt độ lúc:17 giờ 30(&#176;C)
+                    </th>
+                    <th>
+                        Độ ẩm ghi lúc:17 giờ 30(&#37;)
+                    </th> 
+                    <th>
+                        Người kiểm tra
+                    </th>
+                    <th>
+                        Kết luận
+                    </th>
+                </tr>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    var item = Model.ElementAt(i);
+                    <tr>
+                        <td>
+                            @(item.Ngay_theo_doi)
+                            @Html.Hidden("ids[" + i + "].Ngay_theo_doi", Model[i].Ngay_theo_doi, new { @readonly = "readonly", @class = "form-control" })
+                            @Html.Hidden("ids[" + i + "].ID", Model[i].ID, new { @readonly = "readonly", @class = "form-control" })
+                            @Html.Hidden("ids[" + i + "].ID_PhieuTheoDoiNhietDo", Model[i].ID_PhieuTheoDoiNhietDo, new { @readonly = "readonly", @class = "form-control" })
+                        </td>
+                        <td>
+                            @item.NhietDo_Sang
+                        </td> 
+                        <td>
+                            @item.DoAm_Sang
+                        </td>
+                        <td>
+                            @item.NhietDo_Chieu
+                        </td>
+                        <td>
+                            @item.DoAm_Chieu
+                        </td>
+                        <td>
+                            @item.NguoiKiemTra
+                        </td> 
+                        <td>
+                            @item.KetLuan
+                        </td>
+                    </tr>
+                }
+            </table>
+            <div class="row">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div> 
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                    <a style="text-decoration:none;" href="#" onclick="closeDeleteModal()"><img src="~/Public/Img/close.png" width="40" /></a>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+

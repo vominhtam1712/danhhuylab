@@ -1,0 +1,65 @@
+﻿@model List<ListClass.Model.NhatKyBaoTriVaSuChua>
+@using (Html.BeginForm("Delete", "NhatKyBaoTriVaSuChua", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:red"><strong>BẠN CÓ CHẮC MUỐN XÓA KHÔNG?</strong></h3>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th width="50px">STT</th>
+                    <th style="text-align:center">Hình SP</th>
+                    <th>Mã thiết bị</th>
+                    <th>Tên thiết bị</th>
+                    <th>Số SN</th>
+                    <th>Hãng SX</th> 
+                    <th>Nhật ký bảo trì, sửa chữa</th> 
+                </tr>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    var item = Model.ElementAt(i);
+                    <tr>
+                        <td>
+                            @(i+1)
+                        </td>
+                        <td style="text-align:center">
+                            @Html.Hidden("ids[" + i + "].Id", Model[i].Id, new { @readonly = "readonly", @class = "form-control" })
+                            <img src="~/Public/Products/@item.DanhMucThietBi.Img" alt="Image" style="width: 100px; height: auto;" />
+                        </td>
+                        <td>
+                            @item.DanhMucThietBi.MaThietBi
+                        </td>
+                        <td>
+                            @item.DanhMucThietBi.TenThietBi
+                        </td>
+                        <td>
+                            @item.DanhMucThietBi.Serial
+                        </td>
+                        <td>
+                            @item.DanhMucThietBi.HangSX
+                        </td>
+                        <td>
+                            @item.NhatKyBaoTri
+                        </td>
+                    </tr>
+                }
+            </table>
+            <div class="row">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div> 
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                    <a style="text-decoration:none;" href="#" onclick="closeDeleteModal()"><img src="~/Public/Img/close.png" width="40" /></a>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+

@@ -1,0 +1,117 @@
+﻿@model List<ListClass.Model.BanTinhDKDBD>
+@using (Html.BeginForm("XoaDKDBD", "BanTinhDKDBD", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<section class="content py-2">
+    <div class="row">
+        <div class="col-md-12" style="text-align:center">
+            <h3 style="color:red"><strong>BẠN CÓ CHẮC MUỐN XÓA KHÔNG?</strong></h3>
+        </div>
+    </div>
+    <div class="container">
+        <table class="table table-bordered table-striped">
+            <tr class="center">
+                <th>
+                    STT
+                </th>
+                <th>
+                    Mức kiểm trả
+                </th>
+                <th>
+                    U<sub>a</sub>(%)
+                </th>
+                <th>
+                    U<sub>d</sub>(%)
+                </th>
+                <th>
+                    U<sub>cer</sub>(%)
+                </th>
+                <th>
+                    U<sub>od_std</sub>(%)
+                </th>
+                <th>
+                    U<sub>od</sub>(%)
+                </th>
+                <th>
+                    U<sub>dd</sub>(%)
+                </th>
+                <th>
+                    U<sub>c</sub>(%)
+                </th>
+                <th>
+                    K
+                </th>
+                <th>
+                    U. mở rộng(%)
+                </th>
+                <th>
+                    Sai số
+                </th>
+                <th>
+                    Độ KĐBĐ
+                </th>
+            </tr>
+
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var item = Model[i];
+                <tr>
+                    <td width="150px">
+                        @(i+1)
+                    </td>
+                    <td>
+                        @item.MucKiemTra
+                        @Html.Hidden("ids[" + i + "].Id", Model[i].Id, new { @readonly = "readonly", @class = "form-control" })
+                        @Html.Hidden("ids[" + i + "].Id_BienBanHieuChuan", Model[i].Id_BienBanHieuChuan, new { @readonly = "readonly", @class = "form-control" })
+                    </td>
+                    <td>
+                        @item.U_a.Value.ToString("F2")
+                    </td>
+                    <td>
+                        @item.U_d.Value.ToString("F2")
+                    </td>
+                    <td>
+                        @item.U_cer.Value.ToString("F2")
+                    </td>
+                    <td>
+                        @item.U_od_std.Value.ToString("F2")
+                    </td>
+                    <td>
+                        @item.U_od.Value.ToString("F2")
+                    </td>
+                    <td>
+                        @item.U_dd.Value.ToString("F2")
+                    </td>
+                    <td>
+                        @item.U_c.Value.ToString("F2")
+                    </td>
+                    <td>
+                        @item.K.Value.ToString("F0")
+                    </td>
+                    <td>
+                        @item.U_morong.Value.ToString("F0")
+                    </td>
+                    <td>
+                        @item.Saiso.Value.ToString("F2")
+                    </td>
+                    <td>
+                        @item.DoDKDB.Value.ToString("F1")
+                    </td>
+                </tr>
+            }
+        </table>
+        <div class="row">
+            <div class="col-md-2" style="width: auto;">
+                <button class="form-control form-a-control" type="submit" value="Edit">
+                    <span class="fas fa-edit"> OK</span>
+                </button>
+            </div>
+            <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                <a style="text-decoration:none;" href="#" onclick="closeModal()"><img src="~/Public/Img/close.png" width="40" /></a>
+            </div>
+        </div>
+    </div>
+</section>
+}
+

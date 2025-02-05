@@ -1,0 +1,272 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<ListClass.Model.KhuVuc>
+@{
+    ViewBag.Title = "Danh sách khu vực";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 40%;
+    }
+</style>
+<div class="content-wrapper">
+    <section>
+        <div class="container" style="margin-top:20px">
+            <div class="row" style="text-align:center">
+                <h3><strong style="color:blue">DANH SÁCH KHU VỰC</strong></h3>
+            </div>
+            @using (Html.BeginForm("Index", "KhuVuc", FormMethod.Post))
+            {
+                <div class="row">
+                    <div class="search-product col-md-2 col-12">
+                        @Html.TextBox("Name", Request.QueryString["Name"], new { @class = "form-control", @placeholder = "Tìm kiếm..." })
+                    </div>
+                    <div class="submit-search-product col-md-3 col-12" style="width:auto">
+                        <input type="submit" value="Tìm kiếm" class="form-control" />
+                    </div>
+                    <div class="page-total col-md-2 col-12" style="width:auto">
+                        <button class="form-control" disabled><strong>Trang: @ViewBag.CurrentPage / @ViewBag.TotalPages</strong></button>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+    <section class="content py-2">
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <div class="form-group form-inline">
+                        <div class="row">
+                            <div class="col-md-2" style="width:auto">
+                                <a class="form-control form-a-control" style="text-decoration: none" href="#" id="openAddModalBtn">
+                                    <span class="fas fa-plus"> Thêm khu vực</span>
+                                </a>
+                            </div>
+                            <div class="col-md-2" style="width:auto;">
+                                <div class="dropdown-select">
+                                    <div class="form-control"><span class="fas fa-list-ul"> Tùy chọn</span></div>
+                                    <div class="dropdown-content-select">
+                                        <button type="submit" class="editButton" name="action" value="Delete">
+                                            <span class="fas fa-edit"> Edit</span>
+                                        </button>
+                                        <button type="submit" class="deleteButton" name="action" value="Delete">
+                                            <span class="fas fa-trash"> Xóa</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2" style="width:auto">
+                                <button class="form-control" disabled><strong>Hiện có: </strong><strong style="color:red">(@ViewBag.Count)</strong></button>
+                            </div>
+                            <div class="col-md-2" style="margin-top:10px;width:auto">
+                                @Html.Partial("Message")
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body" style="height:auto;">
+                    <div class="row" style="overflow-x:auto;">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <td width="40px">
+                                        <input type="checkbox" class="selectAll" id="selectAll" />
+                                    </td>
+                                    <th width="110px" style="text-align:center">Chức năng</th>
+                                    <th width="50px">STT</th>
+                                    <th>Tên khu vực</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.Count(); i++)
+                                {
+                                    var item = Model.ElementAt(i);
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" class="selectAll" name="selectedIds" value="@item.Id" />
+                                        </td>
+                                        <td style="text-align:center">
+                                            <a class="form-control form-a-control form-c-control" style="text-decoration: none" href="#" id="add-xem" data-id="@item.Id">
+                                                <span class="fas">Sửa</span>
+                                            </a>
+                                        </td>
+                                        <td style="text-align:center">@(i + 1)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Tenkhuvuc)</td>
+                                    </tr>
+                                    <tr id="details-form-row-@item.Id" style="display:none;">
+                                        <td colspan="15" class="details-form-container">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <a href="@Url.Action("Index","KhuVuc")" style="position:absolute;left:25px;margin-top:0px;z-index:99;width:110px;text-align:center;text-decoration:none"><span class="fas"><img src="~/Public/Img/close.png" width="40" /></span></a>
+                                                </div>
+                                            </div>
+                                            <div id="details-content-@item.Id"></div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="pagination">
+                                @Html.PagedListPager(Model, page => Url.Action("Index", "KhuVuc", new { page }))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="addModal" class="modal">
+        <div class="modal-content">
+            <div id="modalContent"></div>
+        </div>
+    </div>
+    <div class="modal deleteModal">
+        <div class="modal-content">
+            <div class="deletemodalContent"></div>
+        </div>
+    </div>
+    <div class="modal editModal">
+        <div class="modal-content">
+            <div class="editmodalContent"></div>
+        </div>
+    </div>
+</div>
+<script>
+    // Hàm thực hiện AJAX chung
+    function performAjax(url, type, data = {}, successCallback, errorCallback) {
+        $.ajax({
+            url: url,
+            type: type,
+            data: data,
+            success: successCallback,
+            error: errorCallback || function() {
+                alert('Có lỗi xảy ra khi tải dữ liệu!');
+            }
+        });
+    }
+
+    // Hàm lấy các ID đã chọn
+    function getSelectedIds() {
+        var selectedIds = [];
+        $('input[name="selectedIds"]:checked').each(function() {
+            selectedIds.push($(this).val());
+        });
+        return selectedIds;
+    }
+
+    $(document).ready(function () {
+        // Mở modal thêm
+        $('#openAddModalBtn').on('click', function () {
+            performAjax(
+                '@Url.Action("Create", "KhuVuc")',
+                'GET',
+                {},
+                function (response) {
+                    $('#modalContent').html(response);
+                    $('#addModal').show();
+                }
+            );
+        });
+
+        // Đóng modal thêm
+        function closeAddModal() {
+            $('#addModal').hide();
+        }
+
+        // Chỉnh sửa mục
+        $(".form-c-control").click(function (event) {
+            event.preventDefault();
+            var id = $(this).data("id");
+
+            performAjax(
+                '@Url.Action("Edit", "KhuVuc", new { ids = "__ID__" })'.replace("__ID__", id),
+                'GET',
+                {},
+                function (result) {
+                    $("#details-content-" + id).html(result);
+                    $("#details-form-row-" + id).show();
+                    $(".cancel-btn[data-id='" + id + "']").show();
+                }
+            );
+        });
+
+        // Hủy chỉnh sửa
+        $(".cancel-btn").click(function (event) {
+            event.preventDefault();
+            var id = $(this).data("id");
+            $("#details-form-row-" + id).hide();
+            $(".cancel-btn[data-id='" + id + "']").hide();
+        });
+
+        // Xóa mục
+        $('.deleteButton').click(function (event) {
+            event.preventDefault();
+
+            var selectedIds = getSelectedIds();
+            if (selectedIds.length === 0) {
+                alert("Vui lòng chọn ít nhất một mục để xóa.");
+                return;
+            }
+
+            var url = '@Url.Action("Delete", "KhuVuc", new { ids = "__ID__" })'.replace("__ID__", selectedIds.join(','));
+            performAjax(
+                url,
+                'GET',
+                {},
+                function (response) {
+                    $(".deletemodalContent").html(response);
+                    $(".deleteModal").show();
+                }
+            );
+        });
+
+        // Đóng modal xóa
+        function closeDeleteModal() {
+            $(".deleteModal").hide();
+        }
+
+        // Sửa nhiều mục
+        $('.editButton').click(function (event) {
+            event.preventDefault();
+
+            var selectedIds = getSelectedIds();
+            if (selectedIds.length === 0) {
+                alert("Vui lòng chọn ít nhất một mục để sửa.");
+                return;
+            }
+
+            var url = '@Url.Action("ChinhSua", "KhuVuc", new { ids = "__ID__" })'.replace("__ID__", selectedIds.join(','));
+            performAjax(
+                url,
+                'GET',
+                {},
+                function (response) {
+                    $(".editmodalContent").html(response);
+                    $(".editModal").show();
+                }
+            );
+        });
+
+        // Đóng modal sửa
+        function closeEditModal() {
+            $(".editModal").hide();
+        }
+    });
+</script>

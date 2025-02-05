@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    @RenderSection("header", required: false)
+    <link href="~/Public/Css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Public/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <link href="~/Public/Css/Home.css" rel="stylesheet" />
+    <link href="~/Public/Css/Lich.css" rel="stylesheet" />
+    <link href="~/Public/Css/LayoutEditDetailDelete.css" rel="stylesheet" />
+    <link href="~/Public/Css/Backgroud_a.css" rel="stylesheet" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="~/Public/Css/dropdown-on-off.css" rel="stylesheet" />
+    <link href="~/Public/Css/dropdown-select.css" rel="stylesheet" />
+    <link href="~/Public/Css/DropDownSelect.css" rel="stylesheet" />
+    <link href="~/Public/Css/LayoutTable.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="https://danhhuylab.vn/Public/Content/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="https://danhhuylab.vn/Public/Content/favicon.svg" />
+    <link rel="shortcut icon" href="https://danhhuylab.vn/Public/Content/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="https://danhhuylab.vn/Public/Content/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="danhhuylab" />
+    <link rel="manifest" href="https://danhhuylab.vn/Public/Content/site.webmanifest" />
+    <link href="~/Public/Css/loading.css" rel="stylesheet" /> 
+    <script src="https://cdn.tiny.cloud/1/lkd85ohzz4hhu9nk93hjib5h14tr777uw6tgu9pizbi1bsbz/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script> 
+</head>
+<body> 
+    <section class="header clearfix">
+        <div class="container py-2">
+            <div class="row wrapper-menu-row">
+                <header class="wrapper-menu menu-group" id="wrapperMenu">
+                    
+                    <h2 class="logo">
+                        <a style="color:#fff" href="@Url.Action("Index", "Home")"><img src="~/Public/Img/logodanhhuy_iso_2.png" width="250" height="100" /></a>
+                    </h2>
+                    <label for="menu-toggle" class="icons">
+                        <ion-icon name="menu"></ion-icon>
+                    </label>
+                    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+                    <div class="navigation">
+                        <div class="dropdown">
+                            <button class="dropbtn">Hàng hóa</button>
+                            <div class="dropdown-content">
+                                <a href="@Url.Action("Index", "ListNumber")">Hàng hóa</a>
+                                <a href="@Url.Action("Index", "LampSystem")">Lamp Systems</a>
+                                <a href="@Url.Action("Index", "BulbSpectrum")">Bulb Spectrum</a>
+                            </div>
+
+                        </div>
+                        <div class="dropdown">
+                            <button class="dropbtn">Khách hàng</button>
+                            <div class="dropdown-content">
+                                <a href="@Url.Action("Index", "KhachHang")">Khách hàng</a>
+                                <a href="@Url.Action("Index", "TapDoan")">Tập đoàn</a>
+                                <a href="@Url.Action("Index", "KhuVuc")">Khu vực</a>
+                            </div>
+
+                        </div>
+                        <div class="dropdown">
+                            <button class="dropbtn">Quản lý hiệu chuẩn</button>
+                            <div class="dropdown-content">
+                                <a href="@Url.Action("Index", "PhieuNhanThietBi")">Nhận thiết bị</a>
+                                <a href="@Url.Action("Index", "Phieuyeucauhieuchuan")">Yêu cầu hiệu chuẩn</a>
+                                <a href="@Url.Action("Index", "PhieuChuyenMauHieuChuan")">Chuyển thiết bị</a>
+                                <a href="@Url.Action("Index", "Phieutrathietbi")">Trả thiết bị</a>
+                                <a href="@Url.Action("Index", "LuuInHoSo")">Lưu, in hồ sơ</a>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="dropbtn">Hiệu chuẩn thiết bị</button>
+                            <div class="dropdown-content">
+                                <a href="@Url.Action("Index", "PhieuyeucauhieuchuanDoi")">Tiếp nhận</a>
+                                <a href="@Url.Action("Index", "PhanCong")">Phân công</a>
+                                <a href="@Url.Action("ThucHien", "PhanCong")">Thực hiện</a>
+                                <a href="@Url.Action("Index", "Giaychungnhan")">Giấy chứng nhận</a>
+                                <a href="@Url.Action("Index", "BaoCaoSuaChua")">Báo cáo sửa chữa</a>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="dropbtn">Quản lý thiết bị</button>
+                            <div class="dropdown-content">
+                                <a href="@Url.Action("Index", "DanhMucThietBi")">Danh sách thiết bị</a>
+                                <a href="@Url.Action("Index", "KeHoachHieuChuan_Form")">Kế hoạch hiệu chuẩn</a>
+                                <a href="@Url.Action("Index", "BaoCaoDanhGia")">Báo cáo đánh giá</a>
+                                <a href="@Url.Action("Index", "NhatKyBaoTriVaSuChua")">Nhật ký bảo trì, sửa chữa</a>
+                            </div>
+                        </div>
+                        <div class="dropdown">
+                            <button class="dropbtn"><a style="color:#fff" href="@Url.Action("Index", "QuyTrinhISO")">Quy trình ISO</a></button>
+                        </div>
+                        <div class="dropdown">
+                            <button class="dropbtn"><a style="color:#fff" href="@Url.Action("Details", "PhieuTheoDoiNhietDo")">t&#186; phòng Lab</a></button>
+                        </div>
+                        <div class="dropdown">
+                            <button class="dropbtn">Tài khoản</button>
+                            <div class="dropdown-content">
+                                <a href="@Url.Action("Index", "Companys")">Tài khoản</a>
+                                <a href="@Url.Action("Index", "Role")">Quyền</a>
+                                <a href="@Url.Action("Index", "ThanhVien", new { companyId = Session["CompanyId"] })">Thành viên</a>
+                            </div>
+                        </div>
+                        <button class="btnLogin-popup" onclick="window.location.href='@Url.Action("LogoutAccount", "Account")'">Đăng xuất</button>
+                    </div>
+                    <span class="icon-close-menu" id="iconCloseMenu">
+                        <ion-icon name="arrow-up-outline"></ion-icon>
+                    </span>
+                </header>
+                <span class="icon-one-menu" id="iconOneMenu">
+                    <ion-icon name="arrow-down-outline"></ion-icon>
+                </span>
+            </div>
+        </div>
+    </section>
+    <section class="maincontent clearfix">
+        <div id="loading"> 
+            <img src="~/Public/Img/ZC9Y.gif"  alt="Loading..." />
+            <p>Đang tải ...</p>
+        </div>
+        @RenderBody()
+    </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <script src="~/Public/Js/lockCopy.js"></script>
+    <script src="~/Public/Js/MainMenu.js"></script>
+    <script src="~/Public/Js/Lich.js"></script>
+    <script src="~/Public/Js/DropDownSelect.js"></script>
+    <script src="~/Public/Js/CopyData.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Spin.js/2.3.2/spin.min.js"></script>  
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

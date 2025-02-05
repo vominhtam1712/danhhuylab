@@ -1,0 +1,61 @@
+﻿@model List<ListClass.Model.PhieuTheoDoiNhietDo>
+@using (Html.BeginForm("ChinhSua", "PhieuTheoDoiNhietDo", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:red"><strong>CHỈNH SỬA PHIẾU THEO DÕI NHIỆT ĐỘ</strong></h3>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr class="center">
+                        <th>MS nhiệt kế</th>
+                        <th>Phòng</th>
+                        <th>Ngày / tháng / năm</th>
+                        <th>Nhiệt độ đầu</th>
+                        <th>Nhiệt độ sau</th>
+                        <th>Độ ẩm</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.Hidden("PhieuTheoDoiNhietDos[" + i + "].Id", Model[i].Id, new { @readonly = "readonly", @class = "form-control" })
+                            @Html.Hidden("PhieuTheoDoiNhietDos[" + i + "].MaPhieuTheoDoiNhietDo", Model[i].MaPhieuTheoDoiNhietDo, new { @readonly = "readonly", @class = "form-control" })
+                            @Html.TextBox("PhieuTheoDoiNhietDos[" + i + "].MSNhietKe_Model_No", Model[i].MSNhietKe_Model_No, new { @class = "form-control" })
+                        </td>
+                        <td>
+                            @Html.TextBox("PhieuTheoDoiNhietDos[" + i + "].Phong", Model[i].Phong, new { @class = "form-control" })
+                        </td>
+                        <td>
+                            @Html.TextBox("PhieuTheoDoiNhietDos[" + i + "].Thang_Nam", Model[i].Thang_Nam.ToString("yyyy-MM-ddTHH:mm"), new { @type = "datetime-local", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                        </td>
+                        <td>
+                            @Html.TextBox("PhieuTheoDoiNhietDos[" + i + "].NhietDo_Dau", Model[i].NhietDo_Dau, new { @class = "form-control", type = "number", step = "0.001" })
+                        </td>
+                        <td>
+                            @Html.TextBox("PhieuTheoDoiNhietDos[" + i + "].NhietDo_Sau", Model[i].NhietDo_Sau, new { @class = "form-control", type = "number", step = "0.001" })
+                        </td>
+                        <td>
+                            @Html.TextBox("PhieuTheoDoiNhietDos[" + i + "].DoAm", Model[i].DoAm, new { @class = "form-control", type = "number", step = "0.001" })
+                        </td>
+                    </tr>
+                }
+            </table>
+            <div class="row">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div> 
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                    <a style="text-decoration:none;" href="#" onclick="closeEditModal()"><img src="~/Public/Img/close.png" width="40" /></a>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+

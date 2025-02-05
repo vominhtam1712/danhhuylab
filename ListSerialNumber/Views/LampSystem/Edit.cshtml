@@ -1,0 +1,41 @@
+﻿@model List<ListClass.Model.LampSystem>
+@using (Html.BeginForm("Edit", "LampSystem", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:blue"><strong>CHỈNH SỬA ĐÈN UV</strong></h3>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>
+                        Tên đèn UV
+                    </th>
+                </tr>
+                @for (int i = 0; i < Model.Count; i++)
+                { 
+                    <tr>
+                        <td width="340px">
+                            @Html.Hidden("lampSystems[" + i + "].Id", Model[i].Id, new { @readonly = "readonly", @class = "form-control" }) 
+                            @Html.TextBox("lampSystems[" + i + "].Lamp_Systems", Model[i].Lamp_Systems, new { @class = "form-control", required = "required" })
+                        </td>  
+                    </tr> 
+                }
+            </table>
+            <div class="row">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div>
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                    <a href="@Url.Action("Index","LampSystem")"><img src="~/Public/Img/close.png" width="40" /></a>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+

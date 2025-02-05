@@ -1,0 +1,202 @@
+﻿@model IEnumerable<ListClass.Model.Join_phieuchuyen_phieunhan_listnumber_khachhang>
+@{
+    var distinctItems = Model
+        .GroupBy(x => x.Id_phieuchuyen)
+        .Select(g => g.FirstOrDefault())
+        .ToList();
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inpdf</title>
+    <style>
+        .title {
+            display: flex;
+            border: 1px solid #000;
+            justify-content: space-between;
+            height: 180px
+        }
+
+        .title-img img {
+            width: 180px;
+            padding: 50px 0 5px 10px
+        }
+
+        .title-img {
+            align-content: center;
+            width: 20%;
+        }
+
+        .title-page {
+            width: 25%;
+            height: 100%
+        }
+
+        .title-content {
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+            width: 55%;
+        }
+
+        .title-page-content:nth-child(2) {
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+            align-content: center;
+        }
+
+        h2 {
+            text-align: center
+        }
+
+        .text {
+            margin-left: 5%;
+        }
+
+        .text-1 {
+            margin-top: -2%;
+        }
+
+        .h2-2 {
+            margin-top: 15%;
+        }
+
+        .title-page-content {
+            padding: 20px;
+            font-size: 18px
+        }
+
+        .row {
+            display: flex;
+            font-size: 20px;
+        }
+
+        .col-md-1 {
+            width: 10%;
+        }
+
+        .col-md-2 {
+            width: 20%;
+        }
+
+        .col-md-3 {
+            width: 30%;
+        }
+
+        .col-md-4 {
+            width: 40%;
+        }
+
+        .col-md-5 {
+            width: 50%;
+        }
+
+        .col-md-6 {
+            width: 60%;
+        }
+
+        .col-md-7 {
+            width: 70%;
+        }
+
+        .col-md-8 {
+            width: 80%;
+        }
+
+        .col-md-9 {
+            width: 90%;
+        }
+
+        .col-md-10 {
+            width: 100%;
+        }
+
+        .col-md-8 {
+            margin-left: -5%
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 2%
+        }
+
+        td, th {
+            border: 1px solid #000;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">
+        <div class="title-img">
+            <img src="https://danhhuylab.vn/Public/Img/logo.png" />
+        </div>
+        <div class="title-content"> 
+            <h2 class="h2-2">PHIẾU CHUYỂN MẪU HIỆU CHUẨN</h2>
+        </div>
+        <div class="title-page">
+            <div class="title-page-content">Mã số: DH­QT01/BM01</div>
+            <div class="title-page-content">Số soát xét: 02</div>
+            <div class="title-page-content">Ngày hiệu lực: 27/03/2024</div>
+        </div>
+    </div> 
+    <table>
+        <tr>
+            <th>Mã số</th>
+            <th>Ngày nhận</th>
+            <th>Người nhận mẫu</th>
+            <th width="100px">Thông số hiệu chuẩn</th>
+            <th>Người được phân công</th>
+            <th width="120px">Phương pháp hiệu chuẩn</th>
+            <th width="130px">Ngày trả báo cáo</th> 
+        </tr>
+        @foreach (var item in Model)
+        { 
+            <tr> 
+                <td style="text-align:left">@item.SoNhanDang</td>
+                <td>@item.NgayNhan.ToString("dd/MM/yyyy")</td>
+                <td>@item.NguoiNhan</td>
+                <td>@item.ThongSoHC</td>
+                <td>@item.NguoiDuocPC</td>
+                <td>@item.PhuocPhapHC</td>
+                <td>@item.NgayTra.Value.ToString("dd/MM/yyyy")</td>  
+            </tr>
+        }
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td> 
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td> 
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td> 
+        </tr>
+    </table>
+    <div class="row" style="text-align:center">
+        <div class="col-md-5"><h5>NGƯỜI CHUYỂN MẪU</h5></div>
+        <div class="col-md-5"><h5>NGƯỜI NHẬN MẪU</h5></div>
+    </div>
+</body>
+</html>

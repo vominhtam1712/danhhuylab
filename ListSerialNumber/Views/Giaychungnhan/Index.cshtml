@@ -1,0 +1,290 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model PagedList.IPagedList<ListClass.Model.Join_Giaychungnhan_Bienbanhieuchuan>
+@{
+    ViewBag.Title = "Giấy chứng nhận hiệu chuẩn";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 85%;
+    } 
+</style>
+<div class="content-wrapper">
+    <section>
+        <div class="container" style="margin-top:20px">
+            <div class="row" style="text-align:center">
+                <h3><strong style="color:blue">GIẤY CHỨNG NHẬN HIỆU CHUẨN</strong></h3>
+            </div>
+            @using (Html.BeginForm("Index", "Giaychungnhan", FormMethod.Post))
+            {
+                <div class="row">
+                    <div class="search-product col-md-2 col-12">
+                        @Html.TextBox("Name", Request.QueryString["Name"], new { @class = "form-control", @placeholder = "Tìm kiếm..." })
+                    </div>
+                    <div class="submit-search-product col-md-3 col-12" style="width:auto">
+                        <input type="submit" value="Tìm kiếm" class="form-control" />
+                    </div>
+                </div>
+            }
+        </div>
+    </section> 
+        <section class="content py-2">
+            <div class="container">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="form-group form-inline">
+                            <div class="row">
+                                <div class="col-md-2" style="width:auto;">
+                                    <div class="dropdown-select">
+                                        <div class="form-control"><span class="fas fa-list-ul"> Tùy chọn</span></div>
+                                        <div class="dropdown-content-select">
+                                            <button type="submit" class="editButton" name="action" value="Edit">
+                                                <span class="fas fa-edit"> Sửa</span>
+                                            </button>
+                                            <button type="submit" class="deleteButton" name="action" value="Delete">
+                                                <span class="fas fa-trash"> Xóa</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 col-12" style="width:auto">
+                                    <div class="dropdown-on-off">
+                                        <div class="form-control"><span class="fas fa-list-ul"> Ẩn / Hiện</span></div>
+                                        <div class="dropdown-content-btn">
+                                            <input class="input-checkbox-on-off" type="checkbox" id="toggleSerialNumberGiaychungnhan" checked />
+                                            <p class="p-checkbox-on-off" for="toggleSerialNumberGiaychungnhan"><span class="fas"> Số SN</span></p>
+
+                                            <input class="input-checkbox-on-off" type="checkbox" id="toggleTenthietbiGiaychungnhan" checked />
+                                            <p class="p-checkbox-on-off" for="toggleTenthietbiGiaychungnhan"><span class="fas"> Tên TB</span></p>
+
+                                            <input class="input-checkbox-on-off" type="checkbox" id="toggleModelGiaychungnhan" checked />
+                                            <p class="p-checkbox-on-off" for="toggleModelGiaychungnhan"><span class="fas"> Model</span></p>
+
+                                            <input class="input-checkbox-on-off" type="checkbox" id="toggleNguoiTaoGiaychungnhan" checked />
+                                            <p class="p-checkbox-on-off" for="toggleNguoiTaoGiaychungnhan"><span class="fas"> Người tạo</span></p>
+
+                                            <input class="input-checkbox-on-off" type="checkbox" id="toggleNgayTaoGiaychungnhan" checked />
+                                            <p class="p-checkbox-on-off" for="toggleNgayTaoGiaychungnhan"><span class="fas"> Ngày tạo</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2" style="margin-top:10px;width:auto">
+                                    @Html.Partial("Message")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" style="height:auto;">
+                        <div class="row" style="overflow-x:auto;">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th width="40px">
+                                            <input type="checkbox" class="selectAll" id="selectAll" />
+                                        </th>
+                                        <th width="90px" class="text-center">
+                                            Chi tiết
+                                        </th>
+                                        <th width="40px">
+                                            STT
+                                        </th>
+                                        <th width="100px">
+                                            Mã GCN
+                                        </th>
+                                        <th>
+                                            Số nhận dạng
+                                        </th>
+                                        <th width="100px" class="SerialNumber-column-Giaychungnhan">
+                                            Số SN
+                                        </th>
+                                        <th class="Tenthietbi-column-Giaychungnhan">
+                                            Tên thiết bị
+                                        </th>
+                                        <th class="Model-column-Giaychungnhan">
+                                            Model
+                                        </th>
+                                        <th width="100px" class="NguoiTao-column-Giaychungnhan">
+                                            Người tạo
+                                        </th>
+                                        <th class="NgayTao-column-Giaychungnhan">
+                                            Ngày tạo
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @for (int i = 0; i < Model.Count(); i++)
+                                    {
+                                        var item = Model.ElementAt(i);
+                                        <tr>
+                                            <td>
+                                                <input type="checkbox" class="selectAll" name="selectedIds" value="@item.Id_GCN" />
+                                            </td>
+                                            <td style="text-align:center">
+                                                <a class="form-control form-a-control form-c-control" style="text-decoration: none" href="#" id="add-xem" data-id="@item.Id_GCN">
+                                                    <span class="fas">Xem</span>
+                                                </a>
+                                            </td>
+                                            <td style="text-align:center">
+                                                @(i + 1)
+                                            </td>
+                                            <td>
+                                                @item.MaGCN
+                                            </td>
+                                            <td>
+                                                @item.SoNhanDang
+                                            </td>
+                                            <td class="SerialNumber-column-Giaychungnhan">
+                                                @item.SerialNumber
+                                            </td>
+                                            <td style="text-align:left" class="Tenthietbi-column-Giaychungnhan">
+                                                @item.Tenthietbi
+                                            </td>
+                                            <td class="Model-column-Giaychungnhan">
+                                                @item.Model
+                                            </td>
+                                            <td class="NguoiTao-column-Giaychungnhan">
+                                                @item.NguoiTao
+                                            </td>
+                                            <td class="NgayTao-column-Giaychungnhan">
+                                                @item.NgayTao.ToString("dd/MM/yyyy")
+                                            </td>
+                                        </tr>
+                                        <tr id="details-form-row-@item.Id_GCN" style="display:none;">
+                                            <td colspan="15" class="details-form-container">
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <a class=" form-control cancel-btn form-a-control-delete" data-id="@item.Id_GCN" href="#" style="position:absolute;left:25px;margin-top:8px;z-index:99;width:110px;text-align:center;text-decoration:none"><span class="fas">(X) Cancel</span></a>
+                                                    </div>
+                                                </div>
+                                                <div id="details-content-@item.Id_GCN"></div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="pagination">
+                                    @Html.PagedListPager(Model, Page => Url.Action("Index", "Giaychungnhan", new { Page }))
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section> 
+    <div class="modal">
+        <div class="modal-content">
+            <div class="modalContent"></div>
+        </div>
+    </div> 
+</div>
+<script src="~/Public/Js/Index-Giaychungnhan.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".form-c-control").click(function (event) {
+            event.preventDefault();
+            var id = $(this).data("id");
+
+            $.ajax({
+                url: '@Url.Action("Details", "Giaychungnhan", new { id = "__ID__" })'.replace("__ID__", id),
+                type: 'GET',
+                success: function (result) {
+                    $("#details-content-" + id).html(result);
+
+                    $("#details-form-row-" + id).show();
+                    $(".cancel-btn[data-id='" + id + "']").show();
+                },
+                error: function (xhr, status, error) {
+                    alert("Có lỗi xảy ra khi tải form thêm khu vực.");
+                }
+            });
+        });
+        $(".cancel-btn").click(function (event) {
+            event.preventDefault();
+            var id = $(this).data("id");
+
+            $("#details-form-row-" + id).hide();
+            $(".cancel-btn[data-id='" + id + "']").hide();
+        });
+    });
+    document.querySelector('.deleteButton').addEventListener("click", function (event) {
+    event.preventDefault();
+
+    var selectedIds = [];
+    document.querySelectorAll('input[name="selectedIds"]:checked').forEach(function (checkbox) {
+        selectedIds.push(checkbox.value);
+    });
+
+    if (selectedIds.length === 0) {
+        alert("Vui lòng chọn ít nhất một mục để xóa.");
+        return;
+    }
+
+    var url = '@Url.Action("Delete", "Giaychungnhan", new { ids = "__ID__" })';
+    url = url.replace("__ID__", selectedIds.join(','));
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function (response) {
+                $(".modalContent").html(response);
+                $(".modal").show();
+            },
+            error: function () {
+                alert('Có lỗi xảy ra khi tải dữ liệu!');
+            }
+        });
+    });
+    function closeDeleteModal() {
+        $(".deleteModal").hide();
+    }
+
+
+    document.querySelector('.editButton').addEventListener("click", function (event) {
+    event.preventDefault();
+
+    var selectedIds = [];
+    document.querySelectorAll('input[name="selectedIds"]:checked').forEach(function (checkbox) {
+        selectedIds.push(checkbox.value);
+    });
+
+    if (selectedIds.length === 0) {
+        alert("Vui lòng chọn ít nhất một mục để sửa.");
+        return;
+    }
+
+    var url = '@Url.Action("Edit", "Giaychungnhan", new { ids = "__ID__" })';
+    url = url.replace("__ID__", selectedIds.join(','));
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function (response) {
+                $(".modalContent").html(response);
+                $(".modal").show();
+            },
+            error: function () {
+                alert('Có lỗi xảy ra khi tải dữ liệu!');
+            }
+        });
+    });
+    function closeEditModal() {
+        $(".modal").hide();
+    }
+</script>

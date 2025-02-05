@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "Download và Upload dữ liệu";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-12 text-center" style="background-color:black">
+                    <h1 class="text-light py-3"><strong>DOWNLOAD</strong></h1>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <section>
+        <div style="margin-left:20px;">
+            @Html.Partial("Message")
+        </div>
+    </section>
+    <!-- Main content -->
+    <section class="content py-3">
+        <!-- Default box -->
+        <div class="card">
+            <div class="row">
+                <div class="col-md-2 py-3" style="margin-left:20px;margin-top:1%">
+                    <label>Sao lưu dữ liệu</label>
+                    <p style="text-align: center;">
+                        <a class="form-control" style="text-decoration: none" href="@Url.Action("DownloadSql", "DownloadData")"><span class="fas fa-download" style="color:red">  DownLoad</span></a>
+                    </p>
+                </div>
+                @*<div class="col-md-8 py-3" style="margin-left:20px;margin-top:1%">
+                    @using (Html.BeginForm("Upload", "UploadData", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="file">Chọn file SQL:</label>
+                                <input type="file" name="file" id="file" accept=".sql" required class="form-control" />
+                            </div>
+                            <div class="col-md-2" style="margin-top:32px">
+                                <input type="submit" value="UpLoad" class="form-control fa fa-upload" style="color:blue" />
+                            </div>
+                        </div>
+                    }
+                </div>*@
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>

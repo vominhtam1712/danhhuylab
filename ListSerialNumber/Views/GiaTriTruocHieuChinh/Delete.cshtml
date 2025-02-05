@@ -1,0 +1,72 @@
+﻿@model List<ListClass.Model.GiaTriTruocHieuChinh>
+@using (Html.BeginForm("Delete", "GiaTriTruocHieuChinh", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:red"><strong>BẠN CÓ CHẮC MUỐN XÓA KHÔNG?</strong></h3>
+                </div>
+            </div>
+             <table class="table table-bordered table-striped">
+                <tr>
+                    <th style="text-align:center">Wavelength</th>
+                    <th>Measurand</th>
+                    <th>Reference</th>
+                    <th>Instrument</th>
+                    <th>Deviation</th>
+                </tr>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    var item = Model.ElementAt(i);
+                    <tr>
+                        <td rowspan="2" style="width: 200px; padding: 10px; vertical-align: middle;text-align:center">
+                            @item.BuocSong
+                        </td>
+                        <td style="width:200px">
+                            @Html.Hidden("ids[" + i + "].Id", Model[i].Id, new { @readonly = "readonly", @class = "form-control" })
+                            @Html.Hidden("ids[" + i + "].Id_PhanCong", Model[i].Id_PhanCong, new { @readonly = "readonly", @class = "form-control" })
+                            @item.Measurand_1
+                        </td>
+                        <td style="width:200px">
+                            @item.Reference_1
+                        </td>
+                        <td style="width:200px">
+                            @item.Instrument_1
+                        </td>
+                        <td style="width:200px">
+                            @item.Deviation_1
+                        </td>
+                    </tr>
+                    <tr> 
+                        <td style="width:200px">
+                            @item.Measurand_2
+                        </td>
+                        <td style="width:200px">
+                            @item.Reference_2
+                        </td>
+                        <td style="width:200px">
+                            @item.Instrument_2
+                        </td>
+                        <td style="width:200px">
+                            @item.Deviation_2
+                        </td>
+                    </tr>
+                }
+             </table>
+             <div class="row">
+                 <div class="col-md-2" style="width: auto;">
+                     <button class="form-control form-a-control" type="submit" value="Edit">
+                         <span class="fas fa-edit"> OK</span>
+                     </button>
+                 </div>
+                 <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                     <a style="text-decoration:none;" href="#" onclick="closeModal()"><img src="~/Public/Img/close.png" width="40" /></a>
+                 </div>
+             </div>
+        </div>
+    </section>
+}
+

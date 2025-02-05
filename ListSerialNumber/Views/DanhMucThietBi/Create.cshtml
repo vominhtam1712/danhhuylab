@@ -1,0 +1,78 @@
+﻿@model ListClass.Model.DanhMucThietBi
+<script src="~/Public/Js/DropDownSelect.js"></script>
+@using (Html.BeginForm("Create", "DanhMucThietBi", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:blue"><strong>THÊM THIẾT BỊ</strong></h3>
+                </div>
+            </div>
+            <div class="form-horizontal" style="margin-bottom:10px">
+                <div class="row">
+                    <div class="col-md-4 col-12">
+                        <div class="form-group">
+                            <label class="control-label col-md-4"><strong>Số SN</strong></label>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Serial, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Serial, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4"><strong>Tên thiết bị</strong></label>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.TenThietBi, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.TenThietBi, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12">
+                        <div class="form-group">
+                            <label class="control-label col-md-3"><strong>Mã thiết bị</strong></label>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.MaThietBi, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.MaThietBi, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-12"><strong>Hãng sản xuất</strong></label>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.HangSX, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.HangSX, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-12">
+                        <div class="form-group">
+                            <label class="control-label col-md-12"><strong>Ngày đưa vào sử dụng</strong></label>
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.NgayDuaVaoSuDung, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                                @Html.ValidationMessageFor(model => model.NgayDuaVaoSuDung, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3"><strong>Hình ảnh</strong></label>
+                            <div class="col-md-12">
+                                <input type="file" name="file" id="file" class="form-control" />
+                                @Html.ValidationMessage("file", "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div> 
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                    <a style="text-decoration:none;" href="#" onclick="closeAddModal()"><img src="~/Public/Img/close.png" width="40" /></a>
+                </div>
+            </div>
+        </div>
+    </section>
+}

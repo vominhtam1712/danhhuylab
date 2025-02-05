@@ -1,0 +1,136 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 95%;
+    max-width: 2400px;
+    height: 95%;
+    margin: 20px auto;
+    border: 1px solid black;
+}
+
+.container-fluid {
+    width: 95%;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+.row {
+    display: flex;
+}
+
+    .row:not(:first-child) {
+        border-top: 1px solid black;
+    }
+
+.column {
+    border-right: 1px solid black;
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+    .column:last-child {
+        border-right: none;
+    }
+
+.col-30 {
+    flex: 0 0 30%;
+}
+
+.col-70 {
+    flex: 0 0 70%;
+}
+
+.col-20 {
+    flex: 0 0 20%;
+}
+.col-80 {
+    flex: 0 0 80%;
+    text-align: center;
+}
+
+.col-35 {
+    flex: 0 0 35%;
+}
+
+.col-65 {
+    flex: 0 0 65%;
+}
+
+.nested-row {
+    display: flex;
+    flex-direction: column;
+}
+
+.nested-column {
+    box-sizing: border-box;
+    padding: 10px;
+}
+
+    .nested-column.top {
+        border-bottom: 1px solid black; /* Đường gạch ngang giữa các dòng */
+    }
+
+    .nested-column:last-child {
+        border-bottom: none; /* Không có đường viền dưới cho dòng cuối */
+    }
+
+.nested-col-10 {
+    flex: 0 0 10%;
+}
+
+.nested-col-90 {
+    flex: 0 0 90%;
+}
+
+.column5-row {
+    display: flex;
+    flex-direction: column;
+}
+
+    .column5-row > div {
+        border-bottom: 1px solid black;  
+        box-sizing: border-box;
+        padding: 10px;
+    }
+
+        .column5-row > div:last-child {
+            border-bottom: none;  
+        }
+
+.col-10 {
+    flex: 0 0 10%;
+}
+
+.col-90 {
+    flex: 0 0 90%;
+}
+
+.three-column {
+    display: flex;
+}
+
+    .three-column .column {
+        flex: 1; 
+        border-right: 1px solid black;
+    }
+
+        .three-column .column:last-child {
+            border-right: none;
+        }
+
+hr {
+    border: 0;
+    border-top: 1px solid black;
+    margin: 10px 0;  
+}
+
+.dotted-line {
+    border: 0;
+    border-top: 1px dotted black;
+    margin: 10px 0; 
+}
+

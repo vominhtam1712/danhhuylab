@@ -1,0 +1,1167 @@
+﻿@model IEnumerable<ListClass.Model.Join_Giaychungnhan>
+@{ 
+    var distinctItems = Model
+    .GroupBy(x => x.Id_BienBanHieuChuan)
+    .Select(g => g.FirstOrDefault())
+    .ToList();
+    var distinctItems1 = Model
+        .GroupBy(x => x.ID_STD)
+        .Select(g => g.FirstOrDefault())
+        .ToList();
+    var distinctItems2 = Model
+        .GroupBy(x => x.Id_PhanCong)
+        .Select(g => g.FirstOrDefault())
+        .ToList();
+    var distinctItems3 = Model
+        .GroupBy(x => x.Id_GiaTriTruocHieuChinh)
+        .Select(g => g.FirstOrDefault())
+        .ToList();
+    var distinctItems4 = Model
+        .GroupBy(x => x.Id_KetQuaHieuChinh)
+        .Select(g => g.FirstOrDefault())
+        .ToList();
+    var count1 = 1;
+    var count2 = 1;
+    var count3 = 1;
+    var count4 = 1;
+    var count5 = 1;
+    var count6 = 1;
+    var count7 = 1;
+    var count8 = 1;
+} 
+<style>
+    table{
+        text-align:center
+    }
+    h4{
+        margin-top:5%
+    }
+</style>
+<body>
+    <section class="content py-2">
+        <div class="container">  
+            <div class="row" style="margin-left:10%">
+                @foreach (var item in distinctItems)
+                {
+                    if (item.Type == "One")
+                    {
+                        <div class="col-md-2" style="width: auto;">
+                            @using (Html.BeginForm("ExportPdf_3", "Giaychungnhan", FormMethod.Post, new { id = "exportForm_" + item.Id_GCN }))
+                            {
+                                @Html.Hidden("id", item.Id_GCN)
+                                <a href="#" class="form-control form-a-control downloadLink" data-id="@item.Id_GCN" style="text-decoration:none">
+                                    <span class="fas fa-file-export">InPdf</span>
+                                </a>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-2" style="width: auto;">
+                            @using (Html.BeginForm("ExportPdf", "Giaychungnhan", FormMethod.Post, new { id = "exportForm_" + item.Id_GCN }))
+                            {
+                                @Html.Hidden("id", item.Id_GCN)
+                                <a href="#" class="form-control form-a-control downloadLink" data-id="@item.Id_GCN" style="text-decoration:none">
+                                    <span class="fas fa-file-export">InPdf (1)</span>
+                                </a>
+                            }
+                        </div>
+                        <div class="col-md-2" style="width: auto;">
+                            @using (Html.BeginForm("ExportPdf_2", "Giaychungnhan", FormMethod.Post, new { id = "exportForm_" + item.Id_GCN }))
+                            {
+                                @Html.Hidden("id", item.Id_GCN)
+                                <a href="#" class="form-control form-a-control downloadLink" data-id="@item.Id_GCN" style="text-decoration:none">
+                                    <span class="fas fa-file-export">InPdf (2)</span>
+                                </a>
+                            }
+                        </div> 
+                    }
+                }
+            </div> 
+            <table class="table table-bordered table-striped" style="margin-top:10px">
+                <tr>
+                    <th width="150px">Số nhận dạng</th>
+                    <th>Tên thiết bị</th>
+                    <th>Model</th>
+                    <th width="100px">Số SN</th>
+                    <th width="100px">Hãng SX</th>
+                    <th>Tên công ty</th>
+                </tr>
+                @foreach (var item in distinctItems)
+                {
+                    <tr>
+                        <td>@item.SoNhanDang</td>
+                        <td>@item.Tenthietbi</td>
+                        <td>@item.Model</td>
+                        <td>@item.SerialNumber</td>
+                        <td>@item.Hang</td>
+                        <td>@item.KhachHang</td>
+                    </tr>
+                }
+            </table>
+            <div class="text-center">
+                <h4>CHUẨN SỬ DỤNG</h4>
+            </div>
+            <table class="table table-bordered table-striped" style="margin-top:5px">
+                <tr>
+                    <th>Model</th>
+                    <th>Serial Number</th>
+                    <th>Cal. Date</th>
+                    <th>Due Date</th>
+                    <th>Traceable to</th>
+                </tr>
+                @foreach (var item in distinctItems)
+                {
+                    <tr>
+                        <td>@item.TenHieuChuan</td>
+                        <td>@item.SN</td>
+                        <td>@item.Cal_Date.ToString("dd/MM/yyyy")</td>
+                        <td>@item.Due_Day.ToString("dd/MM/yyyy")</td>
+                        <td>VMI</td>
+                    </tr>
+                }
+            </table>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="text-center">
+                        <h4>MÔI TRƯỜNG HIỆU CHUẨN</h4>
+                    </div>
+                    <table class="table table-bordered table-striped" style="margin-top:5px;">
+                        <tr>
+                            <th>Nhiệt độ</th>
+                            <th>Độ ẩm</th>
+                        </tr>
+                        @foreach (var item in distinctItems)
+                        {
+                            <tr>
+                                <td>[@item.NhietDo<span style="position: relative; top:5px;left:5px;">&#x2212;</span><span style="position: relative; top: -4px;left:-4.5px;">&#x2b;</span>2]ºC</td>
+                                <td>[@item.DoAm<span style="position: relative; top:5px;left:5px;">&#x2212;</span><span style="position: relative; top: -4px;left:-4.5px;">&#x2b;</span>10]%RH</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-center">
+                        <h4>NGÀY HIỆU CHUẨN - NGÀY HIỆU CHUẨN LẠI</h4>
+                    </div>
+                    <table class="table table-bordered table-striped" style="margin-top:5px">
+                        <tr>
+                            <th>Ngày hiệu chuẩn</th>
+                            <th>Ngày hiệu chuẩn lại theo yêu cầu của khách hàng</th>
+                        </tr>
+                        @foreach (var item in distinctItems)
+                        {
+                            <tr>
+                                <td>@item.NgayHieuChuan.ToString("dd/MM/yyyy")</td>
+                                <td>@item.NgayHieuChuanLai.ToString("dd/MM/yyyy")</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+            <div class="text-center">
+                <h4>CHUẨN ĐƯỢC SỬ DỤNG</h4>
+            </div>
+            <table class="table table-bordered table-striped" style="margin-top:5px">
+                <tr>
+                    <th>Model</th>
+                    <th>Description</th>
+                    <th>Serial No.</th>
+                    <th>
+                        Certificate No.
+                    </th>
+                    <th>Cal Date</th>
+                    <th>Cal Due</th>
+                </tr>
+                @foreach (var item in distinctItems2)
+                {
+                    <tr>
+                        <td>@item.Model_ChuanSuDung</td>
+                        <td>@item.Description_ChuanSuDung</td>
+                        <td>@item.Serial_ChuanSuDung</td>
+                        <td>@item.Cetificate_ChuanSuDung</td>
+                        <td>@item.Cal_Date_ChuanSuDung.ToString("dd/MM/yyyy")</td>
+                        <td>@item.Cal_Due_ChuanSuDung.ToString("dd/MM/yyyy")</td>
+                    </tr>
+                }
+            </table>
+            <div class="text-center">
+                <h4>GIÁ TRỊ TRƯỚC HIỆU CHỈNH</h4>
+            </div>
+            <table class="table table-bordered table-striped" style="margin-top:5px">
+                <tr>
+                    <th>Ngày (Date:)</th>
+                    <th>Technicial:</th>
+                    <th>Điều kiện nhiệt độ, độ ẩm</th>
+                </tr>
+                @foreach (var item in distinctItems2)
+                {
+                    <tr>
+                        <td>@item.NgayTao_NgayTaoTechnicialBuldTruocHieuChinh.ToString("dd/MM/yyyy")</td>
+                        <td>@item.Technicial_NgayTaoTechnicialBuldTruocHieuChinh</td>
+                        <td>
+                            [@item.NhietDo<span style="position: relative; top:5px;left:5px;">&#x2212;</span><span style="position: relative; top: -4px;left:-4.5px;">&#x2b;</span>2]ºC - [@item.DoAm<span style="position: relative; top:5px;left:5px;">&#x2212;</span><span style="position: relative; top: -4px;left:-4.5px;">&#x2b;</span>10]%RH
+                        </td>
+                    </tr>
+                }
+            </table>
+            @if (distinctItems4.Any(item => item.BuocSong_KetQuaHieuChinh == "UV-A"))
+            {
+
+                <div class="row">
+                    @foreach (var item in distinctItems3)
+                    {
+                        if (item.BuocSong_GiaTriTruocHieuChinh == "UV-A")
+                        {
+                            if (item.Deviation_1_GiaTriTruocHieuChinh <= 10 || item.Deviation_1_GiaTriTruocHieuChinh <= -10)
+                            {
+                                <div style="margin-left:10px"><strong> Dải đo UVA : 320-390nm [ Band: UVA (320 - 390nm )]</strong> IN TOLERANCE </div>
+                            }
+                            else
+                            {
+                                <div style="margin-left:10px"><strong> Dải đo UVA : 320-390nm [ Band: UVA (320 - 390nm )]</strong> OUT OF TOLERANCE </div>
+                            }
+                        }
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <table class="table table-bordered table-striped" style="margin-top:5px">
+                            <tr>
+                                <th>Run No.</th>
+                                <th>Measurand</th>
+                                <th>Units</th>
+                                <th>
+                                    Reference
+                                </th>
+                                <th>Instrument</th>
+                                <th>Deviation</th>
+                            </tr>
+                            @foreach (var item in distinctItems3)
+                            {
+                                if (item.BuocSong_GiaTriTruocHieuChinh == "UV-A")
+                                {
+                                    <tr>
+                                        <td>1</td>
+                                        <td>@item.Measurand_1_GiaTriTruocHieuChinh</td>
+                                        <td>mW/cm&#178;</td>
+                                        <td>@item.Reference_1_GiaTriTruocHieuChinh.ToString("F3")</td>
+                                        <td>@item.Instrument_1_GiaTriTruocHieuChinh.ToString("F3")</td>
+                                        <td>@item.Deviation_1_GiaTriTruocHieuChinh.ToString("F3") %</td>
+                                    </tr>
+                                }
+                            }
+                        </table>
+                    </div>
+                    <div class="col-md-3">
+                        @foreach (var item in distinctItems2)
+                        {
+                            <div>
+                                <strong> Lamp System</strong>:  @item.LampSystem_NgayTaoTechnicialBuldTruocHieuChinh
+                            </div>
+
+                            <div>
+                                <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldTruocHieuChinh
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="margin-left:10px"><strong> Dải đo UVA : 320-390nm [ Band: UVA (320 - 390nm )]</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <table class="table table-bordered table-striped" style="margin-top:5px">
+                            <tr>
+                                <th>Run No.</th>
+                                <th>Measurand</th>
+                                <th>Units</th>
+                                <th>
+                                    Reference
+                                </th>
+                                <th>Instrument</th>
+                                <th>Deviation</th>
+                            </tr>
+                            @foreach (var item in distinctItems3)
+                            {
+                                if (item.BuocSong_GiaTriTruocHieuChinh == "UV-A")
+                                {
+                                    <tr>
+                                        <td>1</td>
+                                        <td>@item.Measurand_2_GiaTriTruocHieuChinh</td>
+                                        <td>mJ/cm&#178;</td>
+                                        <td>@item.Reference_2_GiaTriTruocHieuChinh.ToString("F3")</td>
+                                        <td>@item.Instrument_2_GiaTriTruocHieuChinh.ToString("F3")</td>
+                                        <td>@item.Deviation_2_GiaTriTruocHieuChinh.ToString("F3") %</td>
+                                    </tr>
+                                }
+                            }
+                        </table>
+                    </div>
+                    <div class="col-md-3">
+                        @foreach (var item in distinctItems2)
+                        {
+                            <div>
+                                <strong> Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldTruocHieuChinh
+                            </div>
+
+                            <div>
+                                <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldTruocHieuChinh
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            @if (distinctItems4.Any(item => item.BuocSong_KetQuaHieuChinh == "UV-B"))
+            {
+                <div class="row">
+                    @foreach (var item in distinctItems3)
+                    {
+                        if (item.BuocSong_GiaTriTruocHieuChinh == "UV-B")
+                        {
+                            if (item.Deviation_1_GiaTriTruocHieuChinh <= 10 || item.Deviation_1_GiaTriTruocHieuChinh <= -10)
+                            {
+                                <div style="margin-left:10px"> <strong>Dải đo UVB : 280-­320nm [ Band: UVB (280-­320nm )]</strong> IN TOLERANCE </div>
+                            }
+                            else
+                            {
+                                <div style="margin-left:10px"> <strong>Dải đo UVB : 280-­320nm [ Band: UVB (280-­320nm )]</strong> OUT OF TOLERANCE </div>
+                            }
+                        }
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <table class="table table-bordered table-striped" style="margin-top:5px">
+                            <tr>
+                                <th>Run No.</th>
+                                <th>Measurand</th>
+                                <th>Units</th>
+                                <th>
+                                    Reference
+                                </th>
+                                <th>Instrument</th>
+                                <th>Deviation</th>
+                            </tr>
+                            @foreach (var item in distinctItems3)
+                            {
+                                if (item.BuocSong_GiaTriTruocHieuChinh == "UV-B")
+                                {
+                                    <tr>
+                                        <td>1</td>
+                                        <td>@item.Measurand_1_GiaTriTruocHieuChinh</td>
+                                        <td>mW/cm&#178;</td>
+                                        <td>@item.Reference_1_GiaTriTruocHieuChinh.ToString("F3")</td>
+                                        <td>@item.Instrument_1_GiaTriTruocHieuChinh.ToString("F3")</td>
+                                        <td>@item.Deviation_1_GiaTriTruocHieuChinh.ToString("F3") %</td>
+                                    </tr>
+                                }
+                            }
+                        </table>
+                    </div>
+                    <div class="col-md-3">
+                        @foreach (var item in distinctItems2)
+                        {
+                            <div>
+                                <strong> Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldTruocHieuChinh
+                            </div>
+
+                            <div>
+                                <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldTruocHieuChinh
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="margin-left:10px"> <strong>Dải đo UVB : 280-­320nm [ Band: UVB (280-­320nm )]</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <table class="table table-bordered table-striped" style="margin-top:5px">
+                            <tr>
+                                <th>Run No.</th>
+                                <th>Measurand</th>
+                                <th>Units</th>
+                                <th>
+                                    Reference
+                                </th>
+                                <th>Instrument</th>
+                                <th>Deviation</th>
+                            </tr>
+                            @foreach (var item in distinctItems3)
+                            {
+                                if (item.BuocSong_GiaTriTruocHieuChinh == "UV-B")
+                                {
+                                    <tr>
+                                        <td>1</td>
+                                        <td>@item.Measurand_2_GiaTriTruocHieuChinh</td>
+                                        <td>mJ/cm&#178;</td>
+                                        <td>@item.Reference_2_GiaTriTruocHieuChinh.ToString("F3")</td>
+                                        <td>@item.Instrument_2_GiaTriTruocHieuChinh.ToString("F3")</td>
+                                        <td>@item.Deviation_2_GiaTriTruocHieuChinh.ToString("F3") %</td>
+                                    </tr>
+                                }
+                            }
+                        </table>
+                    </div>
+                    <div class="col-md-3">
+                        @foreach (var item in distinctItems2)
+                        {
+                            <div>
+                                <strong> Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldTruocHieuChinh
+                            </div>
+
+                            <div>
+                                <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldTruocHieuChinh
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            @if (distinctItems4.Any(item => item.BuocSong_KetQuaHieuChinh == "UV-C"))
+            {
+                <div class="row">
+                    @foreach (var item in distinctItems3)
+                    {
+                        if (item.BuocSong_GiaTriTruocHieuChinh == "UV-C")
+                        {
+                            if (item.Deviation_1_GiaTriTruocHieuChinh <= 10 || item.Deviation_1_GiaTriTruocHieuChinh <= -10)
+                            {
+                                <div style="margin-left:10px">  <strong>Dải đo UVC : 250-­260nm [ Band: UVC (250­-260nm)]</strong> IN TOLERANCE </div>
+                            }
+                            else
+                            {
+                                <div style="margin-left:10px">  <strong>Dải đo UVC : 250-­260nm [ Band: UVC (250­-260nm)]</strong> OUT OF TOLERANCE </div>
+                            }
+                        }
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <table class="table table-bordered table-striped" style="margin-top:5px">
+                            <tr>
+                                <th>Run No.</th>
+                                <th>Measurand</th>
+                                <th>Units</th>
+                                <th>
+                                    Reference
+                                </th>
+                                <th>Instrument</th>
+                                <th>Deviation</th>
+                            </tr>
+                            @foreach (var item in distinctItems3)
+                            {
+                                if (item.BuocSong_GiaTriTruocHieuChinh == "UV-C")
+                                {
+                                    <tr>
+                                        <td>1</td>
+                                        <td>@item.Measurand_1_GiaTriTruocHieuChinh</td>
+                                        <td>mW/cm&#178;</td>
+                                        <td>@item.Reference_1_GiaTriTruocHieuChinh.ToString("F3")</td>
+                                        <td>@item.Instrument_1_GiaTriTruocHieuChinh.ToString("F3")</td>
+                                        <td>@item.Deviation_1_GiaTriTruocHieuChinh.ToString("F3") %</td>
+                                    </tr>
+                                }
+                            }
+                        </table>
+                    </div>
+                    <div class="col-md-3">
+                        @foreach (var item in distinctItems2)
+                        {
+                            <div>
+                                <strong> Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldTruocHieuChinh
+                            </div>
+
+                            <div>
+                                <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldTruocHieuChinh
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="margin-left:10px"><strong>Dải đo UVC : 250-­260nm [ Band: UVC (250­-260nm)]</strong></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <table class="table table-bordered table-striped" style="margin-top:5px">
+                            <tr>
+                                <th>Run No.</th>
+                                <th>Measurand</th>
+                                <th>Units</th>
+                                <th>
+                                    Reference
+                                </th>
+                                <th>Instrument</th>
+                                <th>Deviation</th>
+                            </tr>
+                            @foreach (var item in distinctItems3)
+                            {
+                                if (item.BuocSong_GiaTriTruocHieuChinh == "UV-C")
+                                {
+                                    <tr>
+                                        <td>1</td>
+                                        <td>@item.Measurand_2_GiaTriTruocHieuChinh</td>
+                                        <td>mJ/cm&#178;</td>
+                                        <td>@item.Reference_2_GiaTriTruocHieuChinh.ToString("F3")</td>
+                                        <td>@item.Instrument_2_GiaTriTruocHieuChinh.ToString("F3")</td>
+                                        <td>@item.Deviation_2_GiaTriTruocHieuChinh.ToString("F3") %</td>
+                                    </tr>
+                                }
+                            }
+                        </table>
+                    </div>
+                    <div class="col-md-3">
+                        @foreach (var item in distinctItems2)
+                        {
+                            <div>
+                                <strong> Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldTruocHieuChinh
+                            </div>
+
+                            <div>
+                                <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldTruocHieuChinh
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            @if (distinctItems4.Any(item => item.BuocSong_KetQuaHieuChinh == "UV-V"))
+            {
+                <div class="row">
+                    @foreach (var item in distinctItems3)
+                    {
+                        if (item.BuocSong_GiaTriTruocHieuChinh == "UV-V")
+                        {
+                            if (item.Deviation_1_GiaTriTruocHieuChinh <= 10 || item.Deviation_1_GiaTriTruocHieuChinh <= -10)
+                            {
+                                <div style="margin-left:10px">Dải đo UVV : 395-­450nm [ Band: UVV (395-­450nm)] IN TOLERANCE </div>
+                            }
+                            else
+                            {
+                                <div style="margin-left:10px">Dải đo UVV : 395-­450nm [ Band: UVV (395-­450nm)] OUT OF TOLERANCE </div>
+                            }
+                        }
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <table class="table table-bordered table-striped" style="margin-top:5px">
+                            <tr>
+                                <th>Run No.</th>
+                                <th>Measurand</th>
+                                <th>Units</th>
+                                <th>
+                                    Reference
+                                </th>
+                                <th>Instrument</th>
+                                <th>Deviation</th>
+                            </tr>
+                            @foreach (var item in distinctItems3)
+                            {
+                                if (item.BuocSong_GiaTriTruocHieuChinh == "UV-V")
+                                {
+                                    <tr>
+                                        <td>1</td>
+                                        <td>@item.Measurand_1_GiaTriTruocHieuChinh</td>
+                                        <td>mW/cm&#178;</td>
+                                        <td>@item.Reference_1_GiaTriTruocHieuChinh.ToString("F3")</td>
+                                        <td>@item.Instrument_1_GiaTriTruocHieuChinh.ToString("F3")</td>
+                                        <td>@item.Deviation_1_GiaTriTruocHieuChinh.ToString("F3") %</td>
+                                    </tr>
+                                }
+                            }
+                        </table>
+                    </div>
+                    <div class="col-md-3">
+                        @foreach (var item in distinctItems2)
+                        {
+                            <div>
+                                <strong> Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldTruocHieuChinh
+                            </div>
+
+                            <div>
+                                <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldTruocHieuChinh
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="row">
+                    <div style="margin-left:10px">Dải đo UVV : 395-­450nm [ Band: UVV (395-­450nm)]</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <table class="table table-bordered table-striped" style="margin-top:5px">
+                            <tr>
+                                <th>Run No.</th>
+                                <th>Measurand</th>
+                                <th>Units</th>
+                                <th>
+                                    Reference
+                                </th>
+                                <th>Instrument</th>
+                                <th>Deviation</th>
+                            </tr>
+                            @foreach (var item in distinctItems3)
+                            {
+                                if (item.BuocSong_GiaTriTruocHieuChinh == "UV-V")
+                                {
+                                    <tr>
+                                        <td>1</td>
+                                        <td>@item.Measurand_2_GiaTriTruocHieuChinh</td>
+                                        <td>mJ/cm&#178;</td>
+                                        <td>@item.Reference_2_GiaTriTruocHieuChinh.ToString("F3")</td>
+                                        <td>@item.Instrument_2_GiaTriTruocHieuChinh.ToString("F3")</td>
+                                        <td>@item.Deviation_2_GiaTriTruocHieuChinh.ToString("F3") %</td>
+                                    </tr>
+                                }
+                            }
+                        </table>
+                    </div>
+                    <div class="col-md-3">
+                        @foreach (var item in distinctItems2)
+                        {
+                            <div>
+                                <strong> Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldTruocHieuChinh
+                            </div>
+
+                            <div>
+                                <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldTruocHieuChinh
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            <div class="text-center">
+                <h4>KẾT QUẢ HIỆU CHỈNH</h4>
+            </div>
+            <table class="table table-bordered table-striped" style="margin-top:5px">
+                <tr>
+                    <th>Ngày (Date:)</th>
+                    <th>Technicial:</th>
+                    <th>Điều kiện nhiệt độ, độ ẩm</th>
+                </tr>
+                @foreach (var item in distinctItems2)
+                {
+                    <tr>
+                        <td>@item.NgayTao_NgayTaoTechnicialBuldKetQuaHieuChinh.ToString("dd/MM/yyyy")</td>
+                        <td>@item.Technicial_NgayTaoTechnicialBuldKetQuaHieuChinh</td>
+                        <td>
+                            [@item.NhietDo<span style="position: relative; top:5px;left:5px;">&#x2212;</span><span style="position: relative; top: -4px;left:-4.5px;">&#x2b;</span>2]ºC - [@item.DoAm<span style="position: relative; top:5px;left:5px;">&#x2212;</span><span style="position: relative; top: -4px;left:-4.5px;">&#x2b;</span>10]%RH
+                        </td>
+                    </tr>
+                }
+            </table>
+            @if (distinctItems4.Any(item => item.BuocSong_KetQuaHieuChinh == "UV-A"))
+            {
+
+                <div style="margin-top:3%">
+                    <strong>Dải đo UVA : 320-390nm [ Band: UVA (320 - 390nm )]</strong>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <table class="table table-bordered table-striped" style="margin-top:5px">
+                            <tr>
+                                <th>Run No.</th>
+                                <th>Measurand</th>
+                                <th>Units</th>
+                                <th>
+                                    Reference
+                                </th>
+                                <th>Instrument</th>
+                                <th>Deviation</th>
+                            </tr>
+                            @foreach (var item in distinctItems4)
+                            {
+                                if (item.BuocSong_KetQuaHieuChinh == "UV-A")
+                                {
+                                    <tr>
+                                        <td>@(count1++)</td>
+                                        <td>@item.Measurand_1_KetQuaHieuChinh</td>
+                                        <td>mW/cm&#178;</td>
+                                        <td>@item.Reference_1_KetQuaHieuChinh.ToString("F3")</td>
+                                        <td>@item.Instrument_1_KetQuaHieuChinh.ToString("F3")</td>
+                                        <td>@item.Deviation_1_KetQuaHieuChinh.ToString("F3") %</td>
+                                    </tr>
+                                }
+                            }
+                            <tr>
+                                <td colspan="3">
+                                    Average of Deviation : @ViewBag.AverageA_1
+                                </td>
+                                <td colspan="3">
+                                    Standard deviation of Deviation : @ViewBag.StandardA_1 %
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-3">
+                        @foreach (var item in distinctItems2)
+                        {
+                            <div>
+                                <strong> Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldKetQuaHieuChinh
+                            </div>
+
+                            <div>
+                                <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldKetQuaHieuChinh
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div>
+                    <strong>Dải đo UVA : 320-390nm [ Band: UVA (320 - 390nm )]</strong>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <table class="table table-bordered table-striped" style="margin-top:5px">
+                            <tr>
+                                <th>Run No.</th>
+                                <th>Measurand</th>
+                                <th>Units</th>
+                                <th>
+                                    Reference
+                                </th>
+                                <th>Instrument</th>
+                                <th>Deviation</th>
+                            </tr>
+                            @foreach (var item in distinctItems4)
+                            {
+                                if (item.BuocSong_KetQuaHieuChinh == "UV-A")
+                                {
+                                    <tr>
+                                        <td>@(count2++)</td>
+                                        <td>@item.Measurand_2_KetQuaHieuChinh</td>
+                                        <td>mW/cm&#178;</td>
+                                        <td>@item.Reference_2_KetQuaHieuChinh.ToString("F3")</td>
+                                        <td>@item.Instrument_2_KetQuaHieuChinh.ToString("F3")</td>
+                                        <td>@item.Deviation_2_KetQuaHieuChinh.ToString("F3") %</td>
+                                    </tr>
+                                }
+                            }
+                            <tr>
+                                <td colspan="3">
+                                    Average of Deviation : @ViewBag.AverageA_2
+                                </td>
+                                <td colspan="3">
+                                    Standard deviation of Deviation : @ViewBag.StandardA_2 %
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-3">
+                        @foreach (var item in distinctItems2)
+                        {
+                            <div>
+                                <strong> Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldKetQuaHieuChinh
+                            </div>
+
+                            <div>
+                                <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldKetQuaHieuChinh
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            @if (distinctItems4.Any(item => item.BuocSong_KetQuaHieuChinh == "UV-B"))
+            {
+
+                <div style="margin-top:3%">
+                    <strong>Dải đo UVB : 280-­320nm [ Band: UVB (280-­320nm )]</strong>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <table class="table table-bordered table-striped" style="margin-top:5px">
+                            <tr>
+                                <th>Run No.</th>
+                                <th>Measurand</th>
+                                <th>Units</th>
+                                <th>
+                                    Reference
+                                </th>
+                                <th>Instrument</th>
+                                <th>Deviation</th>
+                            </tr>
+                            @foreach (var item in distinctItems4)
+                            {
+                                if (item.BuocSong_KetQuaHieuChinh == "UV-B")
+                                {
+                                    <tr>
+                                        <td>@(count3++)</td>
+                                        <td>@item.Measurand_1_KetQuaHieuChinh</td>
+                                        <td>mW/cm&#178;</td>
+                                        <td>@item.Reference_1_KetQuaHieuChinh.ToString("F3")</td>
+                                        <td>@item.Instrument_1_KetQuaHieuChinh.ToString("F3")</td>
+                                        <td>@item.Deviation_1_KetQuaHieuChinh.ToString("F3") %</td>
+                                    </tr>
+                                }
+                            }
+                            <tr>
+                                <td colspan="3">
+                                    Average of Deviation : @ViewBag.AverageB_1
+                                </td>
+                                <td colspan="3">
+                                    Standard deviation of Deviation : @ViewBag.StandardB_1 %
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-3">
+                        @foreach (var item in distinctItems2)
+                        {
+                            <div>
+                                <strong> Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldKetQuaHieuChinh
+                            </div>
+
+                            <div>
+                                <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldKetQuaHieuChinh
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div>
+                    <strong>Dải đo UVB : 280-­320nm [ Band: UVB (280-­320nm )]</strong>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <table class="table table-bordered table-striped" style="margin-top:5px">
+                            <tr>
+                                <th>Run No.</th>
+                                <th>Measurand</th>
+                                <th>Units</th>
+                                <th>
+                                    Reference
+                                </th>
+                                <th>Instrument</th>
+                                <th>Deviation</th>
+                            </tr>
+                            @foreach (var item in distinctItems4)
+                            {
+                                if (item.BuocSong_KetQuaHieuChinh == "UV-B")
+                                {
+                                    <tr>
+                                        <td>@(count4++)</td>
+                                        <td>@item.Measurand_2_KetQuaHieuChinh</td>
+                                        <td>mJ/cm&#178;</td>
+                                        <td>@item.Reference_2_KetQuaHieuChinh.ToString("F3")</td>
+                                        <td>@item.Instrument_2_KetQuaHieuChinh.ToString("F3")</td>
+                                        <td>@item.Deviation_2_KetQuaHieuChinh.ToString("F3") %</td>
+                                    </tr>
+                                }
+                            }
+                            <tr>
+                                <td colspan="3">
+                                    Average of Deviation : @ViewBag.AverageB_2
+                                </td>
+                                <td colspan="3">
+                                    Standard deviation of Deviation : @ViewBag.StandardB_2 %
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-3">
+                        @foreach (var item in distinctItems2)
+                        {
+                            <div>
+                                <strong> Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldKetQuaHieuChinh
+                            </div>
+
+                            <div>
+                                <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldKetQuaHieuChinh
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            @if (distinctItems4.Any(item => item.BuocSong_KetQuaHieuChinh == "UV-C"))
+            {
+
+                <div style="margin-top:3%">
+                    <strong>Dải đo UVC : 250-­260nm [ Band: UVC (250­-260nm)]</strong>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <table class="table table-bordered table-striped" style="margin-top:5px">
+                            <tr>
+                                <th>Run No.</th>
+                                <th>Measurand</th>
+                                <th>Units</th>
+                                <th>
+                                    Reference
+                                </th>
+                                <th>Instrument</th>
+                                <th>Deviation</th>
+                            </tr>
+                            @foreach (var item in distinctItems4)
+                            {
+                                if (item.BuocSong_KetQuaHieuChinh == "UV-C")
+                                {
+                                    <tr>
+                                        <td>@(count5++)</td>
+                                        <td>@item.Measurand_1_KetQuaHieuChinh</td>
+                                        <td>mW/cm&#178;</td>
+                                        <td>@item.Reference_1_KetQuaHieuChinh.ToString("F3")</td>
+                                        <td>@item.Instrument_1_KetQuaHieuChinh.ToString("F3")</td>
+                                        <td>@item.Deviation_1_KetQuaHieuChinh.ToString("F3") %</td>
+                                    </tr>
+                                }
+                            }
+                            <tr>
+                                <td colspan="3">
+                                    Average of Deviation : @ViewBag.AverageC_1
+                                </td>
+                                <td colspan="3">
+                                    Standard deviation of Deviation : @ViewBag.StandardC_1 %
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-3">
+                        @foreach (var item in distinctItems2)
+                        {
+                            <div>
+                                <strong> Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldKetQuaHieuChinh
+                            </div>
+
+                            <div>
+                                <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldKetQuaHieuChinh
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div>
+                    <strong>Dải đo UVC : 250-­260nm [ Band: UVC (250­-260nm)]</strong>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <table class="table table-bordered table-striped" style="margin-top:5px">
+                            <tr>
+                                <th>Run No.</th>
+                                <th>Measurand</th>
+                                <th>Units</th>
+                                <th>
+                                    Reference
+                                </th>
+                                <th>Instrument</th>
+                                <th>Deviation</th>
+                            </tr>
+                            @foreach (var item in distinctItems4)
+                            {
+                                if (item.BuocSong_KetQuaHieuChinh == "UV-C")
+                                {
+                                    <tr>
+                                        <td>@(count6++)</td>
+                                        <td>@item.Measurand_2_KetQuaHieuChinh</td>
+                                        <td>mJ/cm&#178;</td>
+                                        <td>@item.Reference_2_KetQuaHieuChinh.ToString("F3")</td>
+                                        <td>@item.Instrument_2_KetQuaHieuChinh.ToString("F3")</td>
+                                        <td>@item.Deviation_2_KetQuaHieuChinh.ToString("F3") %</td>
+                                    </tr>
+                                }
+                            }
+                            <tr>
+                                <td colspan="3">
+                                    Average of Deviation : @ViewBag.AverageC_2
+                                </td>
+                                <td colspan="3">
+                                    Standard deviation of Deviation : @ViewBag.StandardC_2 %
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-3">
+                        @foreach (var item in distinctItems2)
+                        {
+                            <div>
+                                <strong> Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldKetQuaHieuChinh
+                            </div>
+
+                            <div>
+                                <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldKetQuaHieuChinh
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            @if (distinctItems4.Any(item => item.BuocSong_KetQuaHieuChinh == "UV-V"))
+            {
+
+                <div style="margin-top:3%">
+                    <strong>Dải đo UVV : 395-­450nm [ Band: UVV (395-­450nm)]</strong>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <table class="table table-bordered table-striped" style="margin-top:5px">
+                            <tr>
+                                <th>Run No.</th>
+                                <th>Measurand</th>
+                                <th>Units</th>
+                                <th>
+                                    Reference
+                                </th>
+                                <th>Instrument</th>
+                                <th>Deviation</th>
+                            </tr>
+                            @foreach (var item in distinctItems4)
+                            {
+                                if (item.BuocSong_KetQuaHieuChinh == "UV-V")
+                                {
+                                    <tr>
+                                        <td>@(count7++)</td>
+                                        <td>@item.Measurand_1_KetQuaHieuChinh</td>
+                                        <td>mW/cm&#178;</td>
+                                        <td>@item.Reference_1_KetQuaHieuChinh.ToString("F3")</td>
+                                        <td>@item.Instrument_1_KetQuaHieuChinh.ToString("F3")</td>
+                                        <td>@item.Deviation_1_KetQuaHieuChinh.ToString("F3") %</td>
+                                    </tr>
+                                }
+                            }
+                            <tr>
+                                <td colspan="3">
+                                    Average of Deviation : @ViewBag.AverageV_1
+                                </td>
+                                <td colspan="3">
+                                    Standard deviation of Deviation : @ViewBag.StandardV_1 %
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-3">
+                        @foreach (var item in distinctItems2)
+                        {
+                            <div>
+                                <strong> Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldKetQuaHieuChinh
+                            </div>
+
+                            <div>
+                                <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldKetQuaHieuChinh
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div>
+                    <strong>Dải đo UVV : 395-­450nm [ Band: UVV (395-­450nm)]</strong>
+                </div>
+                <div class="row">
+                    <div class="col-md-9">
+                        <table class="table table-bordered table-striped" style="margin-top:5px">
+                            <tr>
+                                <th>Run No.</th>
+                                <th>Measurand</th>
+                                <th>Units</th>
+                                <th>
+                                    Reference
+                                </th>
+                                <th>Instrument</th>
+                                <th>Deviation</th>
+                            </tr>
+                            @foreach (var item in distinctItems4)
+                            {
+                                if (item.BuocSong_KetQuaHieuChinh == "UV-V")
+                                {
+                                    <tr>
+                                        <td>@(count8++)</td>
+                                        <td>@item.Measurand_2_KetQuaHieuChinh</td>
+                                        <td>mJ/cm&#178;</td>
+                                        <td>@item.Reference_2_KetQuaHieuChinh.ToString("F3")</td>
+                                        <td>@item.Instrument_2_KetQuaHieuChinh.ToString("F3")</td>
+                                        <td>@item.Deviation_2_KetQuaHieuChinh.ToString("F3") %</td>
+                                    </tr>
+                                }
+                            }
+                            <tr>
+                                <td colspan="3">
+                                    Average of Deviation : @ViewBag.AverageV_2
+                                </td>
+                                <td colspan="3">
+                                    Standard deviation of Deviation : @ViewBag.StandardV_2 %
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-3">
+                        @foreach (var item in distinctItems2)
+                        {
+                            <div>
+                                <strong> Lamp System</strong>: @item.LampSystem_NgayTaoTechnicialBuldKetQuaHieuChinh
+                            </div>
+
+                            <div>
+                                <strong>Bulb/Spectrum</strong>: @item.Bulb_Spectrum_NgayTaoTechnicialBuldKetQuaHieuChinh
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+            <div class="text-center">
+                <h4>KẾT QUẢ HIỆU CHUẨN</h4>
+            </div>
+            <table class="table table-bordered table-striped" style="margin-top:5px">
+                <tr>
+                    <th>
+                        Giá trị chuẩn<br />
+                        Reference values<br />
+                        mW/cm²
+                    </th>
+                    <th>
+                        Giá trị đo được<br />
+                        Measured values<br />
+                        mW/cm²
+                    </th>
+                    <th>
+                        Sai số<br />
+                        Errors<br />
+                        %
+                    </th>
+                    <th>
+                        Độ KĐBĐ<br />
+                        Uncertainty<br />
+                        ( % )
+
+                    </th>
+                </tr>
+                @foreach (var item in distinctItems1)
+                {
+                    <tr>
+                        <td>@item.TB_STD.Value.ToString("F2")</td>
+                        <td>@item.TrungBinh_DUT.Value.ToString("F2")</td>
+                        <td>@item.Saiso.Value.ToString("F2")</td>
+                        <td>@item.DoDKDB.Value.ToString("F2")</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </section>
+</body> 
+<script>
+    $(document).ready(function () {
+        $(".downloadLink").click(function (e) {
+            e.preventDefault();
+
+            var form = $(this).closest('form');
+            var formData = form.serialize();
+
+            $("#loading").show();
+
+            $.ajax({
+                url: form.attr("action"),
+                type: 'POST',
+                data: formData,
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                success: function (data) {
+                    var blob = new Blob([data], { type: 'application/pdf' });
+                    var link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = 'GiayChungNhan.pdf';
+                    link.click();
+
+                    $("#loading").hide();
+                },
+                error: function () {
+                    alert('Có lỗi xảy ra khi tải PDF.');
+                    $("#loading").hide();
+                }
+            });
+        });
+    });
+
+</script>

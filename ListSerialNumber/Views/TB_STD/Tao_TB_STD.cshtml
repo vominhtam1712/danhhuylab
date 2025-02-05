@@ -1,0 +1,47 @@
+﻿@model List<ListClass.Model.STD_DUT>
+@using (Html.BeginForm("Tao_TB_STD", "TB_STD", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:blue"><strong>TÍNH ĐỘ KHÔNG ĐẢM BẢO ĐO</strong></h3>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr class="center">
+                        <th colspan="9">#</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            @Html.Hidden("TB_STDs[" + i + "].ID_STD", Model[i].ID, new { @readonly = "readonly", @class = "form-control" })
+                            <strong>Mức kiểm tra</strong><br />
+                            @Html.TextBox("TB_STDs[" + i + "].MucKiemTra", Model[i].MucKiemTra_STD, new { @readonly = "readonly", @class = "form-control", type = "number", step = "0.001" })
+                        </td>
+                        <td>
+                            @Html.Hidden("TB_STDs[" + i + "].Id_BienBanHieuChuan", Model[i].Id_BienBanHieuChuan, new { @readonly = "readonly", @class = "form-control" })
+                            <strong>Giá trị trung bình</strong><br />
+                            @Html.TextBox("TB_STDs[" + i + "].TrungBinh_STD", Model[i].TrungBinh_STD.Value.ToString("F3"), new { @readonly = "readonly", @class = "form-control", type = "number", step = "0.001" })
+
+                        </td>
+                    </tr>
+                }
+            </table>
+            <div class="row">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div>
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                    <a style="text-decoration:none;" href="#" onclick="closeModal()"><img src="~/Public/Img/close.png" width="40" /></a>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+

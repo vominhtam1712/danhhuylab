@@ -1,0 +1,81 @@
+﻿ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Danh Huy Lab</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link href="~/Public/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link href="~/Public/Css/Login.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="https://danhhuylab.vn/Public/Content/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="https://danhhuylab.vn/Public/Content/favicon.svg" />
+    <link rel="shortcut icon" href="https://danhhuylab.vn/Public/Content/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="https://danhhuylab.vn/Public/Content/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="danhhuylab" />
+    <link rel="manifest" href="https://danhhuylab.vn/Public/Content/site.webmanifest" />
+    <link href="~/Public/Css/loading.css" rel="stylesheet" />
+</head>
+<body class="hold-transition login-page">
+    @using (Html.BeginForm("Index", "Account", FormMethod.Post))
+    {
+        <section class="header clearfix">
+            <div class="container py-2">
+                <div class="row">
+                    <div id="loading">
+                        <img src="https://i.gifer.com/ZZ5H.gif" alt="Loading..." />
+                        <p>Đang kiểm tra tài khoản, vui lòng đợi ...</p>
+                    </div>
+                    <header class="wrapper-menu menu-group">
+                        <h2 class="logo">
+                            <img src="~/Public/Img/logodanhhuy_iso_2.png" width="250" height="100" />
+                        </h2>
+                        <label for="menu-toggle" class="icons">
+                            <ion-icon name="menu"></ion-icon>
+                        </label>
+                        <input type="checkbox" id="menu-toggle" class="menu-toggle">
+                        <div class="navigation">
+                            <button class="btnLogin-popup">Đăng nhập</button>
+                        </div>
+                        <span class="icon-close-menu">
+                            <ion-icon name="arrow-up-outline"></ion-icon>
+                        </span>
+                    </header>
+                    <span class="icon-one-menu">
+                        <ion-icon name="arrow-down-outline"></ion-icon>
+                    </span>
+                    <div class="wrapper">
+                        <span class="icon-close">
+                            <ion-icon name="close"></ion-icon>
+                        </span>
+                        <div class="form-box login">
+                            <h2>DANH HUY LAB</h2>
+                            <form action="#">
+                                <div class="input-box">
+                                    <span class="icon"><ion-icon name="person"></ion-icon></span>
+                                    <input class="username" name="username" required />
+                                    <label>username</label>
+                                </div>
+                                <div class="input-box">
+                                    <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
+                                    <input class="password" name="password" type="password" required />
+                                    <label>password</label>
+                                </div>
+                                <div class="remember-forgot">
+                                    <label><input type="checkbox" /> Lưu mật khẩu</label>
+                                    <a href="#">Quên mật khẩu ?</a>
+                                </div>
+                                <button type="submit" class="btn">Đăng nhập</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script src="~/Public/Js/Login.js"></script>
+        <script src="~/Public/Js/loading.js"></script>
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    }
+</body>
+</html>
+

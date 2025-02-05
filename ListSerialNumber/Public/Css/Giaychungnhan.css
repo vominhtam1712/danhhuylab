@@ -1,0 +1,224 @@
+﻿.page-pdf {
+    width: 100%;
+    border: 1px solid #000;
+}
+
+.page-pdf-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #000;
+    height: 150px
+}
+
+.page-pdf-header-img {
+    padding: 25px
+}
+
+    .page-pdf-header-img img {
+        width: 190px;
+    }
+
+.page-pdf-header-info {
+    text-align: center;
+}
+
+.color-intro {
+    color: #0e75dd;
+}
+
+    .color-intro:nth-child(2) {
+        margin-top: -10px
+    }
+
+    .color-intro:nth-child(3) {
+        margin-top: -10px
+    }
+
+    .color-intro:nth-child(4) {
+        margin-top: -10px
+    }
+
+.page-pdf-header-2 {
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid #000;
+}
+
+.page-pdf-header-2-info:nth-child(1),
+.page-pdf-header-2-info:nth-child(3) {
+    width: 20%;
+    padding: 40px 0 0 60px
+}
+
+.page-pdf-header-2-info:nth-child(2) {
+    text-align: center;
+    width: 60%;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+}
+
+.color-intro-content:nth-child(2) {
+    color: orange;
+}
+
+.color-intro-content:nth-child(1),
+.color-intro-content:nth-child(3) {
+    color: #0e75dd;
+}
+
+.page-pdf-body-content {
+    padding: 20px 0 0 20px;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 80%;
+    margin-left: 10%;
+}
+
+td, th {
+    font-size: 20px;
+    border: 1px solid #757575;
+    text-align: center;
+    padding: 8px;
+}
+
+.nhietdo {
+    display: flex;
+}
+
+.nhietdo-text:nth-child(2) {
+    margin-top: -3px;
+    margin-left: 5px;
+    font-size: 17px
+}
+
+.nhietdo-text:nth-child(3) {
+    font-size: 17px;
+    margin-left: -9px;
+    margin-top: -3px;
+}
+
+.nhietdo-text:nth-child(4) {
+    margin-left: 5px;
+}
+
+.nhietdo-doam {
+    display: flex;
+    text-align: center
+}
+
+.footer-content {
+    width: 100%;
+    font-size: 17.4px;
+    display: flex;
+    color: #0e75dd;
+    background-color: #f1f1f1;
+}
+
+.footer-2 {
+    display: flex;
+    justify-content: space-between;
+    color: #0e75dd;
+}
+
+.footer-content-text {
+    padding-left: 10px
+}
+
+.Referentce-content {
+    display: flex;
+    text-align: center;
+    font-size: 20px;
+    border: 1px solid #000;
+    justify-content: space-between;
+    padding: 10px 20px 10px 20px;
+}
+
+.Referentce-content-2 {
+    display: flex;
+    text-align: center;
+    font-size: 23px;
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    justify-content: space-between;
+    padding: 10px 20px 10px 20px;
+}
+
+.Referentce-content-3 {
+    border-bottom: 1px solid #000;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+}
+
+.Referentce-content-4 {
+    display: flex;
+    text-align: center;
+    font-size: 23px;
+    justify-content: space-between;
+    padding: 10px 20px 10px 20px;
+}
+
+.Measurments {
+    display: flex;
+    text-align: center;
+    font-size: 23px;
+    justify-content: space-between;
+    padding: 10px 80px 10px 80px
+}
+
+.UV {
+    border-top: 1px solid #000;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    width: 60%;
+    padding: 5px 0 5px 25px;
+    font-size: 20px
+}
+
+.lamp {
+    font-size: 20px;
+    padding: 30px 0 0 30px
+}
+
+.nhietdo-doam {
+    display: flex;
+    text-align: center
+}
+
+.Referentce-content-3 .Referentce-content-text:nth-child(5) {
+    margin-right: 10px
+}
+
+.Referentce-content-3 .Referentce-content-text:nth-child(4) {
+    margin-right: 10px
+}
+
+.Average-Stand {
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+    font-size: 15px;
+}
+
+.Average {
+    width: 100%;
+    padding: 10px 20px 10px 20px;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+}
+
+.Stand {
+    width: 100%;
+    padding: 10px 20px 10px 20px;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+}
+
+.row-footer {
+    display: flex
+}

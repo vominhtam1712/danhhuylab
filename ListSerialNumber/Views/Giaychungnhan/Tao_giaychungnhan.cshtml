@@ -1,0 +1,46 @@
+﻿@model List<ListClass.Model.BienBanHieuChuan>
+@using (Html.BeginForm("Tao_giaychungnhan", "Giaychungnhan", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<section class="content py-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" style="text-align:center">
+                <h3 style="color:blue"><strong>TẠO GIẤY CHỨNG NHẬN HIỆN CHỈNH / HIỆU CHUẨN</strong></h3>
+            </div>
+        </div>
+        <table class="table table-bordered table-striped">
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr>
+                    <td style="width:40%">
+                        @Html.Hidden("Giaychungnhans[" + i + "].Id_BienBanHieuChuan", Model[i].Id)
+                        <strong>Ngày hiệu chuẩn</strong><br />
+                        @Html.TextBox("Giaychungnhans[" + i + "].NgayHieuChuan", "", new { @type = "date", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                    </td>
+                    <td style="width:40%">
+                        <strong>Ngày hiệu chuẩn lại (Y/C khách hàng)</strong><br />
+                        @Html.TextBox("Giaychungnhans[" + i + "].NgayHieuChuanLai", "", new { @type = "date", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                    </td>
+                    <td style="width:20%">
+                        <strong>Kiểu In</strong><br />
+                        @Html.DropDownList("Giaychungnhans[" + i + "].Type", new[] { new SelectListItem { Text = "Chọn kiểu In GCN", Value = "" }, new SelectListItem { Text = "In tất cả dữ liệu", Value = "All" }, new SelectListItem { Text = "In 2 trang (Đầu và cuối)", Value = "One" }}, new { @class = "form-control", @required = "required" })
+                    </td>
+                </tr>
+            }
+        </table>
+        <div class="row">
+            <div class="col-md-2" style="width: auto;">
+                <button class="form-control form-a-control" type="submit" value="Edit">
+                    <span class="fas fa-edit"> OK</span>
+                </button>
+            </div>
+            <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                <a style="text-decoration:none;" href="#" onclick="closeModal()"><img src="~/Public/Img/close.png" width="40" /></a>
+            </div>
+        </div>
+    </div>
+</section>
+}
+

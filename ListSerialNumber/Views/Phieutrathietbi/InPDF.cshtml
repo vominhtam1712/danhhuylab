@@ -1,0 +1,262 @@
+﻿@model IEnumerable<ListClass.Model.Join_phieutra_phieunhan_listnumber_khachhang>
+@{
+    var distinctItems = Model
+        .GroupBy(x => x.Id_phieutra)
+        .Select(g => g.FirstOrDefault())
+        .ToList();
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inpdf</title>
+    <style>
+        .title {
+            display: flex;
+            border: 1px solid #000;
+            justify-content: space-between;
+            height: 180px
+        }
+
+        .title-img img {
+            width: 180px;
+            padding: 50px 0 5px 10px
+        }
+
+        .title-img {
+            align-content: center;
+            width: 20%;
+        }
+
+        .title-page {
+            width: 25%;
+            height: 100%
+        }
+
+        .title-content {
+            border-left: 1px solid #000;
+            border-right: 1px solid #000;
+            width: 55%;
+        }
+
+        .title-page-content:nth-child(2) {
+            border-top: 1px solid #000;
+            border-bottom: 1px solid #000;
+            align-content: center;
+        }
+
+        h2 {
+            text-align: center
+        }
+
+        .text {
+            margin-left: 5%;
+        }
+
+        .text-1 {
+            margin-top: -2%;
+        }
+
+        .h2-2 {
+            margin-top: 2px;
+        }
+
+        .title-page-content {
+            padding: 20px;
+            font-size: 18px
+        }
+
+        .row {
+            display: flex;
+            font-size: 20px;
+        }
+
+        .col-md-1 {
+            width: 10%;
+        }
+
+        .col-md-2 {
+            width: 20%;
+        }
+
+        .col-md-3 {
+            width: 30%;
+        }
+
+        .col-md-4 {
+            width: 40%;
+        }
+
+        .col-md-5 {
+            width: 50%;
+        }
+
+        .col-md-6 {
+            width: 60%;
+        }
+
+        .col-md-7 {
+            width: 70%;
+        }
+
+        .col-md-8 {
+            width: 80%;
+        }
+
+        .col-md-9 {
+            width: 90%;
+        }
+
+        .col-md-10 {
+            width: 100%;
+        }
+
+        .col-md-8 {
+            margin-left: -5%
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 2%
+        }
+
+        td, th {
+            border: 1px solid #000;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">
+        <div class="title-img">
+            <img src="https://danhhuylab.vn/Public/Img/logo.png" />
+        </div>
+        <div class="title-content">
+            <h2 class="h2-1">CÔNG TY TNHH THƯƠNG MẠI DANH HUY</h2>
+            <div class="text text-1">171 Đường TX43, KP3, Phường Thạnh Xuân, Quận 12, TP.HCM</div>
+            <div class="text text-2">ĐT: 028.37165168</div>
+            <div class="text text-3">Email: info@danhhuy.com.vn</div>
+            <h2 class="h2-2">BIÊN BẢN BÀN GIAO TRẢ<br />THIẾT BỊ HIỆU CHUẨN</h2>
+        </div>
+        <div class="title-page">
+            <div class="title-page-content">Mã số: DH-QT01/BM08</div>
+            <div class="title-page-content">Số soát xét: 02</div>
+            <div class="title-page-content">Ngày hiệu lực: 27/03/2024</div>
+        </div>
+    </div>
+    @foreach (var item in Model)
+    {
+        <div class="content">
+            <div class="row" style="margin-top:3%">
+                <div class="col-md-2">
+                    Số yêu cầu:
+                </div>
+                <div class="col-md-8">
+                    @item.SoYeuCau
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    Ngày thực hiện:
+                </div>
+                <div class="col-md-8">
+                    @item.NgayThucHien.ToString("dd/MM/yyyy")
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    Khách hàng:
+                </div>
+                <div class="col-md-8">
+                    @item.TenKH
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    Địa chỉ:
+                </div>
+                <div class="col-md-8">
+                    @item.DiaChi
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    Liên hệ:
+                </div>
+                <div class="col-md-8">
+                    @item.LienHe
+                </div>
+            </div>
+        </div>
+    }
+    <table>
+        <tr>
+            <th>STT</th>
+            <th>Tên thiết bị</th>
+            <th>Hãng</th>
+            <th width="100px">Kiểu/ Model</th>
+            <th>SerialNumber</th>
+            <th width="120px">Số nhận dạng</th>
+            <th width="130px">Phương thức giao trả</th>
+            <th width="80px">Trạng thái thiết bị</th>
+            <th width="80px">Ghi chú</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            var count = 1;
+            <tr>
+                <td>@(count++)</td>
+                <td style="text-align:left">@item.TenTB</td>
+                <td>@item.Hang</td>
+                <td>@item.Model</td>
+                <td>@item.SoSN</td>
+                <td>@item.SoNhanDang</td>
+                <td>@item.PhuongThucGiaoTra</td>
+                <td>@item.TrangThaiThietBi</td>
+                <td>@item.GhiChu</td>
+            </tr>
+        }
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+    <div class="row" style="text-align:center">
+        <div class="col-md-5"><h5>ĐẠI ĐIỆN DANH HUY</h5></div>
+        <div class="col-md-5"><h5>ĐẠI ĐIỆN KHÁCH HÀNG</h5></div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,257 @@
+﻿@model List<ListClass.Model.KetQuaHieuChinh>
+@{
+    var countA = 1;
+    var countB = 1;
+    var countC = 1;
+    var countV = 1;
+    string previousBuocSong = "";
+}
+@using (Html.BeginForm("Edit", "KetQuaHieuChinh", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:blue"><strong>CHỈNH SỬA KẾT QUẢ HIỆU CHỈNH</strong></h3>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    if (@Model[i].BuocSong == "UV-A")
+                    {
+                        if (@Model[i].BuocSong == "UV-A" && @Model[i].BuocSong != previousBuocSong)
+                        {
+                            <tr>
+                                <th style="text-align:center">Wavelength @Model[i].BuocSong</th>
+                                <th>Measurand</th>
+                                <th>Units</th>
+                                <th>Reference</th>
+                                <th>Instrument</th>
+                            </tr>
+                            previousBuocSong = @Model[i].BuocSong;
+                        }
+                        <tr>
+                            <td rowspan="2" style="text-align:center;vertical-align:middle;width:220px">
+                                @Html.Hidden("ids[" + i + "].Id_PhanCong", Model[i].Id_PhanCong, new { @readonly = "readonly", @class = "form-control" })
+                                @Html.Hidden("ids[" + i + "].Id", Model[i].Id, new { @readonly = "readonly", @class = "form-control" })
+                                @Html.Hidden("ids[" + i + "].BuocSong", Model[i].BuocSong, new { @readonly = "readonly", @class = "form-control" })
+                                Lần: @(countA++)
+                            </td>
+                            <td style="vertical-align:middle">
+                                @Model[i].Measurand_1
+                            </td>
+                            <td style="vertical-align:middle">
+                                mW/cm&#178;
+                            </td>
+                            <td>
+                                @Html.TextBox("ids[" + i + "].Reference_1", Model[i].Reference_1, new { @type = "number", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                            </td>
+                            <td>
+                                @Html.TextBox("ids[" + i + "].Instrument_1", Model[i].Instrument_1, new { @type = "number", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="vertical-align:middle">
+                                @Model[i].Measurand_2
+                            </td>
+                            <td style="vertical-align:middle">
+                                mJ/cm&#178;
+                            </td>
+                            <td>
+                                @Html.TextBox("ids[" + i + "].Reference_2", Model[i].Reference_2, new { @type = "number", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                            </td>
+                            <td>
+                                @Html.TextBox("ids[" + i + "].Instrument_2", Model[i].Instrument_2, new { @type = "number", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                            </td>
+                        </tr>
+
+                    }
+
+                }
+            </table>
+            <table class="table table-bordered table-striped">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    if (@Model[i].BuocSong == "UV-B")
+                    {
+                        if (@Model[i].BuocSong == "UV-B" && @Model[i].BuocSong != previousBuocSong)
+                        {
+                            <tr>
+                                <th style="text-align:center">Wavelength @Model[i].BuocSong</th>
+                                <th>Measurand</th>
+                                <th>Units</th>
+                                <th>Reference</th>
+                                <th>Instrument</th>
+                            </tr>
+                            previousBuocSong = @Model[i].BuocSong;
+                        }
+                        <tr>
+                            <td rowspan="2" style="text-align:center;vertical-align:middle;width:220px">
+                                @Html.Hidden("ids[" + i + "].Id_PhanCong", Model[i].Id_PhanCong, new { @readonly = "readonly", @class = "form-control" })
+                                @Html.Hidden("ids[" + i + "].Id", Model[i].Id, new { @readonly = "readonly", @class = "form-control" })
+                                @Html.Hidden("ids[" + i + "].BuocSong", Model[i].BuocSong, new { @readonly = "readonly", @class = "form-control" })
+                                Lần: @(countB++)
+                            </td>
+                            <td style="vertical-align:middle;">
+                                @Model[i].Measurand_1
+                            </td>
+                            <td style="vertical-align:middle">
+                                mW/cm&#178;
+                            </td>
+                            <td>
+                                @Html.TextBox("ids[" + i + "].Reference_1", Model[i].Reference_1, new { @type = "number", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                            </td>
+                            <td>
+                                @Html.TextBox("ids[" + i + "].Instrument_1", Model[i].Instrument_1, new { @type = "number", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="vertical-align:middle">
+                                @Model[i].Measurand_2
+                            </td>
+                            <td style="vertical-align:middle">
+                                mJ/cm&#178;
+                            </td>
+                            <td>
+                                @Html.TextBox("ids[" + i + "].Reference_2", Model[i].Reference_2, new { @type = "number", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                            </td>
+                            <td>
+                                @Html.TextBox("ids[" + i + "].Instrument_2", Model[i].Instrument_2, new { @type = "number", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                            </td>
+                        </tr>
+
+                    }
+
+                }
+            </table>
+            <table class="table table-bordered table-striped">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    if (@Model[i].BuocSong == "UV-C")
+                    {
+                        if (@Model[i].BuocSong == "UV-C" && @Model[i].BuocSong != previousBuocSong)
+                        {
+                            <tr>
+                                <th style="text-align:center">Wavelength @Model[i].BuocSong</th>
+                                <th>Measurand</th>
+                                <th>Units</th>
+                                <th>Reference</th>
+                                <th>Instrument</th>
+                            </tr>
+                            previousBuocSong = @Model[i].BuocSong;
+                        }
+                        <tr>
+                            <td rowspan="2" style="text-align:center;vertical-align:middle;width:220px">
+                                @Html.Hidden("ids[" + i + "].Id_PhanCong", Model[i].Id_PhanCong, new { @readonly = "readonly", @class = "form-control" })
+                                @Html.Hidden("ids[" + i + "].Id", Model[i].Id, new { @readonly = "readonly", @class = "form-control" })
+                                @Html.Hidden("ids[" + i + "].BuocSong", Model[i].BuocSong, new { @readonly = "readonly", @class = "form-control" })
+                                Lần: @(countC++)
+                            </td>
+                            <td style="vertical-align:middle">
+                                @Model[i].Measurand_1
+                            </td>
+                            <td style="vertical-align:middle">
+                                mW/cm&#178;
+                            </td>
+                            <td>
+                                @Html.TextBox("ids[" + i + "].Reference_1", Model[i].Reference_1, new { @type = "number", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                            </td>
+                            <td>
+                                @Html.TextBox("ids[" + i + "].Instrument_1", Model[i].Instrument_1, new { @type = "number", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="vertical-align:middle">
+                                @Model[i].Measurand_2
+                            </td>
+                            <td style="vertical-align:middle">
+                                mJ/cm&#178;
+                            </td>
+                            <td>
+                                @Html.TextBox("ids[" + i + "].Reference_2", Model[i].Reference_2, new { @type = "number", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                            </td>
+                            <td>
+                                @Html.TextBox("ids[" + i + "].Instrument_2", Model[i].Instrument_2, new { @type = "number", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                            </td>
+                        </tr>
+
+                    }
+
+                }
+            </table>
+            <table class="table table-bordered table-striped">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    if (@Model[i].BuocSong == "UV-V")
+                    {
+                        if (@Model[i].BuocSong == "UV-V" && @Model[i].BuocSong != previousBuocSong)
+                        {
+                            <tr>
+                                <th style="text-align:center">Wavelength @Model[i].BuocSong</th>
+                                <th style="vertical-align:middle">Measurand</th>
+                                <th>Units</th>
+                                <th>Reference</th>
+                                <th>Instrument</th>
+                            </tr>
+                            previousBuocSong = @Model[i].BuocSong;
+                        }
+                        <tr>
+                            <td rowspan="2" style="text-align:center;vertical-align:middle;width:220px">
+                                @Html.Hidden("ids[" + i + "].Id_PhanCong", Model[i].Id_PhanCong, new { @readonly = "readonly", @class = "form-control" })
+                                @Html.Hidden("ids[" + i + "].Id", Model[i].Id, new { @readonly = "readonly", @class = "form-control" })
+                                @Html.Hidden("ids[" + i + "].BuocSong", Model[i].BuocSong, new { @readonly = "readonly", @class = "form-control" })
+                                Lần: @(countV++)
+                            </td>
+                            <td style="vertical-align:middle">
+                                @Model[i].Measurand_1
+                            </td>
+                            <td style="vertical-align:middle">
+                                mW/cm&#178;
+                            </td>
+                            <td>
+                                @Html.TextBox("ids[" + i + "].Reference_1", Model[i].Reference_1, new { @type = "number", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                            </td>
+                            <td>
+                                @Html.TextBox("ids[" + i + "].Instrument_1", Model[i].Instrument_1, new { @type = "number", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="vertical-align:middle">
+                                @Model[i].Measurand_2
+                            </td>
+                            <td style="vertical-align:middle">
+                                mJ/cm&#178;
+                            </td>
+                            <td>
+                                @Html.TextBox("ids[" + i + "].Reference_2", Model[i].Reference_2, new { @type = "number", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                            </td>
+                            <td>
+                                @Html.TextBox("ids[" + i + "].Instrument_2", Model[i].Instrument_2, new { @type = "number", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                            </td>
+                        </tr>
+
+                    }
+
+                }
+            </table>
+            <div class="row">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div>
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                    <a style="text-decoration:none;" href="#" onclick="closeModal()"><img src="~/Public/Img/close.png" width="40" /></a>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+

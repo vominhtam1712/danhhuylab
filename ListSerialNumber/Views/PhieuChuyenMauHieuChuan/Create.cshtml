@@ -1,0 +1,114 @@
+﻿@model ListClass.Model.PhieuChuyenMauHieuChuan
+<script src="~/Public/Js/DropDownSelect.js"></script>
+@using (Html.BeginForm("Create", "PhieuChuyenMauHieuChuan", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:blue"><strong>TẠO PHIẾU CHUYỂN THIẾT BỊ</strong></h3>
+                </div>
+            </div>
+            <div class="row py-1">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <strong class="control-label col-md-3">Số nhận dạng</strong>
+                        <div class="col-md-12">
+                            @Html.DropDownListFor(model => model.Id_PhieuNhanThietBi, (SelectList)ViewBag.SoYeuCauList, "Chọn số nhân dạng...", new { @class = "form-control", id = "idDropdown", required = "required" })
+                            @Html.ValidationMessageFor(model => model.Id_PhieuNhanThietBi, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <strong class="control-label col-md-3">Người được phân công</strong>
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.NguoiDuocPhanCong, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                            @Html.ValidationMessageFor(model => model.NguoiDuocPhanCong, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <strong class="control-label col-md-3">Người nhận</strong>
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.NguoiNhan, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                            @Html.ValidationMessageFor(model => model.NguoiNhan, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.MaSoMau, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <strong class="control-label col-md-3">Phương pháp hiệu chuẩn</strong>
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.PhuongPhamHieuChuan, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                            @Html.ValidationMessageFor(model => model.PhuongPhamHieuChuan, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <strong class="control-label col-md-3">Ngày nhận</strong>
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.NgayNhan, new { htmlAttributes = new { type = "date", @class = "form-control", @required = "required" } })
+                            @Html.ValidationMessageFor(model => model.NgayNhan, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <strong class="control-label col-md-3">Thông số hiệu chuẩn</strong>
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.ThongSoHieuChuan, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                            @Html.ValidationMessageFor(model => model.ThongSoHieuChuan, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <strong class="control-label col-md-3">Ngày trả báo cáo</strong>
+                        <div class="col-md-12">
+                            @Html.EditorFor(model => model.NgayTraBaoCao, new { htmlAttributes = new { type = "date", @class = "form-control", @required = "required" } })
+                            @Html.ValidationMessageFor(model => model.NgayTraBaoCao, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div id="customerInfo" style="display:none; margin-top:20px">
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <th>Mã KH</th>
+                            <th>Tên KH</th>
+                            <th>Địa chỉ</th>
+                            <th>Ngành</th>
+                        </tr>
+                        <tr>
+                            <td><span style="color:blue" id="customerMaKH"></span></td>
+                            <td><span style="color:blue" id="customerTenKH"></span></td>
+                            <td><span style="color:blue" id="customerDiaChi"></span></td>
+                            <td> <span style="color:blue" id="customerNhomNganh"></span></td>
+                        </tr>
+                        <tr>
+                            <th>Số SN</th>
+                            <th>Tên thiết bị</th>
+                            <th>Hãng</th>
+                            <th>Model</th>
+                        </tr>
+                        <tr>
+                            <td><span style="color:blue" id="customerSerialNumber"></span></td>
+                            <td><span style="color:blue" id="customerTenthietbi"></span></td>
+                            <td><span style="color:blue" id="customerHang"></span></td>
+                            <td> <span style="color:blue" id="customerModel"></span></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-md-2" style="width: auto;">
+                        <button class="form-control form-a-control" type="submit" value="Edit">
+                            <span class="fas fa-edit"> OK</span>
+                        </button>
+                    </div>
+                    <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                        <a href="@Url.Action("Index","PhieuChuyenMauHieuChuan")"><img src="~/Public/Img/close.png" width="40" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> 
+}

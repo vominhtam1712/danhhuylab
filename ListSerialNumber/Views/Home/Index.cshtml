@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.Title = "Trang Chủ Danh Huy Lab";
+    Layout = "~/Views/Shared/_LayoutHome.cshtml";
+}
+<link href="~/Public/Css/clock.css" rel="stylesheet" />
+<link href="~/Public/Css/location.css" rel="stylesheet" />
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-12">
+                <div class="wrapper">
+                    <div class="bar-seconds"></div>
+                    <div class="number-hours"></div>
+                    <div class="hands-box">
+                        <div class="hand hours"><i></i></div>
+                        <div class="hand minutes"><i></i></div>
+                        <div class="hand seconds"><i></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-12">
+                <div class="search-box-group-location">
+                    <div class="search-box">
+                        <i class="bx bxs-map"></i>
+                        <input type="text" placeholder="enter your location" />
+                        <button class="bx bx-search"></button>
+                    </div>
+                    <div class="weather-box">
+                        <div class="box">
+                            <div class="info-weather">
+                                <div class="weather">
+                                    <img src="~/Public/Img/cloudy_1710834.png" />
+                                    <p class="temperature"><span></span></p>
+                                    <p class="description"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weather-details">
+                        <div class="humidity">
+                            <i class='bx bx-water'></i>
+                            <div class="text">
+                                <div class="info-humidity">
+                                    <span>0%</span>
+                                </div>
+                                <p>Humidity</p>
+                            </div>
+                        </div>
+                        <div class="wind">
+                            <i class='bx bx-wind'></i>
+                            <div class="text">
+                                <div class="info-wind">
+                                    <span>0km/h</span>
+                                </div>
+                                <p>Wind speed</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="error-message"></div>
+                </div>
+            </div>
+            <div class="col-md-4 col-12">
+                <div class="calendar">
+                    <div class="header-calendar">
+                        <button class="prev" id="prev">◀</button>
+                        <h2 class="monthYear" id="monthYear"></h2>
+                        <button class="next" id="next">▶</button>
+                    </div>
+                    <div class="days">
+                        <div>Chủ nhật</div>
+                        <div>Thứ hai</div>
+                        <div>Thứ ba</div>
+                        <div>Thứ tư</div>
+                        <div>Thứ năm</div>
+                        <div>Thứ sáu</div>
+                        <div>Thứ bảy</div>
+                    </div>
+                    <div id="dates" class="dates"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="~/Public/Js/clock.js"></script>
+<script src="~/Public/Js/location.js"></script> 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

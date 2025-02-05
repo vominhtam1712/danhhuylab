@@ -1,0 +1,69 @@
+﻿@model List<ListClass.Model.BaoCaoDanhGia>
+@using (Html.BeginForm("Edit", "BaoCaoDanhGia", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <section class="content py-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" style="text-align:center">
+                    <h3 style="color:blue"><strong>CHỈNH SỬA BÁO CÁO ĐÁNH GIÁ THIẾT BỊ</strong></h3>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped">
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    <tr>
+                        <td width="250px">
+                            @Html.Hidden("ids[" + i + "].Id", Model[i].Id, new { @readonly = "readonly", @class = "form-control" })
+                            <strong>Số SN</strong><br />
+                            @Html.DropDownList("ids[" + i + "].Id_DanhMucThietBi", new SelectList(ViewBag.ThietBi, "Value", "Text", Model[i].Id_DanhMucThietBi), "Chọn Serial Number...", new { @class = "form-control idDropdown", required = "required" })
+                        </td>
+
+                        <td>
+                            <strong>Ngày hiệu chuẩn</strong>
+                            @Html.TextBox("ids[" + i + "].NgayHieuChuan", Model[i].NgayHieuChuan.ToString("yyyy-MM-ddTHH:mm"), new { @type = "datetime-local", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                            <strong>Thiết bị/ hóa chất hiệu chuẩn</strong>
+                            @Html.TextArea("ids[" + i + "].ThietBi_HoaChatHieuChuan", Model[i].ThietBi_HoaChatHieuChuan, new { @class = "form-control" })
+                        </td>
+                        <td>
+                            <strong>Ngày hiệu chuẩn kế tiếp</strong>
+                            @Html.TextBox("ids[" + i + "].NgayHieuChuanKeTiep", Model[i].NgayHieuChuanKeTiep.ToString("yyyy-MM-ddTHH:mm"), new { @type = "datetime-local", @class = "form-control", @required = "required", data_val_required = "Trường này là bắt buộc" })
+                            <strong>Kết quả hiệu chuẩn</strong>
+                            @Html.TextArea("ids[" + i + "].KetQuaHC", Model[i].KetQuaHC, new { @class = "form-control" })
+                        </td>
+                        <td>
+                            <strong>Kết luận</strong>
+                            @Html.TextArea("ids[" + i + "].KetLuan", Model[i].KetLuan, new { @class = "form-control", @style = "height:120px" })
+                        </td>
+                    </tr>
+                }
+            </table>
+            <div id="customerInfo" style="display:none; margin-top:20px">
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>Số SN</th>
+                        <th>Mã thiết bị</th>
+                        <th>Tên thiết bị</th>
+                        <th>Hãng SX</th>
+                    </tr>
+                    <tr>
+                        <td><span style="color:blue" id="customerSerial"></span></td>
+                        <td><span style="color:blue" id="customerMaThietBi"></span></td>
+                        <td><span style="color:blue" id="customerTenThietBi"></span></td>
+                        <td> <span style="color:blue" id="customerHangSX"></span></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-2" style="width: auto;">
+                    <button class="form-control form-a-control" type="submit" value="Edit">
+                        <span class="fas fa-edit"> OK</span>
+                    </button>
+                </div> 
+                <div class="col-md-2" style="width:auto;position:absolute;left:-12px;top:0">
+                    <a style="text-decoration:none;" href="#" onclick="closeEditModal()"><img src="~/Public/Img/close.png" width="40" /></a>
+                </div>
+            </div>
+        </div>
+    </section>
+}
