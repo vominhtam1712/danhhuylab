@@ -663,9 +663,9 @@ namespace ListSerialNumber.Controllers
             if (ids == null)
             {
                 TempData["Message"] = "Chưa có thông tin";
-                return RedirectToReferrer();
+                return RedirectToReferrer();	
             }
-            if (HasAccessAd() || HasAccessUser("SúaThucHien"))
+            if (HasAccessAd() || HasAccessUser("SuaThucHien"))
             {
                 var idList = ParseIds(ids);
                 var listNumbers = std_dut_DAO.GetRowsByIds(idList);

@@ -79,7 +79,6 @@ namespace ListClass.Dao
                 .Where(m => m.MaPC.StartsWith("MPC"))
                 .Select(m => m.MaPC)
                 .Max();
-
             string nextcode;
             if (string.IsNullOrEmpty(lastCode))
             {

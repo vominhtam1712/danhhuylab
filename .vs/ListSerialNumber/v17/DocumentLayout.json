@@ -1,14 +1,10 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Asus\\Desktop\\ListSerialNumber 4\\",
+  "WorkspaceRootPath": "C:\\Users\\Asus\\Desktop\\Project web\\ListSerialNumber 4\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E9D5C085-B31D-4989-B763-EA9FB999CE98}|ListClass\\ListClass.csproj|c:\\users\\asus\\desktop\\listserialnumber 4\\listclass\\dao\\bienbanhieuchuandao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E9D5C085-B31D-4989-B763-EA9FB999CE98}|ListClass\\ListClass.csproj|solutionrelative:listclass\\dao\\bienbanhieuchuandao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3DC74677-7E3E-47BF-B4F3-4692DEF86C1D}|ListSerialNumber\\ListSerialNumber.csproj|c:\\users\\asus\\desktop\\listserialnumber 4\\listserialnumber\\controllers\\thanhviencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3DC74677-7E3E-47BF-B4F3-4692DEF86C1D}|ListSerialNumber\\ListSerialNumber.csproj|solutionrelative:listserialnumber\\controllers\\thanhviencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3DC74677-7E3E-47BF-B4F3-4692DEF86C1D}|ListSerialNumber\\ListSerialNumber.csproj|c:\\users\\asus\\desktop\\project web\\listserialnumber 4\\listserialnumber\\views\\phieutrathietbi\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3DC74677-7E3E-47BF-B4F3-4692DEF86C1D}|ListSerialNumber\\ListSerialNumber.csproj|solutionrelative:listserialnumber\\views\\phieutrathietbi\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -27,27 +23,14 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "BienBanHieuChuanDAO.cs",
-              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\ListSerialNumber 4\\ListClass\\Dao\\BienBanHieuChuanDAO.cs",
-              "RelativeDocumentMoniker": "ListClass\\Dao\\BienBanHieuChuanDAO.cs",
-              "ToolTip": "C:\\Users\\Asus\\Desktop\\ListSerialNumber 4\\ListClass\\Dao\\BienBanHieuChuanDAO.cs",
-              "RelativeToolTip": "ListClass\\Dao\\BienBanHieuChuanDAO.cs",
-              "ViewState": "AQIAAHMAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-05T03:29:01.053Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ThanhVienController.cs",
-              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\ListSerialNumber 4\\ListSerialNumber\\Controllers\\ThanhVienController.cs",
-              "RelativeDocumentMoniker": "ListSerialNumber\\Controllers\\ThanhVienController.cs",
-              "ToolTip": "C:\\Users\\Asus\\Desktop\\ListSerialNumber 4\\ListSerialNumber\\Controllers\\ThanhVienController.cs",
-              "RelativeToolTip": "ListSerialNumber\\Controllers\\ThanhVienController.cs",
-              "ViewState": "AQIAAM0AAAAAAAAAAAAAABAAAAAmAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-05T00:37:33.584Z",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Asus\\Desktop\\Project web\\ListSerialNumber 4\\ListSerialNumber\\Views\\Phieutrathietbi\\Index.cshtml",
+              "RelativeDocumentMoniker": "ListSerialNumber\\Views\\Phieutrathietbi\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Asus\\Desktop\\Project web\\ListSerialNumber 4\\ListSerialNumber\\Views\\Phieutrathietbi\\Index.cshtml",
+              "RelativeToolTip": "ListSerialNumber\\Views\\Phieutrathietbi\\Index.cshtml",
+              "ViewState": "AQIAAKsAAAAAAAAAAAAAAMgAAABFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-03-11T06:32:23.707Z",
               "EditorCaption": ""
             }
           ]
